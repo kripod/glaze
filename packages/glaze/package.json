@@ -21,7 +21,9 @@
   },
   "peerDependencies": {
     "@types/react": ">=16.8",
-    "react-treat": "^1.2.4"
+    "react": ">=16.8",
+    "react-treat": "^1.2.4",
+    "treat": "^1.2.4"
   },
   "peerDependenciesMeta": {
     "@types/react": {
