@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - lts/*
+  - node
+
+script:
+  - yarn lint
+  - yarn build
+
+deploy:
+  - provider: npm
+    edge:
+      branch: master
+    run_script: publish
+    on:
+      tags: true
+      node_js: lts/*

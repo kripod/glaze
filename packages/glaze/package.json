@@ -1,0 +1,37 @@
+{
+  "name": "glaze",
+  "version": "0.0.0",
+  "description": "TODO",
+  "keywords": [
+    "TODO"
+  ],
+  "repository": "github:kripod/glaze",
+  "license": "MIT",
+  "author": "Kristóf Poduszló <kripod@protonmail.com>",
+  "main": "./src/",
+  "scripts": {
+    "build": "pika build"
+  },
+  "peerDependencies": {
+    "@types/react": ">=16.8",
+    "react-treat": "^1.2.4"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    }
+  },
+  "@pika/pack": {
+    "pipeline": [
+      [
+        "@pika/plugin-ts-standard-pkg"
+      ],
+      [
+        "@pika/plugin-build-node"
+      ],
+      [
+        "@pika/plugin-build-web"
+      ]
+    ]
+  }
+}
