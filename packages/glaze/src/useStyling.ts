@@ -2,18 +2,25 @@ import { CSSProperties } from 'react';
 import { useStyles } from 'react-treat';
 import { Style } from 'treat';
 
+import { useRuntimeTheme } from './GlazeContext';
 import styleRefs from './useStyling.treat';
 
+type ThemedStyle = Style & {
+  // TODO: Add more precise styles for aliases and shorthands
+  [key: string]: CSSProperties[keyof CSSProperties];
+};
+
 export default function useStyling(): (
-  themedStyle: Style,
+  themedStyle: ThemedStyle,
 ) => {
   className: string;
   style: CSSProperties;
 } {
   const staticClassNames = useStyles(styleRefs);
+  const theme = useRuntimeTheme();
 
   return function sx(
-    themedStyle: Style,
+    themedStyle: ThemedStyle,
   ): {
     className: string;
     style: CSSProperties;
@@ -23,13 +30,12 @@ export default function useStyling(): (
 
     // Prefer performance over clarity for the runtime
     // eslint-disable-next-line guard-for-in, no-restricted-syntax
-    for (const key in themedStyle) {
-      const value = themedStyle[key as keyof typeof themedStyle];
+    for (const alias in themedStyle) {
+      const value = themedStyle[alias];
+      const key = theme.aliases[alias] || alias;
 
       if (typeof value !== 'object') {
-        // TODO: Resolve aliases
         const staticClassName = staticClassNames[`${key}.${value}`];
-
         if (staticClassName) {
           className += `${staticClassName} `;
         } else {
