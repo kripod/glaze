@@ -21,5 +21,16 @@
 
     // Using a type system makes it safe enough to spread props
     "react/jsx-props-no-spreading": "off"
-  }
+  },
+
+  "overrides": [
+    {
+      "files": ["gatsby-browser.js"],
+      "rules": {
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "react/jsx-filename-extension": "off",
+        "react/prop-types": "off"
+      }
+    }
+  ]
 }

@@ -1,4 +1,4 @@
-import { DefaultTheme } from './theme.treat';
+import { DefaultTheme } from 'glaze';
 
 declare module 'treat/theme' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
