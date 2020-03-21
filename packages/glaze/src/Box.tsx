@@ -1,7 +1,7 @@
 import React from 'react';
 import { useStyles } from 'react-treat';
 
-import styleRefs from './Box.treat';
+import styleRefs from './useStyling.treat';
 
 export interface BoxProps {
   children?: React.ReactNode;
