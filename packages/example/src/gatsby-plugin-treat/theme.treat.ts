@@ -1,4 +1,6 @@
-import { defaultTheme } from 'glaze';
-import { createTheme } from 'treat';
+import { createTheme, defaultTheme } from 'glaze';
 
-export default createTheme(defaultTheme);
+const { staticThemeRef, runtimeTheme } = createTheme(defaultTheme);
+
+export default staticThemeRef;
+export { runtimeTheme };

@@ -1,15 +1,21 @@
 import { CSSProperties } from 'react';
-// eslint-disable-next-line import/no-unresolved
-import { ThemeOrAny } from 'treat/theme';
+import { createTheme as createStaticTheme, ThemeRef } from 'treat';
 
 import { modularScale } from './scales';
+
+export interface RuntimeTheme {
+  breakpoints: number[];
+  shorthands: { [key: string]: Array<keyof CSSProperties> };
+  aliases: {
+    [key: string]: keyof CSSProperties | keyof RuntimeTheme['shorthands'];
+  };
+}
 
 export interface ScaleTokens<T extends keyof CSSProperties> {
   [key: string]: NonNullable<CSSProperties[T]>;
 }
 
-export interface DefaultTheme {
-  breakpoints: number[];
+export interface Theme extends RuntimeTheme {
   scales: {
     spacing?: ScaleTokens<'margin'>;
     size?: ScaleTokens<'width'>;
@@ -26,11 +32,18 @@ export interface DefaultTheme {
     opacity?: ScaleTokens<'opacity'>;
     zIndex?: ScaleTokens<'zIndex'>;
   };
-  aliases: {
-    [key: string]: keyof CSSProperties | keyof ThemeOrAny['shorthands'];
+  resolvers: { [key in keyof CSSProperties]: keyof Theme['scales'] };
+}
+
+export function createTheme(
+  tokens: Theme,
+  localDebugName?: string,
+): { staticThemeRef: ThemeRef; runtimeTheme: RuntimeTheme } {
+  const { breakpoints, shorthands, aliases } = tokens;
+  return {
+    staticThemeRef: createStaticTheme(tokens, localDebugName),
+    runtimeTheme: { breakpoints, shorthands, aliases },
   };
-  shorthands: { [key: string]: Array<keyof CSSProperties> };
-  resolvers: { [key in keyof CSSProperties]: keyof ThemeOrAny['scales'] };
 }
 
 // TODO: symmetricScale()
@@ -56,7 +69,7 @@ const spacing = {
   64: '16rem',
 };
 
-export const defaultTheme: DefaultTheme = {
+export const defaultTheme: Theme = {
   breakpoints: [640, 768, 1024, 1280],
 
   scales: {
@@ -98,6 +111,22 @@ export const defaultTheme: DefaultTheme = {
     },
   },
 
+  shorthands: {
+    // TODO: Remove if widely supported by browsers
+    inset: ['top', 'right', 'bottom', 'left'],
+    insetX: ['left', 'right'],
+    insetY: ['top', 'bottom'],
+
+    // TODO: Remove if widely supported by browsers
+    size: ['width', 'height'],
+
+    paddingX: ['paddingLeft', 'paddingRight'],
+    paddingY: ['paddingTop', 'paddingBottom'],
+
+    marginX: ['marginLeft', 'marginRight'],
+    marginY: ['marginTop', 'marginBottom'],
+  },
+
   aliases: {
     p: 'padding',
     px: 'paddingX',
@@ -118,22 +147,6 @@ export const defaultTheme: DefaultTheme = {
     // TODO: For logical properties, e.g. lmi, lmis, lmie, lmb, lmbs, lmbe
 
     bg: 'background',
-  },
-
-  shorthands: {
-    // TODO: Remove if widely supported by browsers
-    inset: ['top', 'right', 'bottom', 'left'],
-    insetX: ['left', 'right'],
-    insetY: ['top', 'bottom'],
-
-    // TODO: Remove if widely supported by browsers
-    size: ['width', 'height'],
-
-    paddingX: ['paddingLeft', 'paddingRight'],
-    paddingY: ['paddingTop', 'paddingBottom'],
-
-    marginX: ['marginLeft', 'marginRight'],
-    marginY: ['marginTop', 'marginBottom'],
   },
 
   resolvers: {
