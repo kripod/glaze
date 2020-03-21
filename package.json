@@ -6,7 +6,7 @@
   "scripts": {
     "build": "lerna run build",
     "commit": "git-cz",
-    "format": "prettier --ignore-path .gitignore --write \"**/*.{ts,tsx,js,json,yml,md}\"",
+    "format": "prettier --ignore-path .gitignore --write .",
     "postinstall": "lerna bootstrap",
     "lint": "eslint --ignore-path .gitignore \"**/*.{ts,tsx,js}\"",
     "publish": "lerna publish from-git --contents pkg --yes",
@@ -56,8 +56,7 @@
     "husky": "^4.2.3",
     "lerna": "^3.20.2",
     "lint-staged": "^10.0.8",
-    "prettier": "^1.19.1",
-    "prettier-plugin-packagejson": "^2.0.10",
+    "prettier": "^2.0.0",
     "typescript": "^3.8.3"
   }
 }

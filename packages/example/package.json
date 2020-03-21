@@ -9,7 +9,7 @@
     "serve": "gatsby serve"
   },
   "dependencies": {
-    "@types/react": "^16.9.23",
+    "@types/react": "^16.9.25",
     "@types/react-helmet": "^5.0.15",
     "gatsby": "^2.20.0",
     "gatsby-plugin-manifest": "^2.3.0",
