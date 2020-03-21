@@ -146,6 +146,7 @@ export const defaultTheme: DefaultTheme = {
     right: 'spacing',
     bottom: 'spacing',
     left: 'spacing',
+    zIndex: 'zIndex',
 
     flexBasis: 'size',
 
@@ -187,11 +188,18 @@ export const defaultTheme: DefaultTheme = {
     marginBottom: 'spacing',
     marginLeft: 'spacing',
 
+    fontFamily: 'fontFamily',
+    fontSize: 'fontSize',
+    fontWeight: 'fontWeight',
+    lineHeight: 'lineHeight',
+    color: 'color',
     textShadow: 'shadow',
+    letterSpacing: 'letterSpacing',
 
     background: 'color',
     backgroundColor: 'color',
 
+    border: 'border',
     borderTop: 'border',
     borderRight: 'border',
     borderBottom: 'border',
@@ -203,6 +211,7 @@ export const defaultTheme: DefaultTheme = {
     borderBottomColor: 'color',
     borderLeftColor: 'color',
 
+    borderWidth: 'borderWidth',
     borderTopWidth: 'borderWidth',
     borderRightWidth: 'borderWidth',
     borderBottomWidth: 'borderWidth',
@@ -215,7 +224,7 @@ export const defaultTheme: DefaultTheme = {
     borderBottomLeftRadius: 'radius',
 
     outlineColor: 'color',
-
     boxShadow: 'shadow',
+    opacity: 'opacity',
   },
 };
