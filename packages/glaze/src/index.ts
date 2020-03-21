@@ -5,7 +5,6 @@ import { ThemeOrAny } from 'treat/theme';
 import { modularScale } from './scales';
 
 export { modularScale };
-export { Box } from './Box';
 export { default as useStyling } from './useStyling';
 
 /* TODO: Move code below to `theme.ts` once `export type` is widely supported */
