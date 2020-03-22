@@ -32,16 +32,20 @@ export default function useStyling(): (
     // eslint-disable-next-line guard-for-in, no-restricted-syntax
     for (const alias in themedStyle) {
       const value = themedStyle[alias];
-      const key = theme.aliases[alias] || alias;
+      const shorthand = theme.aliases[alias] || alias;
 
-      if (typeof value !== 'object') {
-        const staticClassName = staticClassNames[`${key}.${value}`];
-        if (staticClassName) {
-          className += `${staticClassName} `;
-        } else {
-          style[key] = value;
+      // eslint-disable-next-line no-loop-func
+      (theme.shorthands[shorthand] || [shorthand]).forEach((key) => {
+        // TODO: Support selectors and media queries
+        if (typeof value !== 'object') {
+          const staticClassName = staticClassNames[`${key}.${value}`];
+          if (staticClassName) {
+            className += `${staticClassName} `;
+          } else {
+            style[key] = value;
+          }
         }
-      }
+      });
     }
 
     return { className, style };
