@@ -14,6 +14,22 @@
         "ideas",
         "infra"
       ]
+    },
+    {
+      "login": "jesstelford",
+      "name": "Jess Telford",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/612020?v=4",
+      "profile": "http://jes.st/about",
+      "contributions": [
+        "doc"
+      ]
     }
-  ]
+  ],
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true,
+  "files": [
+    "README.md"
+  ],
+  "contributorsPerLine": 7
 }
