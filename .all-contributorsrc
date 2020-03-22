@@ -1,7 +1,14 @@
 {
   "projectName": "glaze",
   "projectOwner": "kripod",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
   "commitConvention": "angular",
+  "contributorsPerLine": 7,
+  "skipCi": true,
   "contributors": [
     {
       "login": "kripod",
@@ -24,12 +31,5 @@
         "doc"
       ]
     }
-  ],
-  "repoType": "github",
-  "repoHost": "https://github.com",
-  "skipCi": true,
-  "files": [
-    "README.md"
-  ],
-  "contributorsPerLine": 7
+  ]
 }
