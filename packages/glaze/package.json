@@ -12,12 +12,6 @@
   "scripts": {
     "build": "pika build"
   },
-  "devDependencies": {
-    "@types/react": "^16.9.25",
-    "react": "^16.13.1",
-    "react-treat": "^1.2.4",
-    "treat": "^1.2.4"
-  },
   "peerDependencies": {
     "@types/react": ">=16.8",
     "react": ">=16.8",
