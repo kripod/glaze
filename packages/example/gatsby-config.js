@@ -1,7 +1,6 @@
 const siteMetadata = {
   name: 'glaze',
-  description:
-    'Atomic CSS-in-JS framework for building approachable design systems.',
+  description: 'CSS-in-JS framework for building approachable design systems.',
 };
 
 module.exports = {
