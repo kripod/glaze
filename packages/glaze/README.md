@@ -1,4 +1,4 @@
-<p align="center"><img alt="glaze" src="https://raw.githubusercontent.com/kripod/glaze/master/assets/logo.svg?sanitize=true"></p>
+<p align="center"><img alt="glaze" src="https://raw.githubusercontent.com/kripod/glaze/master/assets/logo.svg?sanitize=true" width="317"></p>
 
 CSS-in-JS framework for building approachable design systems.
 
