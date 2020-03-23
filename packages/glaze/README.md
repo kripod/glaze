@@ -1,10 +1,16 @@
-<p align="center"><img alt="glaze" src="https://raw.githubusercontent.com/kripod/glaze/master/assets/logo.svg?sanitize=true" width="317"></p>
+<p align="center">
+  <img alt="glaze" src="https://raw.githubusercontent.com/kripod/glaze/master/assets/logo.svg?sanitize=true" width="317">
+</p>
 
-CSS-in-JS framework for building approachable design systems.
+<p align="center">
+  CSS-in-JS framework for building approachable design systems.
+</p>
 
-[![npm](https://img.shields.io/npm/v/glaze)](https://www.npmjs.com/package/glaze)
-[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/kripod/glaze.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/kripod/glaze/context:javascript)
-[![Travis (.com)](https://img.shields.io/travis/com/kripod/glaze)](https://travis-ci.com/kripod/glaze)
+<p align="center">
+  <a href="https://www.npmjs.com/package/glaze"><img alt="npm" src="https://img.shields.io/npm/v/glaze"></a>
+  <a href="https://lgtm.com/projects/g/kripod/glaze/context:javascript"><img alt="Language grade: JavaScript" src="https://img.shields.io/lgtm/grade/javascript/g/kripod/glaze.svg?logo=lgtm&logoWidth=18"/></a>
+  <a href="https://travis-ci.com/github/kripod/glaze"><img alt="Travis (.com)" src="https://img.shields.io/travis/com/kripod/glaze"></a>
+</p>
 
 ## 💡 Motivation
 
