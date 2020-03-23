@@ -2,11 +2,8 @@ import { graphql, useStaticQuery } from 'gatsby';
 import { GlazeProvider } from 'glaze';
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { TreatProvider } from 'react-treat';
 
-import staticThemeRef, {
-  runtimeTheme,
-} from '../gatsby-plugin-treat/theme.treat';
+import theme from '../gatsby-plugin-glaze/theme.treat';
 
 export interface LayoutProps {
   children: React.ReactNode;
@@ -33,15 +30,13 @@ export function Layout({ children }: LayoutProps): JSX.Element {
         <meta name="description" content={data.site.siteMetadata.description} />
       </Helmet>
 
-      <TreatProvider theme={staticThemeRef}>
-        <GlazeProvider runtimeTheme={runtimeTheme}>
-          <header>{/* TODO */}</header>
+      <GlazeProvider theme={theme}>
+        <header>{/* TODO */}</header>
 
-          <main>{children}</main>
+        <main>{children}</main>
 
-          <footer>{/* TODO */}</footer>
-        </GlazeProvider>
-      </TreatProvider>
+        <footer>{/* TODO */}</footer>
+      </GlazeProvider>
     </React.StrictMode>
   );
 }
