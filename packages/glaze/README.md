@@ -60,7 +60,7 @@ Baking the benefits outlined above into a single package, glaze was born.
 
 2. Apply the theme through `GlazeProvider`:
 
-   > 📝 _A [Gatsby plugin](https://www.npmjs.com/package/gatsby-plugin-glaze) is available for this task._
+   > 📝 A [Gatsby plugin](https://www.npmjs.com/package/gatsby-plugin-glaze) is available for this task.
 
    ```jsx
    import { GlazeProvider } from 'glaze';
