@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { TreatProvider } from 'react-treat';
 
 import { RuntimeTheme } from './theme';
 
@@ -7,23 +8,23 @@ export const GlazeContext = React.createContext<RuntimeTheme | undefined>(
 );
 
 export interface GlazeProviderProps {
-  runtimeTheme: RuntimeTheme;
+  theme: RuntimeTheme;
   children: React.ReactNode;
 }
 
 export function GlazeProvider({
-  runtimeTheme,
+  theme,
   children,
 }: GlazeProviderProps): JSX.Element {
   return (
-    <GlazeContext.Provider value={runtimeTheme}>
-      {children}
-    </GlazeContext.Provider>
+    <TreatProvider theme={theme.ref}>
+      <GlazeContext.Provider value={theme}>{children}</GlazeContext.Provider>
+    </TreatProvider>
   );
 }
 
-export function useRuntimeTheme(): RuntimeTheme {
+export function useTheme(): RuntimeTheme {
   const theme = useContext(GlazeContext);
-  if (!theme) throw new Error('No glaze runtime theme provided');
+  if (!theme) throw new Error('No glaze theme provided');
   return theme;
 }

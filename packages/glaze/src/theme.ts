@@ -3,19 +3,23 @@ import { createTheme as createStaticTheme, ThemeRef } from 'treat';
 
 import { modularScale } from './scales';
 
-export interface RuntimeTheme {
+export interface CommonTheme {
   breakpoints: number[];
   shorthands: { [key: string]: Array<keyof CSSProperties> };
   aliases: {
-    [key: string]: keyof CSSProperties | keyof RuntimeTheme['shorthands'];
+    [key: string]: keyof CSSProperties | keyof CommonTheme['shorthands'];
   };
+}
+
+export interface RuntimeTheme extends CommonTheme {
+  ref: ThemeRef;
 }
 
 export interface ScaleTokens<T extends keyof CSSProperties> {
   [key: string]: NonNullable<CSSProperties[T]>;
 }
 
-export interface Theme extends RuntimeTheme {
+export interface StaticTheme extends CommonTheme {
   scales: {
     spacing?: ScaleTokens<'margin'>;
     size?: ScaleTokens<'width'>;
@@ -32,17 +36,19 @@ export interface Theme extends RuntimeTheme {
     opacity?: ScaleTokens<'opacity'>;
     zIndex?: ScaleTokens<'zIndex'>;
   };
-  resolvers: { [key in keyof CSSProperties]: keyof Theme['scales'] };
+  resolvers: { [key in keyof CSSProperties]: keyof StaticTheme['scales'] };
 }
 
 export function createTheme(
-  tokens: Theme,
+  tokens: StaticTheme,
   localDebugName?: string,
-): { staticThemeRef: ThemeRef; runtimeTheme: RuntimeTheme } {
+): RuntimeTheme {
   const { breakpoints, shorthands, aliases } = tokens;
   return {
-    staticThemeRef: createStaticTheme(tokens, localDebugName),
-    runtimeTheme: { breakpoints, shorthands, aliases },
+    ref: createStaticTheme(tokens, localDebugName),
+    breakpoints,
+    shorthands,
+    aliases,
   };
 }
 
@@ -69,7 +75,7 @@ const spacing = {
   64: '16rem',
 };
 
-export const defaultTheme: Theme = {
+export const defaultTheme: StaticTheme = {
   breakpoints: [640, 768, 1024, 1280],
 
   scales: {

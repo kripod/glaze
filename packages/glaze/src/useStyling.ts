@@ -2,7 +2,7 @@ import { CSSProperties } from 'react';
 import { useStyles } from 'react-treat';
 import { Style } from 'treat';
 
-import { useRuntimeTheme } from './GlazeContext';
+import { useTheme } from './GlazeContext';
 import styleRefs from './useStyling.treat';
 
 type ThemedStyle = Style & {
@@ -17,7 +17,7 @@ export default function useStyling(): (
   style: CSSProperties;
 } {
   const staticClassNames = useStyles(styleRefs);
-  const theme = useRuntimeTheme();
+  const theme = useTheme();
 
   return function sx(
     themedStyle: ThemedStyle,
