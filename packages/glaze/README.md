@@ -1,4 +1,4 @@
-<p align="center">![glaze](https://raw.githubusercontent.com/kripod/glaze/master/assets/logo.png)</p>
+<p align="center"><img alt="glaze" src="https://raw.githubusercontent.com/kripod/glaze/master/assets/logo.png"></p>
 
 CSS-in-JS framework for building approachable design systems.
 
