@@ -13,6 +13,7 @@
   "author": "Kristóf Poduszló <kripod@protonmail.com>",
   "peerDependencies": {
     "gatsby": "^2.0.0",
-    "glaze": "^0.0.0"
+    "glaze": "^0.0.0",
+    "react": "*"
   }
 }
