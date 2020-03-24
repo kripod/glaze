@@ -7,15 +7,15 @@ export const GlazeContext = React.createContext<RuntimeTheme | undefined>(
   undefined,
 );
 
-export interface GlazeProviderProps {
+export interface ThemeProviderProps {
   theme: RuntimeTheme;
   children: React.ReactNode;
 }
 
-export function GlazeProvider({
+export function ThemeProvider({
   theme,
   children,
-}: GlazeProviderProps): JSX.Element {
+}: ThemeProviderProps): JSX.Element {
   return (
     <TreatProvider theme={theme.ref}>
       <GlazeContext.Provider value={theme}>{children}</GlazeContext.Provider>

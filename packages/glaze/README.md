@@ -64,16 +64,16 @@ Baking the benefits outlined above into a single package, glaze was born.
    });
    ```
 
-2. Apply the theme through `GlazeProvider`:
+2. Apply the theme through `ThemeProvider`:
 
    > 📝 A [Gatsby plugin](https://www.npmjs.com/package/gatsby-plugin-glaze) is available for this task.
 
    ```jsx
-   import { GlazeProvider } from 'glaze';
+   import { ThemeProvider } from 'glaze';
    import theme from './theme.treat';
 
    export default function Layout({ children }) {
-     return <GlazeProvider theme={theme}>{children}</GlazeProvider>;
+     return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
    }
    ```
 
