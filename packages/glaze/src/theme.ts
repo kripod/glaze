@@ -3,6 +3,10 @@ import { createTheme as createStaticTheme, ThemeRef } from 'treat';
 
 import { modularScale } from './scales';
 
+export interface ScaleTokens<T extends keyof CSSProperties> {
+  [key: string]: NonNullable<CSSProperties[T]>;
+}
+
 export interface CommonTheme {
   breakpoints: number[];
   shorthands: { [key: string]: Array<keyof CSSProperties> };
@@ -13,10 +17,6 @@ export interface CommonTheme {
 
 export interface RuntimeTheme extends CommonTheme {
   ref: ThemeRef;
-}
-
-export interface ScaleTokens<T extends keyof CSSProperties> {
-  [key: string]: NonNullable<CSSProperties[T]>;
 }
 
 export interface StaticTheme extends CommonTheme {
