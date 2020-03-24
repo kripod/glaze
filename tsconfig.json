@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "noEmit": true,
+    "allowJs": true,
+    "checkJs": true,
     "strict": true,
     "target": "ES2020",
     "module": "ESNext",

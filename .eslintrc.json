@@ -25,9 +25,10 @@
 
   "overrides": [
     {
-      "files": ["gatsby-browser.js"],
+      "files": "gatsby-*.js",
       "rules": {
         "@typescript-eslint/explicit-function-return-type": "off",
+        "import/prefer-default-export": "off",
         "react/jsx-filename-extension": "off",
         "react/prop-types": "off"
       }
