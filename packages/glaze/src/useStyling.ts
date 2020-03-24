@@ -5,12 +5,12 @@ import { Style } from 'treat';
 import { useTheme } from './GlazeContext';
 import styleRefs from './useStyling.treat';
 
-type ThemedStyle = Style & {
+export type ThemedStyle = Style & {
   // TODO: Add more precise styles for aliases and shorthands
   [key: string]: CSSProperties[keyof CSSProperties];
 };
 
-export default function useStyling(): (
+export function useStyling(): (
   themedStyle: ThemedStyle,
 ) => {
   className: string;
