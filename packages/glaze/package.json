@@ -3,7 +3,12 @@
   "version": "0.0.0",
   "description": "CSS-in-JS framework for building approachable design systems",
   "keywords": [
-    "TODO"
+    "css-in-js",
+    "design-system",
+    "react",
+    "typescript",
+    "treat",
+    "theme"
   ],
   "repository": "github:kripod/glaze",
   "license": "MIT",
