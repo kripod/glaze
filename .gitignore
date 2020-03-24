@@ -3,5 +3,4 @@
 .env
 .eslintcache
 node_modules/
-pkg/
 public/
