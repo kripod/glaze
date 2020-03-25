@@ -6,6 +6,8 @@ const siteMetadata = {
 module.exports = {
   siteMetadata,
   plugins: [
+    'gatsby-plugin-glaze',
+    'gatsby-plugin-treat',
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
@@ -19,7 +21,6 @@ module.exports = {
       },
     },
     'gatsby-plugin-react-helmet',
-    'gatsby-plugin-treat',
     'gatsby-plugin-typescript',
   ],
 };

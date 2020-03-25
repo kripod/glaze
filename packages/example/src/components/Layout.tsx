@@ -1,9 +1,6 @@
 import { graphql, useStaticQuery } from 'gatsby';
-import { ThemeProvider } from 'glaze';
 import React from 'react';
 import { Helmet } from 'react-helmet';
-
-import theme from '../gatsby-plugin-glaze/theme.treat';
 
 export interface LayoutProps {
   children: React.ReactNode;
@@ -30,13 +27,11 @@ export function Layout({ children }: LayoutProps): JSX.Element {
         <meta name="description" content={data.site.siteMetadata.description} />
       </Helmet>
 
-      <ThemeProvider theme={theme}>
-        <header>{/* TODO */}</header>
+      <header>{/* TODO */}</header>
 
-        <main>{children}</main>
+      <main>{children}</main>
 
-        <footer>{/* TODO */}</footer>
-      </ThemeProvider>
+      <footer>{/* TODO */}</footer>
     </React.StrictMode>
   );
 }
