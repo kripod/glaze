@@ -18,6 +18,7 @@ Please keep the scope of each pull request to **one** specific feature or fix.
 
 - [Node.js](https://nodejs.org/) >=10.13
 - [Yarn](https://yarnpkg.com/) >=1
+- On Windows, enable [symlink support](https://github.com/git-for-windows/git/wiki/Symbolic-Links)
 
 ### Workflow
 
