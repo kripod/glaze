@@ -14,7 +14,7 @@
 
 ## 💡 Motivation
 
-When styling HTML elements, [quite a few approaches](https://seek-oss.github.io/treat/background#backstory) may come to mind:
+When styling HTML elements, [quite a few approaches](https://seek-oss.github.io/treat/background#backstory) may come to mind, including:
 
 - **Utility-first/Atomic CSS,** as implemented by [Tailwind CSS][], [StyleSheet][] and [CSS-Zero][]
   - Fully static, but customizable upfront
