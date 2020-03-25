@@ -42,7 +42,7 @@ Baking the benefits outlined above into a single package, glaze was born.
 
 0. Install the package and its peer dependencies:
 
-   ```sh
+   ```
    npm install glaze treat react-treat
    ```
 
