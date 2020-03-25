@@ -3,13 +3,12 @@ node_js:
   - lts/*
   - node
 
-script:
-  - yarn type-check
-  - yarn lint
-  - yarn build
-
 jobs:
   include:
+    - yarn type-check
+    - yarn lint
+    - yarn build
+
     - stage: deploy
       if: tag IS present
       node_js: lts/*
