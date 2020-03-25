@@ -1,0 +1,25 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# 0.1.0 (2020-03-25)
+
+### Bug Fixes
+
+- **ci:** package resolution ([1f7ebfa](https://github.com/kripod/glaze/commit/1f7ebfa2266adfb3073a715613b56bba7c2f4d92))
+- **theme:** add missing resolvers ([b316434](https://github.com/kripod/glaze/commit/b31643417fd7e6e2c8fccd47407e038fb67dea01))
+
+### Features
+
+- add runtime theme tokens ([5c527f0](https://github.com/kripod/glaze/commit/5c527f07831e95015ceacafa2e15e786b2f56a96))
+- add support for property aliases ([a118792](https://github.com/kripod/glaze/commit/a11879242592769840ad608786ba6fc1bd46e9f3))
+- add useStyling hook ([5ac7ef8](https://github.com/kripod/glaze/commit/5ac7ef810bbff76c12ce6e697e790e9319d6b7f3))
+- create gatsby-plugin-glaze package ([6aa6fb9](https://github.com/kripod/glaze/commit/6aa6fb9c8e550427b647c1c0b2d14e0e0f8df74d))
+- encapsulate TreatProvider and clarify types ([55a5718](https://github.com/kripod/glaze/commit/55a571839007c47abcdd827c073abb6b3f76c0f6))
+- export important types from package root ([ef443c4](https://github.com/kripod/glaze/commit/ef443c405b4ac12a2894db5e07c5e4692641f9e2))
+- support custom shorthands for rules ([7fb9903](https://github.com/kripod/glaze/commit/7fb9903c10f3afc6baa6a29181d441b69e38155c))
+
+### Reverts
+
+- remove Box component ([871d7e6](https://github.com/kripod/glaze/commit/871d7e67d562429973f5687030abf46fd6519b0c))
