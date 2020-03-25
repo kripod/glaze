@@ -55,6 +55,8 @@ Baking the benefits outlined above into a single package, glaze was born.
 
    export default createTheme({
      ...defaultTheme,
+
+     // Customization
      scales: {
        ...defaultTheme.scales,
        color: {
@@ -89,8 +91,8 @@ Baking the benefits outlined above into a single package, glaze was born.
        <p
          {...sx({
            px: 4, // Sets padding-left and padding-right to 1rem
-           color: 'red', // Resolved as #f8485e
-           bg: 'snow', // Sets background
+           color: 'white',
+           bg: 'red', // Sets background to #f8485e
          })}
        >
          Hello, world!
