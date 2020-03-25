@@ -3,16 +3,15 @@ node_js:
   - lts/*
   - node
 
-jobs:
-  include:
-    - yarn type-check
-    - yarn lint
-    - yarn build
+script:
+  - yarn type-check
+  - yarn lint
+  - yarn build
 
-    - stage: deploy
-      if: tag IS present
+deploy:
+  - provider: npm
+    edge: true
+    run_script: publish
+    on:
+      tags: true
       node_js: lts/*
-      deploy:
-        provider: npm
-        edge: true
-        run_script: publish
