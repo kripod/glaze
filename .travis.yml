@@ -4,13 +4,13 @@ node_js:
   - node
 
 script:
+  - yarn type-check
   - yarn lint
   - yarn build
 
 deploy:
   - provider: npm
-    edge:
-      branch: master
+    edge: true
     run_script: publish
     on:
       tags: true
