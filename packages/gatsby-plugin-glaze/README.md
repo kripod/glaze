@@ -6,7 +6,7 @@ Applies glaze theming on Gatsby sites.
 
 0. Install the package and its peer dependencies along with the [Gatsby plugin for treat][]:
 
-   ```
+   ```sh
    npm install gatsby-plugin-glaze glaze treat react-treat gatsby-plugin-treat
    ```
 

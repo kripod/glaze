@@ -42,7 +42,7 @@ Baking the benefits outlined above into a single package, glaze was born.
 
 0. Install the package and its peer dependencies:
 
-   ```
+   ```sh
    npm install glaze treat react-treat
    ```
 
@@ -113,10 +113,12 @@ The `sx` function maps themed values to statically generated class names. If tha
 
 ### Example
 
-Given the theme excerpt below:
+Given the theme below:
 
 ```js
-{
+import { createTheme } from 'glaze';
+
+export default createTheme({
   scales: {
     spacing: { 4: '1rem' },
   },
@@ -130,7 +132,7 @@ Given the theme excerpt below:
     paddingLeft: 'spacing',
     paddingRight: 'spacing',
   },
-};
+});
 ```
 
 An `sx` parameter is matched to CSS rules as follows:
