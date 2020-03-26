@@ -16,8 +16,8 @@
   "license": "MIT",
   "author": "Kristóf Poduszló <kripod@protonmail.com>",
   "peerDependencies": {
-    "gatsby": "2",
-    "glaze": "0.1",
+    "gatsby": "^2",
+    "glaze": "^0.1",
     "react": "*"
   }
 }

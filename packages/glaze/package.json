@@ -24,8 +24,8 @@
   "peerDependencies": {
     "@types/react": ">=16.8",
     "react": ">=16.8",
-    "react-treat": "1",
-    "treat": "1"
+    "react-treat": "^1",
+    "treat": "^1"
   },
   "peerDependenciesMeta": {
     "@types/react": {
