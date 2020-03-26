@@ -101,7 +101,10 @@ Baking the benefits outlined above into a single package, glaze was born.
    }
    ```
 
-4. Please refer to the [treat][] documentation for setting up static style extraction and server-side rendering.
+4. Please refer to the [treat][] documentation for:
+
+   - Setting up static style extraction and server-side rendering
+   - Applying a selector-based `globalStyle`
 
 ## 🤔 How it works
 
