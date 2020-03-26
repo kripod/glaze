@@ -1,0 +1,18 @@
+{
+  "name": "glaze-example-nextjs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "next build",
+    "dev": "next",
+    "start": "next start"
+  },
+  "dependencies": {
+    "babel-plugin-treat": "^1.1.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "next": "^9.3.1",
+    "next-transpile-modules": "^3.1.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}

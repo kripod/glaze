@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig",
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "jsx": "preserve"
+  },
+  "exclude": ["node_modules"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+}

@@ -2,6 +2,7 @@
 .cache/
 .env
 .eslintcache
+.next/
 node_modules/
 pkg/
 public/

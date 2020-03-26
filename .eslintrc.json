@@ -25,9 +25,10 @@
 
   "overrides": [
     {
-      "files": "gatsby-*.js",
+      "files": ["gatsby-*.js", "next.config.js"],
       "rules": {
         "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/no-var-requires": "off",
         "import/prefer-default-export": "off",
         "react/jsx-filename-extension": "off",
         "react/prop-types": "off"
