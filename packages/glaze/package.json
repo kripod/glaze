@@ -10,7 +10,11 @@
     "treat",
     "theme"
   ],
-  "repository": "github:kripod/glaze",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kripod/glaze.git",
+    "directory": "packages/glaze"
+  },
   "license": "MIT",
   "author": "Kristóf Poduszló <kripod@protonmail.com>",
   "main": "./src/",

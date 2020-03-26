@@ -8,7 +8,11 @@
     "glaze",
     "css-in-js"
   ],
-  "repository": "github:kripod/glaze",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kripod/glaze.git",
+    "directory": "packages/gatsby-plugin-glaze"
+  },
   "license": "MIT",
   "author": "Kristóf Poduszló <kripod@protonmail.com>",
   "peerDependencies": {
