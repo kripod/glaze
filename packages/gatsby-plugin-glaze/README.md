@@ -32,4 +32,4 @@ Applies glaze theming on Gatsby sites.
    ```
 
 [gatsby plugin for treat]: https://www.npmjs.com/package/gatsby-plugin-treat
-[example project]: https://github.com/kripod/glaze/tree/master/packages/gatsby-plugin-glaze-example
+[example project]: https://github.com/kripod/glaze/tree/master/packages/example-gatsby
