@@ -101,6 +101,8 @@ Baking the benefits outlined above into a single package, glaze was born.
    }
    ```
 
+4. Please refer to the [treat][] documentation for setting up static style extraction and server-side rendering.
+
 ## 🤔 How it works
 
 The `sx` function maps themed values to statically generated class names. If that fails, an inline style gets applied as a fallback.
