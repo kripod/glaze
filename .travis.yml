@@ -3,6 +3,11 @@ node_js:
   - lts/*
   - node
 
+cache:
+  directories:
+    - .cache/
+    - .next/cache/
+
 script:
   - yarn type-check
   - yarn lint
