@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.6](https://github.com/kripod/glaze/compare/gatsby-plugin-glaze@0.1.5...gatsby-plugin-glaze@0.1.6) (2020-03-27)
+
+**Note:** Version bump only for package gatsby-plugin-glaze
+
 ## [0.1.5](https://github.com/kripod/glaze/compare/gatsby-plugin-glaze@0.1.4...gatsby-plugin-glaze@0.1.5) (2020-03-25)
 
 **Note:** Version bump only for package gatsby-plugin-glaze
