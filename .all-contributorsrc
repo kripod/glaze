@@ -18,6 +18,8 @@
       "contributions": [
         "maintenance",
         "code",
+        "doc",
+        "example",
         "ideas",
         "infra"
       ]
