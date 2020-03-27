@@ -9,8 +9,8 @@
     "serve": "gatsby serve"
   },
   "dependencies": {
-    "@types/react": "^16.9.25",
-    "gatsby": "^2.20.5",
+    "@types/react": "^16.9.26",
+    "gatsby": "^2.20.7",
     "gatsby-plugin-glaze": "^0.1.5",
     "gatsby-plugin-treat": "^1.2.3",
     "gatsby-plugin-typescript": "^2.3.1",
