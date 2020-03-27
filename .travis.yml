@@ -5,8 +5,8 @@ node_js:
 
 cache:
   directories:
-    - .cache/
-    - .next/cache/
+    - packages/example-gatsby/.cache/
+    - packages/example-nextjs/.next/cache/
 
 script:
   - yarn type-check
