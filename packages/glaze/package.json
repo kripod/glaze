@@ -21,6 +21,9 @@
   "scripts": {
     "build": "pika build"
   },
+  "dependencies": {
+    "@emotion/hash": "^0.8.0"
+  },
   "peerDependencies": {
     "@types/react": ">=16.8",
     "react": ">=16.8",

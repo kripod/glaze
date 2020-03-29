@@ -3,9 +3,10 @@ import { TreatProvider } from 'react-treat';
 
 import { RuntimeTheme } from './theme';
 
-export const GlazeContext = React.createContext<RuntimeTheme | undefined>(
-  undefined,
-);
+export const GlazeContext = React.createContext<{
+  theme: RuntimeTheme;
+  instancesByClassName: Map<string, number>;
+}>(undefined as never);
 
 export interface ThemeProviderProps {
   theme: RuntimeTheme;
@@ -17,14 +18,17 @@ export function ThemeProvider({
   children,
 }: ThemeProviderProps): JSX.Element {
   return (
-    <TreatProvider theme={theme.ref}>
-      <GlazeContext.Provider value={theme}>{children}</GlazeContext.Provider>
+    <TreatProvider
+      // Show a clear error message during runtime, even if `theme` is nullish
+      theme={theme?.ref}
+    >
+      <GlazeContext.Provider value={{ theme, instancesByClassName: new Map() }}>
+        {children}
+      </GlazeContext.Provider>
     </TreatProvider>
   );
 }
 
 export function useTheme(): RuntimeTheme {
-  const theme = useContext(GlazeContext);
-  if (!theme) throw new Error('No glaze theme provided');
-  return theme;
+  return useContext(GlazeContext).theme;
 }

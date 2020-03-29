@@ -1,8 +1,9 @@
-import { CSSProperties } from 'react';
+import hash from '@emotion/hash';
+import { CSSProperties, useContext } from 'react';
 import { useStyles } from 'react-treat';
 import { Style } from 'treat';
 
-import { useTheme } from './GlazeContext';
+import { GlazeContext } from './GlazeContext';
 import styleRefs from './useStyling.treat';
 
 export type ThemedStyle = Style & {
@@ -12,21 +13,15 @@ export type ThemedStyle = Style & {
 
 export function useStyling(): (
   themedStyle: ThemedStyle,
-) => {
-  className: string;
-  style: CSSProperties;
-} {
+) => { className: string } {
   const staticClassNames = useStyles(styleRefs);
-  const theme = useTheme();
+  const { theme, instancesByClassName } = useContext(GlazeContext);
 
-  return function sx(
-    themedStyle: ThemedStyle,
-  ): {
-    className: string;
-    style: CSSProperties;
-  } {
+  // TODO: Decrease instance count of unused runtime classNames when unmounting
+  // TODO: Remove runtime styles which are not used anymore
+
+  return function sx(themedStyle: ThemedStyle): { className: string } {
     let className = '';
-    const style: { [key: string]: unknown } = {};
 
     // Prefer performance over clarity for the runtime
     // eslint-disable-next-line guard-for-in, no-restricted-syntax
@@ -38,16 +33,28 @@ export function useStyling(): (
       (theme.shorthands[shorthand] || [shorthand]).forEach((key) => {
         // TODO: Support selectors and media queries
         if (typeof value !== 'object') {
-          const staticClassName = staticClassNames[`${key}.${value}`];
-          if (staticClassName) {
-            className += `${staticClassName} `;
-          } else {
-            style[key] = value;
+          let appendedClassName = staticClassNames[`${key}.${value}`];
+
+          // Attach a class dynamically if needed
+          if (!appendedClassName) {
+            // TODO: Use same hashing algorithm during static CSS generation
+            const style = `${key}:${value}`;
+            appendedClassName = `__glaze_${hash(style)}`;
+            let usageCount = instancesByClassName.get(appendedClassName);
+            if (!usageCount) {
+              usageCount = 0;
+              const element = document.createElement('style');
+              element.textContent = `.${appendedClassName}{${style}}`;
+              document.head.appendChild(element);
+            }
+            instancesByClassName.set(appendedClassName, usageCount + 1);
           }
+
+          className += `${appendedClassName} `;
         }
       });
     }
 
-    return { className, style };
+    return { className };
   };
 }
