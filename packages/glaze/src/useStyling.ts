@@ -40,7 +40,9 @@ export function useStyling(): (themedStyle: ThemedStyle) => string {
           // TODO: Improve support for SSR
           if (!appendedClassName && typeof window !== 'undefined') {
             // TODO: Use same hashing algorithm during static CSS generation
-            appendedClassName = `__glaze_${hash(style)}`;
+            appendedClassName = `${
+              process.env.NODE_ENV !== 'production' ? '__DYNAMIC' : 'd'
+            }_${hash(style)}`;
             let usageCount = instancesByClassName.get(appendedClassName);
             if (!usageCount) {
               usageCount = 0;
