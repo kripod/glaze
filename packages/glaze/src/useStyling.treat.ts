@@ -6,7 +6,7 @@ export default styleMap((theme) => {
     if (scale) {
       const tokens = Object.entries(theme.scales[scale] || {});
       tokens.forEach(([key, value]) => {
-        result[`${property}.${key}`] = { [property]: value };
+        result[`${property}:${key}`] = { [property]: value };
       });
     }
   });

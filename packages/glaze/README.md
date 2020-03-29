@@ -89,7 +89,7 @@ Baking the benefits outlined above into a single package, glaze was born.
 
      return (
        <p
-         {...sx({
+         className={sx({
            px: 4, // Sets padding-left and padding-right to 1rem
            color: 'white',
            bg: 'red', // Sets background to #f8485e

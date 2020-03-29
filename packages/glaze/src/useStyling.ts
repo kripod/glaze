@@ -1,3 +1,5 @@
+/* Prefer performance over elegance, as this code is critical for the runtime */
+
 import hash from '@emotion/hash';
 import { CSSProperties, useContext } from 'react';
 import { useStyles } from 'react-treat';
@@ -11,19 +13,16 @@ export type ThemedStyle = Style & {
   [key: string]: CSSProperties[keyof CSSProperties];
 };
 
-export function useStyling(): (
-  themedStyle: ThemedStyle,
-) => { className: string } {
+export function useStyling(): (themedStyle: ThemedStyle) => string {
   const staticClassNames = useStyles(styleRefs);
   const { theme, instancesByClassName } = useContext(GlazeContext);
 
   // TODO: Decrease instance count of unused runtime classNames when unmounting
   // TODO: Remove runtime styles which are not used anymore
 
-  return function sx(themedStyle: ThemedStyle): { className: string } {
+  return function sx(themedStyle: ThemedStyle): string {
     let className = '';
 
-    // Prefer performance over clarity for the runtime
     // eslint-disable-next-line guard-for-in, no-restricted-syntax
     for (const alias in themedStyle) {
       const value = themedStyle[alias];
@@ -31,14 +30,15 @@ export function useStyling(): (
 
       // eslint-disable-next-line no-loop-func
       (theme.shorthands[shorthand] || [shorthand]).forEach((key) => {
+        const style = `${key}:${value}`;
+
         // TODO: Support selectors and media queries
         if (typeof value !== 'object') {
-          let appendedClassName = staticClassNames[`${key}.${value}`];
+          let appendedClassName = staticClassNames[style];
 
           // Attach a class dynamically if needed
           if (!appendedClassName) {
             // TODO: Use same hashing algorithm during static CSS generation
-            const style = `${key}:${value}`;
             appendedClassName = `__glaze_${hash(style)}`;
             let usageCount = instancesByClassName.get(appendedClassName);
             if (!usageCount) {
@@ -55,6 +55,6 @@ export function useStyling(): (
       });
     }
 
-    return { className };
+    return className;
   };
 }

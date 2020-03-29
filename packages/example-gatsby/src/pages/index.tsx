@@ -6,8 +6,12 @@ export default function IndexPage(): JSX.Element {
 
   return (
     <>
-      <h1 {...sx({ px: 4, color: 'white', bg: 'red' })}>Hello, world!</h1>
-      <p {...sx({ color: 'white', bg: 'black' })}>Lorem ipsum dolor sit amet</p>
+      <h1 className={sx({ px: 4, color: 'white', bg: 'red' })}>
+        Hello, world!
+      </h1>
+      <p className={sx({ color: 'white', bg: 'black' })}>
+        Lorem ipsum dolor sit amet
+      </p>
     </>
   );
 }
