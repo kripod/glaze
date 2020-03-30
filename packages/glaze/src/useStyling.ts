@@ -31,10 +31,9 @@ export function useStyling(): (themedStyle: ThemedStyle) => string {
         } else {
           // Detach unused dynamic style from the DOM
           // TODO: Use `ChildNode.remove()` when dropping IE 11 support
-          /* eslint-disable @typescript-eslint/no-non-null-assertion */
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           const element = document.getElementById(className)!;
-          element.parentNode!.removeChild(element);
-          /* eslint-enable @typescript-eslint/no-non-null-assertion */
+          document.head.removeChild(element);
 
           instancesByClassName.delete(className);
         }
@@ -83,11 +82,12 @@ export function useStyling(): (themedStyle: ThemedStyle) => string {
             );
           }
 
-          className += `${appendedClassName} `;
+          className += ` ${appendedClassName}`;
         }
       });
     }
 
-    return className;
+    // Remove prepended whitespace
+    return className.slice(1);
   };
 }
