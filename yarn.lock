@@ -10535,11 +10535,6 @@ neo-async@^2.5.0, neo-async@^2.6.0, neo-async@^2.6.1:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
 
-network-information-types@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/network-information-types/-/network-information-types-0.1.0.tgz#5c880bebc2a9e6b25eb00ed23854d13ff3a7fe3a"
-  integrity sha512-cRUCYZoRHTMjYcgk5MbwqM0h0Za34panRxAJKY8n+mQ+NLMuRIw7aKzmaZqkC/cte7bnRcdfTwFA27GgN62EtQ==
-
 next-tick@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
@@ -15500,13 +15495,12 @@ wcwidth@^1.0.0, wcwidth@^1.0.1:
   dependencies:
     defaults "^1.0.3"
 
-web-api-hooks@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/web-api-hooks/-/web-api-hooks-3.0.0.tgz#cf0390389b857ba341a534a258a67b90d286cb01"
-  integrity sha512-HuZ5v0EWEL9eNRXiQvjMGpc9aN6RMAmswKoEqxzVylhGmuiBmIoz30trJxMMXtklDCuFePuSkQdZpx9/MIXyGw==
+web-api-hooks@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/web-api-hooks/-/web-api-hooks-3.0.1.tgz#4024bd2ab61998973a4282e80a4bece6ada0b17e"
+  integrity sha512-scWRgsw1IJtyPOxbOXoj75wE2IEKWCpy3mdMh2LehvFNryl7Ad1ZF2DRsermP+GCAsTHMWUl7Tf7e1TERVduSw==
   dependencies:
     "@types/resize-observer-browser" "^0.1.2"
-    network-information-types "^0.1.0"
 
 webidl-conversions@^4.0.2:
   version "4.0.2"
