@@ -1,7 +1,7 @@
 /* Prefer performance over elegance, as this code is critical for the runtime */
 
 import hash from '@emotion/hash';
-import { CSSProperties, useContext } from 'react';
+import { CSSProperties, useContext, useEffect, useRef } from 'react';
 import { useStyles } from 'react-treat';
 import { Style } from 'treat';
 
@@ -16,9 +16,33 @@ export type ThemedStyle = Style & {
 export function useStyling(): (themedStyle: ThemedStyle) => string {
   const staticClassNames = useStyles(styleRefs);
   const { theme, instancesByClassName } = useContext(GlazeContext);
+  const ownedInstancesByClassName = useRef(new Map<string, number>()).current;
 
-  // TODO: Decrease instance count of unused runtime classNames when unmounting
-  // TODO: Remove runtime styles which are not used anymore
+  // Remove dynamic styles which are not used anymore when unmounting
+  useEffect(
+    () => (): void => {
+      ownedInstancesByClassName.forEach((usageCount, className) => {
+        const remainingInstances =
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          instancesByClassName.get(className)! - usageCount;
+
+        if (remainingInstances) {
+          instancesByClassName.set(className, remainingInstances);
+        } else {
+          // Detach unused dynamic style from the DOM
+          // TODO: Use `ChildNode.remove()` when dropping IE 11 support
+          /* eslint-disable @typescript-eslint/no-non-null-assertion */
+          const element = document.getElementById(className)!;
+          element.parentNode!.removeChild(element);
+          /* eslint-enable @typescript-eslint/no-non-null-assertion */
+
+          instancesByClassName.delete(className);
+        }
+      });
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
 
   return function sx(themedStyle: ThemedStyle): string {
     let className = '';
@@ -47,10 +71,15 @@ export function useStyling(): (themedStyle: ThemedStyle) => string {
             if (!usageCount) {
               usageCount = 0;
               const element = document.createElement('style');
+              element.id = appendedClassName;
               element.textContent = `.${appendedClassName}{${style}}`;
               document.head.appendChild(element);
             }
             instancesByClassName.set(appendedClassName, usageCount + 1);
+            ownedInstancesByClassName.set(
+              appendedClassName,
+              (ownedInstancesByClassName.get(appendedClassName) || 0) + 1,
+            );
           }
 
           className += `${appendedClassName} `;
