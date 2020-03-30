@@ -8,6 +8,10 @@ import { Style } from 'treat';
 import { GlazeContext } from './GlazeContext';
 import styleRefs from './useStyling.treat';
 
+function kebabCaseReplacer(match: string): string {
+  return `-${match.toLowerCase()}`;
+}
+
 export type ThemedStyle = Style & {
   // TODO: Add more precise styles for aliases and shorthands
   [key: string]: CSSProperties[keyof CSSProperties];
@@ -53,11 +57,9 @@ export function useStyling(): (themedStyle: ThemedStyle) => string {
 
       // eslint-disable-next-line no-loop-func
       (theme.shorthands[shorthand] || [shorthand]).forEach((key) => {
-        const style = `${key}:${value}`;
-
         // TODO: Support selectors and media queries
         if (typeof value !== 'object') {
-          let appendedClassName = staticClassNames[style];
+          let appendedClassName = staticClassNames[`${key}-${value}`];
 
           // Attach a class dynamically if needed
           // TODO: Improve support for SSR
@@ -66,10 +68,14 @@ export function useStyling(): (themedStyle: ThemedStyle) => string {
             appendedClassName =
               process.env.NODE_ENV !== 'production'
                 ? `DYNAMIC_${key}-${value}`
-                : `d_${hash(style)}`;
+                : `d_${hash(`${key}-${value}`)}`;
             let usageCount = instancesByClassName.get(appendedClassName);
             if (!usageCount) {
               usageCount = 0;
+              // Convert CSS property to kebab-case and normalize numeric value
+              const style = `${key.replace(/[A-Z]/g, kebabCaseReplacer)}:${
+                typeof value !== 'number' ? value : `${value}px`
+              }`;
               const element = document.createElement('style');
               element.id = appendedClassName;
               element.textContent = `.${appendedClassName}{${style}}`;

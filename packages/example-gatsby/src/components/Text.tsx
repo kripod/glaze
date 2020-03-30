@@ -10,7 +10,10 @@ export function Text({ className = '', ...restProps }: TextProps): JSX.Element {
 
   return (
     <p
-      className={`${className} ${sx({ color: 'white', bg: 'black' })}`}
+      className={`${className} ${sx({
+        color: 'white',
+        backgroundColor: 'black',
+      })}`}
       {...restProps}
     />
   );
