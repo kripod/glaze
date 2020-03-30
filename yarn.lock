@@ -2292,36 +2292,36 @@
     validate-npm-package-license "^3.0.4"
     yargs-parser "^13.1.1"
 
-"@pika/plugin-build-node@^0.9.2":
-  version "0.9.2"
-  resolved "https://registry.yarnpkg.com/@pika/plugin-build-node/-/plugin-build-node-0.9.2.tgz#4697072f385f38b025768036c99e5a653863d532"
-  integrity sha512-NJhnx5UdOKRz4+3eSienp3vlwUTFYDtz2xAKlswb1td0q5n4gkxZhXoImNzF9PfAaMOXIb+7ngaBNSDiHguTkw==
+"@pika/plugin-build-node@^0.8.3":
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/@pika/plugin-build-node/-/plugin-build-node-0.8.3.tgz#ce6ab370f13daa690d9242a1a88d7e79481530f0"
+  integrity sha512-iLJLiWfJt3VGv2PRxBpJOl4m+ndOZihj5UA4DoI9BGLeha7Kr3ykAeo6HBmNGX6mU0K9HtQ7ZRSeu3QkRKAtrg==
   dependencies:
     "@babel/core" "^7.0.0"
     "@babel/plugin-syntax-dynamic-import" "^7.2.0"
     "@babel/plugin-syntax-import-meta" "^7.2.0"
     "@babel/preset-env" "^7.2.3"
-    "@pika/types" "^0.9.2"
+    "@pika/types" "^0.8.3"
     babel-plugin-dynamic-import-node-babel-7 "^2.0.7"
     builtin-modules "^3.0.0"
     rollup "^1.1.0"
     rollup-plugin-babel "^4.3.0"
 
-"@pika/plugin-build-web@^0.9.2":
-  version "0.9.2"
-  resolved "https://registry.yarnpkg.com/@pika/plugin-build-web/-/plugin-build-web-0.9.2.tgz#2a209aed1877eabf14dad1cf6cb05e53e519701d"
-  integrity sha512-HjN/3P5c5jVEaPo9ZSs+jn9osrNs3JW3ZgP11NSfS0QQEMIw+Ks+qXi5Aymp8WKLpoldtZw/z69+SrfqlNeZyg==
+"@pika/plugin-build-web@^0.8.3":
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/@pika/plugin-build-web/-/plugin-build-web-0.8.3.tgz#4f6142c892c998e5ce8471bd2ca9dfbc715ca86a"
+  integrity sha512-tuCbu+/yl4wX7/upgruX5tdSUa/dFhKBSnOrKSmEyU3h+Kb+zvowqPC64CgJqHAYUbfBCv8f3i9V5O2Q+swRvg==
   dependencies:
-    "@pika/types" "^0.9.2"
+    "@pika/types" "^0.8.3"
     "@types/node" "^10.12.18"
     rollup "^1.1.0"
 
-"@pika/plugin-ts-standard-pkg@^0.9.2":
-  version "0.9.2"
-  resolved "https://registry.yarnpkg.com/@pika/plugin-ts-standard-pkg/-/plugin-ts-standard-pkg-0.9.2.tgz#b440143be3535f9701625ca231d0eb612bd3db63"
-  integrity sha512-LwObacitvuILyXzdmbB1gyGtPjERxSF83omBHfoagsSUqgIf4FZDo9Z3v5VpI7Sq7mtIjQ7D3cjKv8r7JyyY5Q==
+"@pika/plugin-ts-standard-pkg@^0.8.3":
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/@pika/plugin-ts-standard-pkg/-/plugin-ts-standard-pkg-0.8.3.tgz#ae080079875969946118765d8a8a071695c34638"
+  integrity sha512-mj0MSI/ZI44e6RYFC5giJBBk9mBH/z8rEB9wa1YM/8FrCCTLy3kqSifz9V/XjjTxrNUJMbnijoQRaZDGy6/ixw==
   dependencies:
-    "@pika/types" "^0.9.2"
+    "@pika/types" "^0.8.3"
     execa "^2.0.0"
     standard-pkg "^0.5.0"
 
@@ -2330,10 +2330,10 @@
   resolved "https://registry.yarnpkg.com/@pika/types/-/types-0.6.1.tgz#864b1803f3a95093b871ced387bb87779ebfc862"
   integrity sha512-1ZsOHGc0qJDofO+/98PfchHJqJjtfZL3liVGi4QZ28GtLmTVuZ4SUJFa5NgbsYawnrr//pdNOfx9JiaLFKpzrA==
 
-"@pika/types@^0.9.2":
-  version "0.9.2"
-  resolved "https://registry.yarnpkg.com/@pika/types/-/types-0.9.2.tgz#60ad16afe1293878232e28937d9007340c59ff7c"
-  integrity sha512-AzZTkHtM0A67+xMVhmSeJDteSMS+RfXGuM+/oVbo1PGD19ic7fuimv5b0TW8dKoZuxpVxiwVAai+sFRSNmfI3g==
+"@pika/types@^0.8.3":
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/@pika/types/-/types-0.8.3.tgz#81a3d16ac7a0fdd3656b14b488b096117d8d62e4"
+  integrity sha512-NqJ23m5ZIVnhEmGKtu3iOTLAgOaCuhqS8cS1nuz0KzgMg5uuXXPOQoVE9Crk+2axfw1xbNv23w6A+pZqEuyufg==
 
 "@pmmmwh/react-refresh-webpack-plugin@^0.2.0":
   version "0.2.0"
