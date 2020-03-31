@@ -10,6 +10,7 @@
   "dependencies": {
     "@types/react": "^16.9.26",
     "@types/react-dom": "^16.9.5",
+    "@types/webpack": "^4.41.10",
     "babel-plugin-treat": "^1.1.0",
     "glaze": "^0.2.0",
     "next": "^9.3.1",
