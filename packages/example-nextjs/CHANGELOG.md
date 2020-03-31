@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.2.0 (2020-03-31)
+
+- feat!: style composition based on className ([a599c8e](https://github.com/kripod/glaze/commit/a599c8e)), closes [#4](https://github.com/kripod/glaze/issues/4)
+
 ## 0.1.1 (2020-03-27)
 
 ### Bug Fixes

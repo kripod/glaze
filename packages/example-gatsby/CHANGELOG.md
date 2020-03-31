@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.2.0 (2020-03-31)
+
+- chore(deps): update, fixing type checking ([c2b5b3b](https://github.com/kripod/glaze/commit/c2b5b3b))
+- chore(example): fix build error caused by deps ([e21edea](https://github.com/kripod/glaze/commit/e21edea))
+- docs(example): add dynamic style unmounting ([f5ff7ac](https://github.com/kripod/glaze/commit/f5ff7ac))
+- docs(example): improve periodic unmounting ([38d79f5](https://github.com/kripod/glaze/commit/38d79f5))
+- fix: auto-convert dynamic property keys and values ([4bca582](https://github.com/kripod/glaze/commit/4bca582))
+- feat!: generate hoisted style classes in runtime ([4adf807](https://github.com/kripod/glaze/commit/4adf807))
+- feat!: style composition based on className ([a599c8e](https://github.com/kripod/glaze/commit/a599c8e)), closes [#4](https://github.com/kripod/glaze/issues/4)
+
 ## 0.1.3 (2020-03-27)
 
 **Note:** Version bump only for package glaze-example-gatsby
