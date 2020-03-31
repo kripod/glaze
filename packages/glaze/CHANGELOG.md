@@ -5,15 +5,22 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.2.0 (2020-03-31)
 
-- fix: auto-convert dynamic property keys and values ([4bca582](https://github.com/kripod/glaze/commit/4bca582))
-- fix: dynamic style unmounting ([ff203cd](https://github.com/kripod/glaze/commit/ff203cd))
-- fix: server-side rendering for dynamic styles ([fabc4af](https://github.com/kripod/glaze/commit/fabc4af))
-- improvement: clear debug names for dynamic styles ([a6d9467](https://github.com/kripod/glaze/commit/a6d9467))
-- improvement: detach unused dynamic styles from DOM ([510f59c](https://github.com/kripod/glaze/commit/510f59c))
-- improvement: expressive dynamic style prefixes ([b6f5e52](https://github.com/kripod/glaze/commit/b6f5e52))
-- feat!: generate hoisted style classes in runtime ([4adf807](https://github.com/kripod/glaze/commit/4adf807))
-- feat!: style composition based on className ([a599c8e](https://github.com/kripod/glaze/commit/a599c8e)), closes [#4](https://github.com/kripod/glaze/issues/4)
-- chore: update contributions ([911e52a](https://github.com/kripod/glaze/commit/911e52a))
+### Bug Fixes
+
+- auto-convert dynamic property keys and values ([4bca582](https://github.com/kripod/glaze/commit/4bca582))
+- dynamic style unmounting ([ff203cd](https://github.com/kripod/glaze/commit/ff203cd))
+- server-side rendering for dynamic styles ([fabc4af](https://github.com/kripod/glaze/commit/fabc4af))
+
+### Improvements
+
+- clear debug names for dynamic styles ([a6d9467](https://github.com/kripod/glaze/commit/a6d9467))
+- detach unused dynamic styles from DOM ([510f59c](https://github.com/kripod/glaze/commit/510f59c))
+- expressive dynamic style prefixes ([b6f5e52](https://github.com/kripod/glaze/commit/b6f5e52))
+
+### Features
+
+- generate hoisted style classes in runtime ([4adf807](https://github.com/kripod/glaze/commit/4adf807))
+- style composition based on className ([a599c8e](https://github.com/kripod/glaze/commit/a599c8e)), closes [#4](https://github.com/kripod/glaze/issues/4)
 
 ## [0.1.5](https://github.com/kripod/glaze/compare/glaze@0.1.4...glaze@0.1.5) (2020-03-27)
 
