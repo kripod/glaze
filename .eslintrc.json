@@ -20,7 +20,10 @@
     "simple-import-sort/sort": "error",
 
     // Using a type system makes it safe enough to spread props
-    "react/jsx-props-no-spreading": "off"
+    "react/jsx-props-no-spreading": "off",
+
+    // Custom preferences
+    "max-classes-per-file": "off"
   },
 
   "overrides": [
