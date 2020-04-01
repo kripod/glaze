@@ -1,5 +1,5 @@
 import hash from '@emotion/hash';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { TreatProvider } from 'react-treat';
 
 import { RuntimeTheme } from './theme';
@@ -19,7 +19,22 @@ export function ThemeProvider({
   theme,
   children,
 }: ThemeProviderProps): JSX.Element {
-  const usageCountsByClassName = new Map<string, number>();
+  const ruleIndexesByClassName = useRef(new Map<string, number>()).current;
+  const usageCountsByClassName = useRef(new Map<string, number>()).current;
+
+  const styleEl = useRef(document.createElement('style')).current;
+  document.head.appendChild(styleEl);
+  const styleSheet = styleEl.sheet as CSSStyleSheet;
+
+  // TODO: Try augmenting server-rendered dynamic styles or rehydrate them
+
+  // Attach a DOM element for managing dynamic styles
+  useEffect(() => {
+    // TODO: Consider setting a data attribute for improved debugging experience
+    return (): void => {
+      document.head.removeChild(styleEl);
+    };
+  }, [styleEl]);
 
   return (
     <TreatProvider
@@ -38,11 +53,13 @@ export function ThemeProvider({
                 : `d_${hash(identName)}`;
 
             const usageCount = usageCountsByClassName.get(className) || 0;
+            // TODO: Improve SSR capability
             if (!usageCount) {
-              const element = document.createElement('style');
-              element.id = className;
-              element.textContent = `.${className}{${cssText()}}`;
-              document.head.appendChild(element);
+              const index = styleSheet.insertRule(
+                `.${className}{${cssText()}}`,
+                ruleIndexesByClassName.size,
+              );
+              ruleIndexesByClassName.set(className, index);
             }
             usageCountsByClassName.set(className, usageCount + 1);
 
@@ -58,11 +75,10 @@ export function ThemeProvider({
               usageCountsByClassName.set(className, remainingInstances);
             } else {
               usageCountsByClassName.delete(className);
-
-              // Detach unused dynamic style from the DOM
-              // TODO: Use `ChildNode.remove()` when dropping IE 11 support
-              const element = document.getElementById(className);
-              if (element) document.head.removeChild(element);
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              const index = ruleIndexesByClassName.get(className)!;
+              styleSheet.removeRule(index);
+              ruleIndexesByClassName.delete(className);
             }
           },
         }}
