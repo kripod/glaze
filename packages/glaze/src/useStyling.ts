@@ -1,6 +1,5 @@
 /* Prefer performance over elegance, as this code is critical for the runtime */
 
-import hash from '@emotion/hash';
 import { CSSProperties, useContext, useEffect, useRef } from 'react';
 import { useStyles } from 'react-treat';
 import { Style } from 'treat';
@@ -47,8 +46,7 @@ export function useStyling(): (themedStyle: ThemedStyle) => string {
           let appendedClassName = staticClassNames[identName];
 
           // Attach a class dynamically if needed
-          // TODO: Improve support for SSR
-          if (!appendedClassName && typeof window !== 'undefined') {
+          if (!appendedClassName) {
             // TODO: Use same hashing algorithm during static CSS generation
             appendedClassName = mountStyle(
               identName,

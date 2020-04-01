@@ -1,7 +1,14 @@
 import hash from '@emotion/hash';
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import { TreatProvider } from 'react-treat';
 
+import { canUseDOM, isDev } from './env';
+import {
+  DebuggableStyleSheet,
+  OptimizedStyleSheet,
+  StyleSheet,
+  VirtualStyleSheet,
+} from './StyleSheet';
 import { RuntimeTheme } from './theme';
 
 export const GlazeContext = React.createContext<{
@@ -22,19 +29,14 @@ export function ThemeProvider({
   const ruleIndexesByClassName = useRef(new Map<string, number>()).current;
   const usageCountsByClassName = useRef(new Map<string, number>()).current;
 
-  const styleEl = useRef(document.createElement('style')).current;
-  document.head.appendChild(styleEl);
-  const styleSheet = styleEl.sheet as CSSStyleSheet;
+  // eslint-disable-next-line no-nested-ternary
+  const styleSheet: StyleSheet = canUseDOM
+    ? isDev
+      ? new DebuggableStyleSheet()
+      : new OptimizedStyleSheet()
+    : new VirtualStyleSheet();
 
   // TODO: Try augmenting server-rendered dynamic styles or rehydrate them
-
-  // Attach a DOM element for managing dynamic styles
-  useEffect(() => {
-    // TODO: Consider setting a data attribute for improved debugging experience
-    return (): void => {
-      document.head.removeChild(styleEl);
-    };
-  }, [styleEl]);
 
   return (
     <TreatProvider
@@ -47,19 +49,17 @@ export function ThemeProvider({
 
           mountStyle(identName, cssText): string {
             // TODO: Use same hashing algorithm during static CSS generation
-            const className =
-              process.env.NODE_ENV !== 'production'
-                ? `DYNAMIC_${identName}`
-                : `d_${hash(identName)}`;
+            const className = isDev
+              ? `DYNAMIC_${identName}`
+              : `d_${hash(identName)}`;
 
             const usageCount = usageCountsByClassName.get(className) || 0;
             // TODO: Improve SSR capability
             if (!usageCount) {
-              const index = styleSheet.insertRule(
-                `.${className}{${cssText()}}`,
-                ruleIndexesByClassName.size,
+              ruleIndexesByClassName.set(
+                className,
+                styleSheet.insertRule(`.${className}{${cssText()}}`),
               );
-              ruleIndexesByClassName.set(className, index);
             }
             usageCountsByClassName.set(className, usageCount + 1);
 
@@ -76,8 +76,7 @@ export function ThemeProvider({
             } else {
               usageCountsByClassName.delete(className);
               // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-              const index = ruleIndexesByClassName.get(className)!;
-              styleSheet.removeRule(index);
+              styleSheet.deleteRule(ruleIndexesByClassName.get(className)!);
               ruleIndexesByClassName.delete(className);
             }
           },
