@@ -13,9 +13,7 @@ function createAndMountStyleElement(): HTMLStyleElement {
 }
 
 function getSheet(styleEl: HTMLStyleElement): CSSStyleSheet {
-  if (styleEl.sheet) {
-    return styleEl.sheet as CSSStyleSheet;
-  }
+  if (styleEl.sheet) return styleEl.sheet as CSSStyleSheet;
 
   // Avoid Firefox quirk where the style element might not have a sheet property
   for (let i = 0, l = document.styleSheets.length; i < l; i += 1) {
