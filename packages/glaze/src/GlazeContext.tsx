@@ -2,13 +2,8 @@ import hash from '@emotion/hash';
 import React, { useContext, useRef } from 'react';
 import { TreatProvider } from 'react-treat';
 
-import { canUseDOM, isDev } from './env';
-import {
-  DebuggableStyleInjector,
-  OptimizedStyleInjector,
-  StyleInjector,
-  VirtualStyleInjector,
-} from './StyleInjector';
+import { isDev } from './env';
+import { StyleInjectorContext } from './StyleInjectorContext';
 import { RuntimeTheme } from './theme';
 
 export const GlazeContext = React.createContext<{
@@ -29,12 +24,7 @@ export function ThemeProvider({
   const ruleIndexesByClassName = useRef(new Map<string, number>()).current;
   const usageCountsByClassName = useRef(new Map<string, number>()).current;
 
-  // eslint-disable-next-line no-nested-ternary
-  const styleInjector: StyleInjector = canUseDOM
-    ? isDev
-      ? new DebuggableStyleInjector()
-      : new OptimizedStyleInjector()
-    : new VirtualStyleInjector();
+  const styleInjector = useContext(StyleInjectorContext);
 
   // TODO: Try augmenting server-rendered dynamic styles or rehydrate them
 

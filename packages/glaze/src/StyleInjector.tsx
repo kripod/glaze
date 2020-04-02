@@ -4,6 +4,8 @@ Based on:
 - https://github.com/styled-components/styled-components/blob/94df8bb57c8ba01cd33268b65df93499a7961cb2/packages/styled-components/src/sheet/Tag.js
 */
 
+import React from 'react';
+
 const MAX_RULE_COUNT = 0xffff;
 
 function createAndMountStyleElement(): HTMLStyleElement {
@@ -32,7 +34,17 @@ export interface StyleInjector {
 }
 
 export class VirtualStyleInjector implements StyleInjector {
-  cssTexts: string[] = [];
+  private cssTexts: string[] = [];
+
+  getStyleElement(): JSX.Element {
+    return (
+      <style
+        data-glaze=""
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: this.cssTexts.join('') }}
+      />
+    );
+  }
 
   insertRule(cssText: string): number {
     return this.cssTexts.push(cssText) - 1;
