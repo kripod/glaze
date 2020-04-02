@@ -54,7 +54,7 @@ export class DebuggableStyleSheet implements StyleSheet {
     this.styleEl = createAndMountStyleElement();
   }
 
-  insertRule(rule: string): number {
+  insertRule(cssText: string): number {
     const index = this.freeIndexes.pop() ?? this.nodes.length;
 
     if (index === MAX_RULE_COUNT) {
@@ -64,7 +64,7 @@ export class DebuggableStyleSheet implements StyleSheet {
       );
     }
 
-    const node = document.createTextNode(rule);
+    const node = document.createTextNode(cssText);
     this.styleEl.appendChild(node);
     this.nodes[index] = node;
     return index;
@@ -77,7 +77,8 @@ export class DebuggableStyleSheet implements StyleSheet {
     } else {
       // Only allow replacements to prevent modification of existing indexes
       this.freeIndexes.push(index);
-      this.nodes[index].textContent = ''; // Dummy
+      const dummyRule = '';
+      this.nodes[index].textContent = dummyRule;
     }
   }
 }
@@ -109,15 +110,13 @@ export class OptimizedStyleSheet implements StyleSheet {
 
   deleteRule(index: number): void {
     if (index === this.ruleCount - 1) {
-      this.ruleCount -= 1;
-      this.innerSheet.deleteRule(index);
+      // eslint-disable-next-line no-plusplus
+      this.innerSheet.deleteRule(--this.ruleCount);
     } else {
       // Only allow replacements to prevent modification of existing indexes
       this.freeIndexes.push(index);
-      this.innerSheet.insertRule(
-        '#_{}', // Dummy
-        index,
-      );
+      const dummyRule = '#_{}';
+      this.innerSheet.insertRule(dummyRule, index);
     }
   }
 }
