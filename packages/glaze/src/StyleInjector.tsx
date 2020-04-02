@@ -14,18 +14,22 @@ function createAndMountStyleElement(): HTMLStyleElement {
   return document.head.appendChild(el);
 }
 
-function getSheet(styleEl: HTMLStyleElement): CSSStyleSheet {
-  if (styleEl.sheet) return styleEl.sheet as CSSStyleSheet;
-
-  // Avoid Firefox quirk where the style element might not have a sheet property
+function getSheet(): CSSStyleSheet {
+  // Hydrate existing style node if available
   for (let i = 0, l = document.styleSheets.length; i < l; i += 1) {
     const styleSheet = document.styleSheets[i];
-    if (styleSheet.ownerNode === styleEl) {
+    if ((styleSheet.ownerNode as HTMLElement).dataset.glaze === '') {
       return styleSheet as CSSStyleSheet;
     }
   }
 
-  return undefined as never;
+  const styleEl = createAndMountStyleElement();
+
+  // Avoid Edge bug where empty style elements don't create sheets
+  styleEl.appendChild(document.createTextNode(''));
+
+  // Avoid Firefox quirk where the style element might not have a sheet property
+  return (styleEl.sheet as CSSStyleSheet | undefined) || getSheet();
 }
 
 export interface StyleInjector {
@@ -96,22 +100,11 @@ export class DebuggableStyleInjector implements StyleInjector {
 }
 
 export class OptimizedStyleInjector implements StyleInjector {
-  private styleEl: HTMLStyleElement;
-
-  private sheet: CSSStyleSheet;
+  private sheet = getSheet();
 
   private ruleCount = 0;
 
   private freeIndexes: number[] = [];
-
-  constructor() {
-    this.styleEl = createAndMountStyleElement();
-
-    // Avoid Edge bug where empty style elements don't create sheets
-    this.styleEl.appendChild(document.createTextNode(''));
-
-    this.sheet = getSheet(this.styleEl);
-  }
 
   insertRule(cssText: string): number {
     const index = this.freeIndexes.length
