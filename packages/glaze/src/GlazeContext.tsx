@@ -48,7 +48,7 @@ export function ThemeProvider({
             if (!usageCount) {
               ruleIndexesByClassName.set(
                 className,
-                styleInjector.insertRule(`.${className}{${cssText()}}`),
+                styleInjector.addRule(`.${className}{${cssText()}}`),
               );
             }
             usageCountsByClassName.set(className, usageCount + 1);
@@ -66,7 +66,7 @@ export function ThemeProvider({
             } else {
               usageCountsByClassName.delete(className);
               // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-              styleInjector.deleteRule(ruleIndexesByClassName.get(className)!);
+              styleInjector.nullifyRule(ruleIndexesByClassName.get(className)!);
               ruleIndexesByClassName.delete(className);
             }
           },

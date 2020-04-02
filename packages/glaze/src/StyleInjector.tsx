@@ -33,8 +33,8 @@ function getSheet(): CSSStyleSheet {
 }
 
 export interface StyleInjector {
-  insertRule(cssText: string): number;
-  deleteRule(index: number): void;
+  addRule(cssText: string): number;
+  nullifyRule(index: number): void;
 }
 
 export class VirtualStyleInjector implements StyleInjector {
@@ -50,13 +50,13 @@ export class VirtualStyleInjector implements StyleInjector {
     );
   }
 
-  insertRule(cssText: string): number {
+  addRule(cssText: string): number {
     return this.cssTexts.push(cssText) - 1;
   }
 
-  // No dynamic styles are deleted during SSR
+  // No styles are revoked during SSR
   // eslint-disable-next-line class-methods-use-this
-  deleteRule(): void {}
+  nullifyRule(): void {}
 }
 
 export class OptimizedStyleInjector implements StyleInjector {
@@ -66,22 +66,23 @@ export class OptimizedStyleInjector implements StyleInjector {
 
   private freeIndexes: number[] = [];
 
-  insertRule(cssText: string): number {
+  addRule(cssText: string): number {
     const index = this.freeIndexes.length
       ? this.freeIndexes.pop()
       : this.ruleCount++; // eslint-disable-line no-plusplus
     return this.sheet.insertRule(cssText, index);
   }
 
-  deleteRule(index: number): void {
+  nullifyRule(index: number): void {
+    this.sheet.deleteRule(index);
+
     if (index === this.ruleCount - 1) {
-      // eslint-disable-next-line no-plusplus
-      this.sheet.deleteRule(--this.ruleCount);
+      this.ruleCount -= 1;
     } else {
       // Only allow replacements to prevent modification of existing indexes
-      this.freeIndexes.push(index);
       const dummyRule = '#_{}';
       this.sheet.insertRule(dummyRule, index);
+      this.freeIndexes.push(index);
     }
   }
 }
@@ -97,7 +98,7 @@ export class DebuggableStyleInjector implements StyleInjector {
     this.styleEl = createAndMountStyleElement();
   }
 
-  insertRule(cssText: string): number {
+  addRule(cssText: string): number {
     const index = this.freeIndexes.pop() ?? this.nodes.length;
 
     if (index === MAX_RULE_COUNT) {
@@ -113,7 +114,7 @@ export class DebuggableStyleInjector implements StyleInjector {
     return index;
   }
 
-  deleteRule(index: number): void {
+  nullifyRule(index: number): void {
     if (index === this.nodes.length - 1) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       this.styleEl.removeChild(this.nodes.pop()!);
