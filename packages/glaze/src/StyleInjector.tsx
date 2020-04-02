@@ -67,23 +67,29 @@ export class OptimizedStyleInjector implements StyleInjector {
   private freeIndexes: number[] = [];
 
   addRule(cssText: string): number {
-    const index = this.freeIndexes.length
-      ? this.freeIndexes.pop()
-      : this.ruleCount++; // eslint-disable-line no-plusplus
-    return this.sheet.insertRule(cssText, index);
+    if (this.freeIndexes.length) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      return this.replaceRule(this.freeIndexes.pop()!, cssText);
+    }
+
+    // eslint-disable-next-line no-plusplus
+    return this.sheet.insertRule(cssText, this.ruleCount++);
   }
 
   nullifyRule(index: number): void {
-    this.sheet.deleteRule(index);
-
     if (index === this.ruleCount - 1) {
-      this.ruleCount -= 1;
+      // eslint-disable-next-line no-plusplus
+      this.sheet.deleteRule(--this.ruleCount);
     } else {
       // Only allow replacements to prevent modification of existing indexes
       const dummyRule = '#_{}';
-      this.sheet.insertRule(dummyRule, index);
-      this.freeIndexes.push(index);
+      this.freeIndexes.push(this.replaceRule(index, dummyRule));
     }
+  }
+
+  replaceRule(index: number, cssText: string): number {
+    this.sheet.deleteRule(index);
+    return this.sheet.insertRule(cssText, index);
   }
 }
 
@@ -99,7 +105,12 @@ export class DebuggableStyleInjector implements StyleInjector {
   }
 
   addRule(cssText: string): number {
-    const index = this.freeIndexes.pop() ?? this.nodes.length;
+    if (this.freeIndexes.length) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      return this.replaceRule(this.freeIndexes.pop()!, cssText);
+    }
+
+    const index = this.nodes.length;
 
     if (index === MAX_RULE_COUNT) {
       // eslint-disable-next-line no-console
@@ -120,9 +131,13 @@ export class DebuggableStyleInjector implements StyleInjector {
       this.styleEl.removeChild(this.nodes.pop()!);
     } else {
       // Only allow replacements to prevent modification of existing indexes
-      this.freeIndexes.push(index);
       const dummyRule = '';
-      this.nodes[index].textContent = dummyRule;
+      this.freeIndexes.push(this.replaceRule(index, dummyRule));
     }
+  }
+
+  replaceRule(index: number, cssText: string): number {
+    this.nodes[index].textContent = cssText;
+    return index;
   }
 }
