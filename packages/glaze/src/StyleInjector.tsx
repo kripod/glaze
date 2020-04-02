@@ -59,6 +59,33 @@ export class VirtualStyleInjector implements StyleInjector {
   deleteRule(): void {}
 }
 
+export class OptimizedStyleInjector implements StyleInjector {
+  private sheet = getSheet();
+
+  private ruleCount = 0;
+
+  private freeIndexes: number[] = [];
+
+  insertRule(cssText: string): number {
+    const index = this.freeIndexes.length
+      ? this.freeIndexes.pop()
+      : this.ruleCount++; // eslint-disable-line no-plusplus
+    return this.sheet.insertRule(cssText, index);
+  }
+
+  deleteRule(index: number): void {
+    if (index === this.ruleCount - 1) {
+      // eslint-disable-next-line no-plusplus
+      this.sheet.deleteRule(--this.ruleCount);
+    } else {
+      // Only allow replacements to prevent modification of existing indexes
+      this.freeIndexes.push(index);
+      const dummyRule = '#_{}';
+      this.sheet.insertRule(dummyRule, index);
+    }
+  }
+}
+
 export class DebuggableStyleInjector implements StyleInjector {
   private styleEl: HTMLStyleElement;
 
@@ -95,33 +122,6 @@ export class DebuggableStyleInjector implements StyleInjector {
       this.freeIndexes.push(index);
       const dummyRule = '';
       this.nodes[index].textContent = dummyRule;
-    }
-  }
-}
-
-export class OptimizedStyleInjector implements StyleInjector {
-  private sheet = getSheet();
-
-  private ruleCount = 0;
-
-  private freeIndexes: number[] = [];
-
-  insertRule(cssText: string): number {
-    const index = this.freeIndexes.length
-      ? this.freeIndexes.pop()
-      : this.ruleCount++; // eslint-disable-line no-plusplus
-    return this.sheet.insertRule(cssText, index);
-  }
-
-  deleteRule(index: number): void {
-    if (index === this.ruleCount - 1) {
-      // eslint-disable-next-line no-plusplus
-      this.sheet.deleteRule(--this.ruleCount);
-    } else {
-      // Only allow replacements to prevent modification of existing indexes
-      this.freeIndexes.push(index);
-      const dummyRule = '#_{}';
-      this.sheet.insertRule(dummyRule, index);
     }
   }
 }
