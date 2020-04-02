@@ -26,12 +26,12 @@ function getSheet(styleEl: HTMLStyleElement): CSSStyleSheet {
   return undefined as never;
 }
 
-export interface StyleSheet {
+export interface StyleInjector {
   insertRule(cssText: string): number;
   deleteRule(id: number): void;
 }
 
-export class VirtualStyleSheet implements StyleSheet {
+export class VirtualStyleInjector implements StyleInjector {
   cssTexts: string[] = [];
 
   insertRule(cssText: string): number {
@@ -43,7 +43,7 @@ export class VirtualStyleSheet implements StyleSheet {
   deleteRule(): void {}
 }
 
-export class DebuggableStyleSheet implements StyleSheet {
+export class DebuggableStyleInjector implements StyleInjector {
   private styleEl: HTMLStyleElement;
 
   private nodes: Text[] = [];
@@ -83,10 +83,10 @@ export class DebuggableStyleSheet implements StyleSheet {
   }
 }
 
-export class OptimizedStyleSheet implements StyleSheet {
+export class OptimizedStyleInjector implements StyleInjector {
   private styleEl: HTMLStyleElement;
 
-  private innerSheet: CSSStyleSheet;
+  private sheet: CSSStyleSheet;
 
   private ruleCount = 0;
 
@@ -98,25 +98,25 @@ export class OptimizedStyleSheet implements StyleSheet {
     // Avoid Edge bug where empty style elements don't create sheets
     this.styleEl.appendChild(document.createTextNode(''));
 
-    this.innerSheet = getSheet(this.styleEl);
+    this.sheet = getSheet(this.styleEl);
   }
 
   insertRule(cssText: string): number {
     const index = this.freeIndexes.length
       ? this.freeIndexes.pop()
       : this.ruleCount++; // eslint-disable-line no-plusplus
-    return this.innerSheet.insertRule(cssText, index);
+    return this.sheet.insertRule(cssText, index);
   }
 
   deleteRule(index: number): void {
     if (index === this.ruleCount - 1) {
       // eslint-disable-next-line no-plusplus
-      this.innerSheet.deleteRule(--this.ruleCount);
+      this.sheet.deleteRule(--this.ruleCount);
     } else {
       // Only allow replacements to prevent modification of existing indexes
       this.freeIndexes.push(index);
       const dummyRule = '#_{}';
-      this.innerSheet.insertRule(dummyRule, index);
+      this.sheet.insertRule(dummyRule, index);
     }
   }
 }

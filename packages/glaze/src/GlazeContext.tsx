@@ -4,11 +4,11 @@ import { TreatProvider } from 'react-treat';
 
 import { canUseDOM, isDev } from './env';
 import {
-  DebuggableStyleSheet,
-  OptimizedStyleSheet,
-  StyleSheet,
-  VirtualStyleSheet,
-} from './StyleSheet';
+  DebuggableStyleInjector,
+  OptimizedStyleInjector,
+  StyleInjector,
+  VirtualStyleInjector,
+} from './StyleInjector';
 import { RuntimeTheme } from './theme';
 
 export const GlazeContext = React.createContext<{
@@ -30,11 +30,11 @@ export function ThemeProvider({
   const usageCountsByClassName = useRef(new Map<string, number>()).current;
 
   // eslint-disable-next-line no-nested-ternary
-  const styleSheet: StyleSheet = canUseDOM
+  const styleInjector: StyleInjector = canUseDOM
     ? isDev
-      ? new DebuggableStyleSheet()
-      : new OptimizedStyleSheet()
-    : new VirtualStyleSheet();
+      ? new DebuggableStyleInjector()
+      : new OptimizedStyleInjector()
+    : new VirtualStyleInjector();
 
   // TODO: Try augmenting server-rendered dynamic styles or rehydrate them
 
@@ -58,7 +58,7 @@ export function ThemeProvider({
             if (!usageCount) {
               ruleIndexesByClassName.set(
                 className,
-                styleSheet.insertRule(`.${className}{${cssText()}}`),
+                styleInjector.insertRule(`.${className}{${cssText()}}`),
               );
             }
             usageCountsByClassName.set(className, usageCount + 1);
@@ -76,7 +76,7 @@ export function ThemeProvider({
             } else {
               usageCountsByClassName.delete(className);
               // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-              styleSheet.deleteRule(ruleIndexesByClassName.get(className)!);
+              styleInjector.deleteRule(ruleIndexesByClassName.get(className)!);
               ruleIndexesByClassName.delete(className);
             }
           },
