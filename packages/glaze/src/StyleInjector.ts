@@ -28,7 +28,7 @@ function getSheet(styleEl: HTMLStyleElement): CSSStyleSheet {
 
 export interface StyleInjector {
   insertRule(cssText: string): number;
-  deleteRule(id: number): void;
+  deleteRule(index: number): void;
 }
 
 export class VirtualStyleInjector implements StyleInjector {
