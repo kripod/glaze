@@ -1,16 +1,11 @@
-import hash from '@emotion/hash';
-import React, { useContext, useRef } from 'react';
+import React, { useContext } from 'react';
 import { TreatProvider } from 'react-treat';
 
-import { isDev } from './env';
-import { StyleInjectorContext } from './StyleInjectorContext';
 import { RuntimeTheme } from './theme';
 
-export const GlazeContext = React.createContext<{
-  theme: RuntimeTheme;
-  mountStyle: (identName: string, cssText: () => string) => string;
-  unmountStyle: (usageCount: number, className: string) => void;
-}>(undefined as never);
+export const GlazeContext = React.createContext<RuntimeTheme>(
+  undefined as never,
+);
 
 export interface ThemeProviderProps {
   theme: RuntimeTheme;
@@ -21,11 +16,6 @@ export function ThemeProvider({
   theme,
   children,
 }: ThemeProviderProps): JSX.Element {
-  const ruleIndexesByClassName = useRef(new Map<string, number>()).current;
-  const usageCountsByClassName = useRef(new Map<string, number>()).current;
-
-  const styleInjector = useContext(StyleInjectorContext);
-
   // TODO: Try augmenting server-rendered dynamic styles or rehydrate them
 
   return (
@@ -33,51 +23,11 @@ export function ThemeProvider({
       // Show a clear error message during runtime, even if `theme` is nullish
       theme={theme?.ref}
     >
-      <GlazeContext.Provider
-        value={{
-          theme,
-
-          mountStyle(identName, cssText): string {
-            // TODO: Use same hashing algorithm during static CSS generation
-            const className = isDev
-              ? `DYNAMIC_${identName}`
-              : `d_${hash(identName)}`;
-
-            const usageCount = usageCountsByClassName.get(className) || 0;
-            // TODO: Improve SSR capability
-            if (!usageCount) {
-              ruleIndexesByClassName.set(
-                className,
-                styleInjector.addRule(`.${className}{${cssText()}}`),
-              );
-            }
-            usageCountsByClassName.set(className, usageCount + 1);
-
-            return className;
-          },
-
-          unmountStyle(usageCount, className): void {
-            const remainingInstances =
-              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-              usageCountsByClassName.get(className)! - usageCount;
-
-            if (remainingInstances) {
-              usageCountsByClassName.set(className, remainingInstances);
-            } else {
-              usageCountsByClassName.delete(className);
-              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-              styleInjector.nullifyRule(ruleIndexesByClassName.get(className)!);
-              ruleIndexesByClassName.delete(className);
-            }
-          },
-        }}
-      >
-        {children}
-      </GlazeContext.Provider>
+      <GlazeContext.Provider value={theme}>{children}</GlazeContext.Provider>
     </TreatProvider>
   );
 }
 
 export function useTheme(): RuntimeTheme {
-  return useContext(GlazeContext).theme;
+  return useContext(GlazeContext);
 }

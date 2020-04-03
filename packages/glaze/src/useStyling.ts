@@ -1,14 +1,21 @@
 /* Prefer performance over elegance, as this code is critical for the runtime */
 
+import hash from '@emotion/hash';
 import { CSSProperties, useContext, useEffect, useRef } from 'react';
 import { useStyles } from 'react-treat';
 import { Style } from 'treat';
 
-import { GlazeContext } from './GlazeContext';
+import { isDev } from './env';
+import { useTheme } from './GlazeContext';
+import { StyleInjectorContext } from './StyleInjectorContext';
 import styleRefs from './useStyling.treat';
 
 function kebabCaseReplacer(match: string): string {
   return `-${match.toLowerCase()}`;
+}
+
+function getClassName(identName: string): string {
+  return isDev ? `DYNAMIC_${identName}` : `d_${hash(identName)}`;
 }
 
 export type ThemedStyle = Style & {
@@ -18,13 +25,17 @@ export type ThemedStyle = Style & {
 
 export function useStyling(): (themedStyle: ThemedStyle) => string {
   const staticClassNames = useStyles(styleRefs);
-  const { theme, mountStyle, unmountStyle } = useContext(GlazeContext);
-  const ownUsageCountByClassName = useRef(new Map<string, number>()).current;
+  const theme = useTheme();
+  const { ruleManager } = useContext(StyleInjectorContext);
+  const ownRuleUsageCountsByClassName = useRef(new Map<string, number>())
+    .current;
 
   // Remove dynamic styles which are not used anymore when unmounting
   useEffect(
     () => (): void => {
-      ownUsageCountByClassName.forEach(unmountStyle);
+      ownRuleUsageCountsByClassName.forEach((usageCount, className) =>
+        ruleManager.decreaseUsage(className, usageCount),
+      );
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
@@ -48,18 +59,22 @@ export function useStyling(): (themedStyle: ThemedStyle) => string {
           // Attach a class dynamically if needed
           if (!appendedClassName) {
             // TODO: Use same hashing algorithm during static CSS generation
-            appendedClassName = mountStyle(
-              identName,
+            appendedClassName = getClassName(identName);
+            ruleManager.increaseUsage(
+              appendedClassName,
               () =>
-                // Convert CSS property to kebab-case and normalize numeric value
-                `${key.replace(/[A-Z]/g, kebabCaseReplacer)}:${
-                  typeof value !== 'number' ? value : `${value}px`
-                }`,
+                `.${appendedClassName}{${
+                  // TODO: Abstract this logic away to a utility function
+                  // Convert CSS property to kebab-case and normalize numeric value
+                  `${key.replace(/[A-Z]/g, kebabCaseReplacer)}:${
+                    typeof value !== 'number' ? value : `${value}px`
+                  }`
+                }}`,
             );
 
-            ownUsageCountByClassName.set(
+            ownRuleUsageCountsByClassName.set(
               appendedClassName,
-              (ownUsageCountByClassName.get(appendedClassName) || 0) + 1,
+              (ownRuleUsageCountsByClassName.get(appendedClassName) || 0) + 1,
             );
           }
 

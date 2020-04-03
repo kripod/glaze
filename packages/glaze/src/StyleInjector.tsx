@@ -8,6 +8,45 @@ import React from 'react';
 
 const MAX_RULE_COUNT = 0xffff;
 
+class RuleManager {
+  private injector: StyleInjector;
+
+  private ruleIndexesByClassName = new Map<string, number>();
+
+  private usageCountsByClassName = new Map<string, number>();
+
+  constructor(injector: StyleInjector) {
+    this.injector = injector;
+  }
+
+  increaseUsage(className: string, cssText: () => string): void {
+    const prevUsageCount = this.usageCountsByClassName.get(className) || 0;
+    this.usageCountsByClassName.set(className, prevUsageCount + 1);
+
+    if (!prevUsageCount) {
+      this.ruleIndexesByClassName.set(
+        className,
+        this.injector.addRule(cssText()),
+      );
+    }
+  }
+
+  decreaseUsage(className: string, byAmount: number): void {
+    const nextUsageCount =
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      this.usageCountsByClassName.get(className)! - byAmount;
+
+    if (nextUsageCount) {
+      this.usageCountsByClassName.set(className, nextUsageCount);
+    } else {
+      this.usageCountsByClassName.delete(className);
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      this.injector.nullifyRule(this.ruleIndexesByClassName.get(className)!);
+      this.ruleIndexesByClassName.delete(className);
+    }
+  }
+}
+
 function createAndMountStyleElement(): HTMLStyleElement {
   const el = document.createElement('style');
   el.dataset.glaze = '';
@@ -33,11 +72,15 @@ function getSheet(): CSSStyleSheet {
 }
 
 export interface StyleInjector {
+  ruleManager: RuleManager;
+
   addRule(cssText: string): number;
   nullifyRule(index: number): void;
 }
 
 export class VirtualStyleInjector implements StyleInjector {
+  ruleManager: RuleManager = new RuleManager(this);
+
   private cssTexts: string[] = [];
 
   getStyleElement(): JSX.Element {
@@ -60,6 +103,8 @@ export class VirtualStyleInjector implements StyleInjector {
 }
 
 export class OptimizedStyleInjector implements StyleInjector {
+  ruleManager: RuleManager = new RuleManager(this);
+
   private sheet = getSheet();
 
   private ruleCount = 0;
@@ -94,6 +139,8 @@ export class OptimizedStyleInjector implements StyleInjector {
 }
 
 export class DebuggableStyleInjector implements StyleInjector {
+  ruleManager: RuleManager = new RuleManager(this);
+
   private styleEl: HTMLStyleElement;
 
   private nodes: Text[] = [];
