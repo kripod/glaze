@@ -15,15 +15,20 @@ class RuleManager {
 
   private usageCountsByClassName = new Map<string, number>();
 
-  constructor(injector: StyleInjector) {
+  constructor(
+    injector: StyleInjector,
+    initialRuleIndexesByClassName: Map<string, number>,
+  ) {
     this.injector = injector;
+    this.ruleIndexesByClassName = initialRuleIndexesByClassName;
   }
 
   increaseUsage(className: string, cssText: () => string): void {
     const prevUsageCount = this.usageCountsByClassName.get(className) || 0;
     this.usageCountsByClassName.set(className, prevUsageCount + 1);
 
-    if (!prevUsageCount) {
+    // Append new rule only if it wasn't available in the server-rendered code
+    if (!prevUsageCount && !this.ruleIndexesByClassName.has(className)) {
       this.ruleIndexesByClassName.set(
         className,
         this.injector.addRule(cssText()),
@@ -55,7 +60,7 @@ function createAndMountStyleElement(): HTMLStyleElement {
 
 function getSheet(): CSSStyleSheet {
   // Hydrate existing style node if available
-  for (let i = 0, l = document.styleSheets.length; i < l; i += 1) {
+  for (let i = 0, { length } = document.styleSheets; i < length; i += 1) {
     const styleSheet = document.styleSheets[i];
     if ((styleSheet.ownerNode as HTMLElement).dataset.glaze === '') {
       return styleSheet as CSSStyleSheet;
@@ -71,6 +76,22 @@ function getSheet(): CSSStyleSheet {
   return (styleEl.sheet as CSSStyleSheet | undefined) || getSheet();
 }
 
+function getInitialRuleIndexes(rules: CSSRuleList): Map<string, number> {
+  const ruleIndexesByClassName = new Map<string, number>();
+
+  for (let i = 0, { length } = rules; i < length; i += 1) {
+    const rule = rules[i];
+    if (rule.type === CSSRule.STYLE_RULE) {
+      // Remove leading '.' from class selector
+      const className = (rule as CSSStyleRule).selectorText.slice(1);
+      ruleIndexesByClassName.set(className, i);
+    }
+    // TODO: Add support for `CSSMediaRule`
+  }
+
+  return ruleIndexesByClassName;
+}
+
 export interface StyleInjector {
   ruleManager: RuleManager;
 
@@ -79,7 +100,7 @@ export interface StyleInjector {
 }
 
 export class VirtualStyleInjector implements StyleInjector {
-  ruleManager: RuleManager = new RuleManager(this);
+  ruleManager: RuleManager = new RuleManager(this, new Map());
 
   private cssTexts: string[] = [];
 
@@ -103,13 +124,16 @@ export class VirtualStyleInjector implements StyleInjector {
 }
 
 export class OptimizedStyleInjector implements StyleInjector {
-  ruleManager: RuleManager = new RuleManager(this);
-
   private sheet = getSheet();
 
   private ruleCount = 0;
 
   private freeIndexes: number[] = [];
+
+  ruleManager: RuleManager = new RuleManager(
+    this,
+    getInitialRuleIndexes(this.sheet.rules), // Hydrate server-rendered rules
+  );
 
   addRule(cssText: string): number {
     if (this.freeIndexes.length) {
@@ -139,7 +163,7 @@ export class OptimizedStyleInjector implements StyleInjector {
 }
 
 export class DebuggableStyleInjector implements StyleInjector {
-  ruleManager: RuleManager = new RuleManager(this);
+  ruleManager: RuleManager = new RuleManager(this, new Map());
 
   private styleEl: HTMLStyleElement;
 
