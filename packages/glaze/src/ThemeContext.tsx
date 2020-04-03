@@ -3,9 +3,7 @@ import { TreatProvider } from 'react-treat';
 
 import { RuntimeTheme } from './theme';
 
-export const GlazeContext = React.createContext<RuntimeTheme>(
-  undefined as never,
-);
+const ThemeContext = React.createContext<RuntimeTheme>(undefined as never);
 
 export interface ThemeProviderProps {
   theme: RuntimeTheme;
@@ -23,11 +21,11 @@ export function ThemeProvider({
       // Show a clear error message during runtime, even if `theme` is nullish
       theme={theme?.ref}
     >
-      <GlazeContext.Provider value={theme}>{children}</GlazeContext.Provider>
+      <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>
     </TreatProvider>
   );
 }
 
 export function useTheme(): RuntimeTheme {
-  return useContext(GlazeContext);
+  return useContext(ThemeContext);
 }

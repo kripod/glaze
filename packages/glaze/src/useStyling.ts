@@ -6,8 +6,8 @@ import { useStyles } from 'react-treat';
 import { Style } from 'treat';
 
 import { isDev } from './env';
-import { useTheme } from './GlazeContext';
 import { StyleInjectorContext } from './StyleInjectorContext';
+import { useTheme } from './ThemeContext';
 import styleRefs from './useStyling.treat';
 
 function kebabCaseReplacer(match: string): string {
