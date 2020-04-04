@@ -7,6 +7,7 @@ Based on:
 import React from 'react';
 
 import { canUseDOM } from './env';
+import { warnOnce } from './logger';
 
 const MAX_RULE_COUNT = 0xffff;
 
@@ -108,11 +109,9 @@ export class NullStyleInjector implements StyleInjector {
   addRule(): number {
     // TODO: Add instructions for resolving the situation
     if (canUseDOM) {
-      // eslint-disable-next-line no-console
-      console.warn('Client-side rendering of dynamic styles is not set up');
+      warnOnce('Client-side rendering of dynamic styles is not set up');
     } else {
-      // eslint-disable-next-line no-console
-      console.warn('Server-side rendering of dynamic styles is not set up');
+      warnOnce('Server-side rendering of dynamic styles is not set up');
     }
 
     return 0;
@@ -207,8 +206,7 @@ export class DebuggableStyleInjector implements StyleInjector {
     const index = this.nodes.length;
 
     if (index === MAX_RULE_COUNT) {
-      // eslint-disable-next-line no-console
-      console.warn(
+      warnOnce(
         'An excessive amount of styling rules have been injected at runtime. Consider using inline styles or CSS variables instead.',
       );
     }
