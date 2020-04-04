@@ -6,54 +6,14 @@ Based on:
 
 import React from 'react';
 
-import { canUseDOM, isDev } from './env';
 import { warnOnce } from './logger';
+import {
+  NullRuleManager,
+  OptimizedRuleManager,
+  RuleManager,
+} from './RuleManager';
 
 const MAX_RULE_COUNT = 0xffff;
-
-class RuleManager {
-  private injector: StyleInjector;
-
-  private ruleIndexesByClassName = new Map<string, number>();
-
-  private usageCountsByClassName = new Map<string, number>();
-
-  constructor(
-    injector: StyleInjector,
-    initialRuleIndexesByClassName: Map<string, number>,
-  ) {
-    this.injector = injector;
-    this.ruleIndexesByClassName = initialRuleIndexesByClassName;
-  }
-
-  increaseUsage(className: string, cssText: () => string): void {
-    const prevUsageCount = this.usageCountsByClassName.get(className) || 0;
-    this.usageCountsByClassName.set(className, prevUsageCount + 1);
-
-    // Append new rule only if it wasn't available in the server-rendered code
-    if (!prevUsageCount && !this.ruleIndexesByClassName.has(className)) {
-      this.ruleIndexesByClassName.set(
-        className,
-        this.injector.addRule(cssText()),
-      );
-    }
-  }
-
-  decreaseUsage(className: string, byAmount: number): void {
-    const nextUsageCount =
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      this.usageCountsByClassName.get(className)! - byAmount;
-
-    if (nextUsageCount) {
-      this.usageCountsByClassName.set(className, nextUsageCount);
-    } else {
-      this.usageCountsByClassName.delete(className);
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      this.injector.nullifyRule(this.ruleIndexesByClassName.get(className)!);
-      this.ruleIndexesByClassName.delete(className);
-    }
-  }
-}
 
 function createAndMountStyleElement(): HTMLStyleElement {
   const el = document.createElement('style');
@@ -103,19 +63,10 @@ export interface StyleInjector {
 }
 
 export class NullStyleInjector implements StyleInjector {
-  ruleManager: RuleManager = new RuleManager(this, new Map());
+  ruleManager: RuleManager = new NullRuleManager();
 
   // eslint-disable-next-line class-methods-use-this
   addRule(): number {
-    if (isDev) {
-      // TODO: Add instructions for resolving the situation
-      if (canUseDOM) {
-        warnOnce('Client-side rendering of dynamic styles is not set up');
-      } else {
-        warnOnce('Server-side rendering of dynamic styles is not set up');
-      }
-    }
-
     return 0;
   }
 
@@ -124,7 +75,7 @@ export class NullStyleInjector implements StyleInjector {
 }
 
 export class VirtualStyleInjector implements StyleInjector {
-  ruleManager: RuleManager = new RuleManager(this, new Map());
+  ruleManager: RuleManager = new OptimizedRuleManager(this, new Map());
 
   private cssTexts: string[] = [];
 
@@ -154,7 +105,7 @@ export class OptimizedStyleInjector implements StyleInjector {
 
   private freeIndexes: number[] = [];
 
-  ruleManager: RuleManager = new RuleManager(
+  ruleManager: RuleManager = new OptimizedRuleManager(
     this,
     getInitialRuleIndexes(this.sheet.rules), // Hydrate server-rendered rules
   );
@@ -187,7 +138,7 @@ export class OptimizedStyleInjector implements StyleInjector {
 }
 
 export class DebuggableStyleInjector implements StyleInjector {
-  ruleManager: RuleManager = new RuleManager(this, new Map());
+  ruleManager: RuleManager = new OptimizedRuleManager(this, new Map());
 
   private styleEl: HTMLStyleElement;
 
