@@ -6,19 +6,14 @@ import { wrapRootElement as wrapClientRootElement } from './gatsby-browser';
 /** @type {Map<string, VirtualStyleInjector>} */
 const injectorsByPathname = new Map();
 
-/**
- * @param {{
- *   element: React.ReactNode;
- *   pathname: string;
- * }} apiCallbackContext
- */
-export const wrapRootElement = ({ element, pathname }) => {
+/** @type {import('gatsby').GatsbyBrowser["wrapRootElement"]} */
+export const wrapRootElement = (apiCallbackContext, pluginOptions) => {
   const injector = new VirtualStyleInjector();
-  injectorsByPathname.set(pathname, injector);
+  injectorsByPathname.set(apiCallbackContext.pathname, injector);
 
   return (
     <StyleInjectorProvider injector={injector}>
-      {wrapClientRootElement({ element })}
+      {wrapClientRootElement(apiCallbackContext, pluginOptions)}
     </StyleInjectorProvider>
   );
 };
