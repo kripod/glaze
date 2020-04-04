@@ -1,6 +1,9 @@
 module.exports = {
   plugins: [
-    'gatsby-plugin-glaze',
+    {
+      resolve: 'gatsby-plugin-glaze',
+      options: { disableStyleInjector: true },
+    },
     'gatsby-plugin-treat',
     'gatsby-plugin-typescript',
   ],

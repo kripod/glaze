@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { canUseDOM, isDev } from './env';
+import { isDev } from './env';
 import {
   DebuggableStyleInjector,
   NullStyleInjector,
@@ -9,22 +9,19 @@ import {
 } from './StyleInjector';
 
 export const StyleInjectorContext = React.createContext<StyleInjector>(
-  // eslint-disable-next-line no-nested-ternary
-  canUseDOM
-    ? isDev
-      ? new DebuggableStyleInjector()
-      : new OptimizedStyleInjector()
-    : new NullStyleInjector(),
+  new NullStyleInjector(),
 );
 
 export interface StyleInjectorProviderProps {
   children: React.ReactNode;
-  injector: StyleInjector;
+  injector?: StyleInjector;
 }
 
 export function StyleInjectorProvider({
   children,
-  injector,
+  injector = isDev
+    ? new DebuggableStyleInjector()
+    : new OptimizedStyleInjector(),
 }: StyleInjectorProviderProps): JSX.Element {
   return (
     <StyleInjectorContext.Provider value={injector}>

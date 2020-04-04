@@ -1,9 +1,18 @@
-import { ThemeProvider } from 'glaze';
+import { StyleInjectorProvider, ThemeProvider } from 'glaze';
 import React from 'react';
 
 import theme from './src/theme.treat';
 
-/** @type {NonNullable<import('gatsby').GatsbyBrowser["wrapRootElement"]>} */
-export const wrapRootElement = ({ element }) => {
-  return <ThemeProvider theme={theme}>{element}</ThemeProvider>;
+/** @type {import('gatsby').GatsbyBrowser["wrapRootElement"]} */
+export const wrapRootElement = ({ element }, { disableStyleInjector }) => {
+  const themedElement = <ThemeProvider theme={theme}>{element}</ThemeProvider>;
+
+  if (disableStyleInjector) return themedElement;
+
+  return (
+    // TODO: Add plugin option to disable dynamic style injection
+    <StyleInjectorProvider>
+      <ThemeProvider theme={theme}>{themedElement}</ThemeProvider>
+    </StyleInjectorProvider>
+  );
 };

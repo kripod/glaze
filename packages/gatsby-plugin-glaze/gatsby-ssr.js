@@ -1,19 +1,30 @@
-import { StyleInjectorProvider, VirtualStyleInjector } from 'glaze';
+import {
+  StyleInjectorProvider,
+  ThemeProvider,
+  VirtualStyleInjector,
+} from 'glaze';
 import React from 'react';
 
-import { wrapRootElement as wrapClientRootElement } from './gatsby-browser';
+import theme from './src/theme.treat';
 
 /** @type {Map<string, VirtualStyleInjector>} */
 const injectorsByPathname = new Map();
 
 /** @type {import('gatsby').GatsbyBrowser["wrapRootElement"]} */
-export const wrapRootElement = (apiCallbackContext, pluginOptions) => {
+export const wrapRootElement = (
+  { element, pathname },
+  { disableStyleInjector },
+) => {
+  const themedElement = <ThemeProvider theme={theme}>{element}</ThemeProvider>;
+
+  if (disableStyleInjector) return themedElement;
+
   const injector = new VirtualStyleInjector();
-  injectorsByPathname.set(apiCallbackContext.pathname, injector);
+  injectorsByPathname.set(pathname, injector);
 
   return (
     <StyleInjectorProvider injector={injector}>
-      {wrapClientRootElement(apiCallbackContext, pluginOptions)}
+      {themedElement}
     </StyleInjectorProvider>
   );
 };
