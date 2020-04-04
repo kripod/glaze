@@ -6,6 +6,8 @@ Based on:
 
 import React from 'react';
 
+import { canUseDOM } from './env';
+
 const MAX_RULE_COUNT = 0xffff;
 
 class RuleManager {
@@ -97,6 +99,27 @@ export interface StyleInjector {
 
   addRule(cssText: string): number;
   nullifyRule(index: number): void;
+}
+
+export class NullStyleInjector implements StyleInjector {
+  ruleManager: RuleManager = new RuleManager(this, new Map());
+
+  // eslint-disable-next-line class-methods-use-this
+  addRule(): number {
+    // TODO: Add instructions for resolving the situation
+    if (canUseDOM) {
+      // eslint-disable-next-line no-console
+      console.warn('Client-side rendering of dynamic styles is not set up');
+    } else {
+      // eslint-disable-next-line no-console
+      console.warn('Server-side rendering of dynamic styles is not set up');
+    }
+
+    return 0;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  nullifyRule(): void {}
 }
 
 export class VirtualStyleInjector implements StyleInjector {

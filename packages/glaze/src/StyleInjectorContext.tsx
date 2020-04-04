@@ -3,9 +3,9 @@ import React from 'react';
 import { canUseDOM, isDev } from './env';
 import {
   DebuggableStyleInjector,
+  NullStyleInjector,
   OptimizedStyleInjector,
   StyleInjector,
-  VirtualStyleInjector,
 } from './StyleInjector';
 
 export const StyleInjectorContext = React.createContext<StyleInjector>(
@@ -14,7 +14,7 @@ export const StyleInjectorContext = React.createContext<StyleInjector>(
     ? isDev
       ? new DebuggableStyleInjector()
       : new OptimizedStyleInjector()
-    : new VirtualStyleInjector(), // TODO: Create a special warning class
+    : new NullStyleInjector(),
 );
 
 export interface StyleInjectorProviderProps {
