@@ -108,7 +108,9 @@ Baking the benefits outlined above into a single package, glaze was born.
 
 ## 🤔 How it works
 
-The `sx` function maps themed values to statically generated class names. If that fails, an inline style gets applied as a fallback.
+- The `sx` function maps themed values to statically generated class names
+  - If that fails, the style gets injected dynamically through the CSSOM
+- Dynamic styles which are not in use by any component get removed
 
 ### Rule handling
 
