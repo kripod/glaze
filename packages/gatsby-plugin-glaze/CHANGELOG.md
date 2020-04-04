@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/kripod/glaze/compare/gatsby-plugin-glaze@0.1.6...gatsby-plugin-glaze@0.2.0) (2020-04-04)
+
+
+### Features
+
+* allow disabling dynamic style injection ([adca16f](https://github.com/kripod/glaze/commit/adca16fba065e814a43f7bd755d968e550e458dd))
+
+
+
+
+
 ## [0.1.6](https://github.com/kripod/glaze/compare/gatsby-plugin-glaze@0.1.5...gatsby-plugin-glaze@0.1.6) (2020-03-27)
 
 **Note:** Version bump only for package gatsby-plugin-glaze
