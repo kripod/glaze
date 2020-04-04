@@ -6,7 +6,7 @@ Based on:
 
 import React from 'react';
 
-import { canUseDOM } from './env';
+import { canUseDOM, isDev } from './env';
 import { warnOnce } from './logger';
 
 const MAX_RULE_COUNT = 0xffff;
@@ -107,11 +107,13 @@ export class NullStyleInjector implements StyleInjector {
 
   // eslint-disable-next-line class-methods-use-this
   addRule(): number {
-    // TODO: Add instructions for resolving the situation
-    if (canUseDOM) {
-      warnOnce('Client-side rendering of dynamic styles is not set up');
-    } else {
-      warnOnce('Server-side rendering of dynamic styles is not set up');
+    if (isDev) {
+      // TODO: Add instructions for resolving the situation
+      if (canUseDOM) {
+        warnOnce('Client-side rendering of dynamic styles is not set up');
+      } else {
+        warnOnce('Server-side rendering of dynamic styles is not set up');
+      }
     }
 
     return 0;
