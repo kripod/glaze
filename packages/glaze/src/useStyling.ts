@@ -27,15 +27,17 @@ export function useStyling(): (themedStyle: ThemedStyle) => string {
   const staticClassNames = useStyles(styleRefs);
   const theme = useTheme();
   const { ruleManager } = useContext(StyleInjectorContext);
-  const ownRuleUsageCountsByClassName = useRef(new Map<string, number>())
+  const ownRuleUsageCountsByClassName = useRef<{ [key: string]: number }>({})
     .current;
 
   // Remove dynamic styles which are not used anymore when unmounting
   useEffect(
     () => (): void => {
-      ownRuleUsageCountsByClassName.forEach((usageCount, className) =>
-        ruleManager.decreaseUsage(className, usageCount),
-      );
+      // eslint-disable-next-line guard-for-in, no-restricted-syntax
+      for (const className in ownRuleUsageCountsByClassName) {
+        const usageCount = ownRuleUsageCountsByClassName[className];
+        ruleManager.decreaseUsage(className, usageCount);
+      }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
@@ -72,10 +74,9 @@ export function useStyling(): (themedStyle: ThemedStyle) => string {
                 }}`,
             );
 
-            ownRuleUsageCountsByClassName.set(
-              appendedClassName,
-              (ownRuleUsageCountsByClassName.get(appendedClassName) || 0) + 1,
-            );
+            ownRuleUsageCountsByClassName[appendedClassName] =
+              // eslint-disable-next-line no-bitwise
+              (ownRuleUsageCountsByClassName[appendedClassName] | 0) + 1;
           }
 
           className += ` ${appendedClassName}`;
