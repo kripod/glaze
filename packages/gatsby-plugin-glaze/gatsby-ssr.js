@@ -11,20 +11,13 @@ import theme from './src/theme.treat';
 const injectorsByPathname = new Map();
 
 /** @type {import('gatsby').GatsbyBrowser["wrapRootElement"]} */
-export const wrapRootElement = (
-  { element, pathname },
-  { disableStyleInjection },
-) => {
-  const themedElement = <ThemeProvider theme={theme}>{element}</ThemeProvider>;
-
-  if (disableStyleInjection) return themedElement;
-
+export const wrapRootElement = ({ element, pathname }) => {
   const injector = new VirtualStyleInjector();
   injectorsByPathname.set(pathname, injector);
 
   return (
     <StyleInjectorProvider injector={injector}>
-      {themedElement}
+      <ThemeProvider theme={theme}>{element}</ThemeProvider>
     </StyleInjectorProvider>
   );
 };
