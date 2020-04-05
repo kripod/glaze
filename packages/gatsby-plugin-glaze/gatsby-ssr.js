@@ -13,11 +13,11 @@ const injectorsByPathname = new Map();
 /** @type {import('gatsby').GatsbyBrowser["wrapRootElement"]} */
 export const wrapRootElement = (
   { element, pathname },
-  { disableStyleInjector },
+  { disableStyleInjection },
 ) => {
   const themedElement = <ThemeProvider theme={theme}>{element}</ThemeProvider>;
 
-  if (disableStyleInjector) return themedElement;
+  if (disableStyleInjection) return themedElement;
 
   const injector = new VirtualStyleInjector();
   injectorsByPathname.set(pathname, injector);

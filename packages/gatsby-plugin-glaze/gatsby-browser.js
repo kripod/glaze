@@ -4,13 +4,12 @@ import React from 'react';
 import theme from './src/theme.treat';
 
 /** @type {import('gatsby').GatsbyBrowser["wrapRootElement"]} */
-export const wrapRootElement = ({ element }, { disableStyleInjector }) => {
+export const wrapRootElement = ({ element }, { disableStyleInjection }) => {
   const themedElement = <ThemeProvider theme={theme}>{element}</ThemeProvider>;
 
-  if (disableStyleInjector) return themedElement;
+  if (disableStyleInjection) return themedElement;
 
   return (
-    // TODO: Add plugin option to disable dynamic style injection
     <StyleInjectorProvider>
       <ThemeProvider theme={theme}>{themedElement}</ThemeProvider>
     </StyleInjectorProvider>
