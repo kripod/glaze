@@ -17,7 +17,7 @@
   "author": "Kristóf Poduszló <kripod@protonmail.com>",
   "peerDependencies": {
     "gatsby": "^2",
-    "glaze": ">=0.1",
+    "glaze": ">=0.3",
     "react": "*"
   }
 }
