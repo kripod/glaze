@@ -1,6 +1,6 @@
 {
   "name": "glaze-example-nextjs",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "private": true,
   "scripts": {
     "build": "next build",
@@ -12,7 +12,7 @@
     "@types/react-dom": "^16.9.6",
     "@types/webpack": "*",
     "babel-plugin-treat": "^1.1.0",
-    "glaze": "^0.3.0",
+    "glaze": "^0.3.1",
     "next": "^9.3.4",
     "next-transpile-modules": "^3.2.0",
     "react": "^16.13.1",

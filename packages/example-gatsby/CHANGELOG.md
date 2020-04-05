@@ -3,16 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [0.3.0](https://github.com/kripod/glaze/compare/glaze-example-gatsby@0.2.0...glaze-example-gatsby@0.3.0) (2020-04-04)
+## [0.3.1](https://github.com/kripod/glaze/compare/glaze-example-gatsby@0.3.0...glaze-example-gatsby@0.3.1) (2020-04-05)
 
+**Note:** Version bump only for package glaze-example-gatsby
+
+# [0.3.0](https://github.com/kripod/glaze/compare/glaze-example-gatsby@0.2.0...glaze-example-gatsby@0.3.0) (2020-04-04)
 
 ### Features
 
-* allow disabling dynamic style injection ([adca16f](https://github.com/kripod/glaze/commit/adca16fba065e814a43f7bd755d968e550e458dd))
-
-
-
-
+- allow disabling dynamic style injection ([adca16f](https://github.com/kripod/glaze/commit/adca16fba065e814a43f7bd755d968e550e458dd))
 
 ## 0.2.0 (2020-03-31)
 
