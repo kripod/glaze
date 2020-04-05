@@ -31,5 +31,26 @@ Applies glaze theming on Gatsby sites.
    });
    ```
 
+## ⚙️ Options
+
+Additional configuration can be specified using [Gatsby plugin options][]:
+
+```js
+module.exports = {
+  plugins: [
+    {
+      resolve: 'gatsby-plugin-glaze',
+      options: {
+        // Reduce client runtime size by omitting style generation on the fly
+        disableStyleInjection: true,
+      },
+    },
+    ,
+    'gatsby-plugin-treat',
+  ],
+};
+```
+
 [gatsby plugin for treat]: https://www.npmjs.com/package/gatsby-plugin-treat
 [example project]: https://github.com/kripod/glaze/tree/master/packages/example-gatsby
+[gatsby plugin options]: https://www.gatsbyjs.org/docs/configuring-usage-with-plugin-options/
