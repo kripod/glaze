@@ -1,11 +1,9 @@
 import { CSSProperties } from 'react';
 import { createTheme as createStaticTheme, ThemeRef } from 'treat';
 // eslint-disable-next-line import/no-unresolved
-import { Theme } from 'treat/theme';
+import { ThemeOrAny } from 'treat/theme';
 
 import { modularScale } from './scales';
-
-type ThemeOrFallback<T extends object> = keyof Theme extends never ? T : Theme;
 
 export interface ScaleTokens<T extends keyof CSSProperties> {
   [key: string]: NonNullable<CSSProperties[T]>;
@@ -17,7 +15,7 @@ export interface CommonTheme {
   aliases: {
     [key: string]:
       | keyof CSSProperties
-      | keyof ThemeOrFallback<CommonTheme>['shorthands'];
+      | Extract<keyof ThemeOrAny['shorthands'], string>;
   };
 }
 
@@ -43,12 +41,16 @@ export interface StaticTheme extends CommonTheme {
     zIndex?: ScaleTokens<'zIndex'>;
   };
   resolvers: {
-    [key in keyof CSSProperties]: keyof ThemeOrFallback<StaticTheme>['scales'];
+    [key in keyof CSSProperties]:
+      | keyof StaticTheme['scales']
+      | keyof ThemeOrAny['scales'];
   };
 }
 
+type ValidTheme = ThemeOrAny extends StaticTheme ? ThemeOrAny : never;
+
 export function createTheme(
-  tokens: ThemeOrFallback<StaticTheme>,
+  tokens: ValidTheme,
   localDebugName?: string,
 ): RuntimeTheme {
   const { breakpoints, shorthands, aliases } = tokens;
