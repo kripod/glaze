@@ -25,20 +25,20 @@ export interface RuntimeTheme extends CommonTheme {
 
 export interface StaticTheme extends CommonTheme {
   scales: {
-    spacing?: ScaleTokens<'margin'>;
-    size?: ScaleTokens<'width'>;
-    fontFamily?: ScaleTokens<'fontFamily'>;
-    fontSize?: ScaleTokens<'fontSize'>;
-    fontWeight?: ScaleTokens<'fontWeight'>;
-    lineHeight?: ScaleTokens<'lineHeight'>;
-    color?: ScaleTokens<'color'>;
-    letterSpacing?: ScaleTokens<'letterSpacing'>;
-    border?: ScaleTokens<'border'>;
-    borderWidth?: ScaleTokens<'borderWidth'>;
-    radius?: ScaleTokens<'borderRadius'>;
-    shadow?: ScaleTokens<'boxShadow'>;
-    opacity?: ScaleTokens<'opacity'>;
-    zIndex?: ScaleTokens<'zIndex'>;
+    spacing: ScaleTokens<'margin'>;
+    size: ScaleTokens<'width'>;
+    fontFamily: ScaleTokens<'fontFamily'>;
+    fontSize: ScaleTokens<'fontSize'>;
+    fontWeight: ScaleTokens<'fontWeight'>;
+    lineHeight: ScaleTokens<'lineHeight'>;
+    color: ScaleTokens<'color'>;
+    letterSpacing: ScaleTokens<'letterSpacing'>;
+    border: ScaleTokens<'border'>;
+    borderWidth: ScaleTokens<'borderWidth'>;
+    radius: ScaleTokens<'borderRadius'>;
+    shadow: ScaleTokens<'boxShadow'>;
+    opacity: ScaleTokens<'opacity'>;
+    zIndex: ScaleTokens<'zIndex'>;
   };
   resolvers: {
     [key in keyof CSSProperties]:
@@ -94,7 +94,9 @@ export const defaultTokens =
         auto: 'auto',
         '100%': '100%',
       },
+      fontFamily: {},
       fontSize: modularScale(1.333),
+      fontWeight: {},
       lineHeight: {
         1: 1,
         tight: 1.25,
@@ -103,9 +105,11 @@ export const defaultTokens =
         relaxed: 1.625,
         loose: 2,
       },
+      color: {},
       letterSpacing: {
         wide: '.025em',
       },
+      border: {},
       borderWidth: { 1: 1, 2: 2, 4: 4, 8: 8 },
       radius: {
         sm: '.125rem',
@@ -124,6 +128,8 @@ export const defaultTokens =
         inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
         outline: '0 0 0 3px rgba(66, 153, 225, 0.5)',
       },
+      opacity: {},
+      zIndex: {},
     },
 
     shorthands: {

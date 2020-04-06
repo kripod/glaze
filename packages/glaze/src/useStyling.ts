@@ -1,7 +1,7 @@
 /* Prefer performance over elegance, as this code is critical for the runtime */
 
 import hash from '@emotion/hash';
-import { CSSProperties, useContext, useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { useStyles } from 'react-treat';
 import { Style } from 'treat';
 
@@ -19,8 +19,13 @@ function getClassName(identName: string): string {
 }
 
 export type ThemedStyle = Style & {
-  // TODO: Add more precise styles for aliases and shorthands
-  [key: string]: CSSProperties[keyof CSSProperties];
+  // TODO: Autocomplete for themed values
+  /*
+    [key in keyof CSSProperties]: key extends keyof ThemeOrAny['resolvers']
+      ? ThemeOrAny['scales'][ThemeOrAny['resolvers'][key]] // CSSProperties[ThemeOrAny['resolvers'][key]]
+      : CSSProperties[key];
+    */
+  // TODO: Autocomplete for aliases and shorthands
 };
 
 export function useStyling(): (themedStyle: ThemedStyle) => string {
@@ -48,7 +53,8 @@ export function useStyling(): (themedStyle: ThemedStyle) => string {
 
     // eslint-disable-next-line guard-for-in, no-restricted-syntax
     for (const alias in themedStyle) {
-      const value = themedStyle[alias];
+      // TODO: Remove type assertion if possible
+      const value = themedStyle[alias as keyof ThemedStyle];
       const shorthand = theme.aliases[alias] || alias;
 
       // eslint-disable-next-line no-loop-func
