@@ -1,11 +1,14 @@
 import { createTheme, defaultTheme } from 'glaze';
 
-export default createTheme({
-  ...defaultTheme,
-  scales: {
-    ...defaultTheme.scales,
-    color: {
-      red: '#f8485e',
+export const tokens =
+  {
+    ...defaultTheme,
+    scales: {
+      ...defaultTheme.scales,
+      color: {
+        red: '#f8485e',
+      },
     },
-  },
-});
+  } as const;
+
+export default createTheme(tokens);
