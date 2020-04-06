@@ -1,9 +1,11 @@
 /* Prefer performance over elegance, as this code is critical for the runtime */
 
 import hash from '@emotion/hash';
-import { useContext, useEffect, useRef } from 'react';
+import { CSSProperties, useContext, useEffect, useRef } from 'react';
 import { useStyles } from 'react-treat';
 import { Style } from 'treat';
+// eslint-disable-next-line import/no-unresolved
+import { ThemeOrAny } from 'treat/theme';
 
 import { isDev } from './env';
 import { StyleInjectorContext } from './StyleInjectorContext';
@@ -18,15 +20,37 @@ function getClassName(identName: string): string {
   return isDev ? `DYNAMIC_${identName}` : `d_${hash(identName)}`;
 }
 
-export type ThemedStyle = Style & {
-  // TODO: Autocomplete for themed values
-  /*
-    [key in keyof CSSProperties]: key extends keyof ThemeOrAny['resolvers']
-      ? ThemeOrAny['scales'][ThemeOrAny['resolvers'][key]] // CSSProperties[ThemeOrAny['resolvers'][key]]
-      : CSSProperties[key];
-    */
-  // TODO: Autocomplete for aliases and shorthands
-};
+type ResolveShorthandToCSSPropertyKey<
+  T extends keyof ThemeOrAny['shorthands']
+> = ThemeOrAny['shorthands'][T][Extract<
+  keyof ThemeOrAny['shorthands'][T],
+  number
+>];
+
+type ResolveAliasToCSSPropertyKey<
+  T extends keyof ThemeOrAny['aliases']
+> = ThemeOrAny['aliases'][T] extends keyof ThemeOrAny['shorthands']
+  ? ResolveShorthandToCSSPropertyKey<ThemeOrAny['aliases'][T]>
+  : ThemeOrAny['aliases'][T];
+
+type ResolveToCSSPropertyKey<T> = T extends keyof ThemeOrAny['aliases']
+  ? ResolveAliasToCSSPropertyKey<T>
+  : T extends keyof ThemeOrAny['shorthands']
+  ? ResolveShorthandToCSSPropertyKey<T>
+  : T;
+
+export type ThemedStyle = Style &
+  {
+    // Autocomplete for themed values, aliases and shorthands
+    [key in
+      | keyof ThemeOrAny['resolvers']
+      | keyof ThemeOrAny['aliases']
+      | keyof ThemeOrAny['shorthands']]?:
+      | keyof ThemeOrAny['scales'][ThemeOrAny['resolvers'][ResolveToCSSPropertyKey<
+          key
+        >]]
+      | (CSSProperties[ResolveToCSSPropertyKey<key>] & {}); // TODO: Remove literal union hack, see https://github.com/microsoft/TypeScript/issues/29729
+  };
 
 export function useStyling(): (themedStyle: ThemedStyle) => string {
   const staticClassNames = useStyles(styleRefs);
