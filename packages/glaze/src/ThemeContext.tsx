@@ -14,8 +14,6 @@ export function ThemeProvider({
   theme,
   children,
 }: ThemeProviderProps): JSX.Element {
-  // TODO: Try augmenting server-rendered dynamic styles or rehydrate them
-
   return (
     <TreatProvider
       // Show a clear error message during runtime, even if `theme` is nullish
