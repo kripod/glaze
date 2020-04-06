@@ -47,10 +47,8 @@ export interface StaticTheme extends CommonTheme {
   };
 }
 
-type ValidTheme = ThemeOrAny extends StaticTheme ? ThemeOrAny : never;
-
 export function createTheme(
-  tokens: ValidTheme,
+  tokens: ThemeOrAny & StaticTheme,
   localDebugName?: string,
 ): RuntimeTheme {
   const { breakpoints, shorthands, aliases } = tokens;
