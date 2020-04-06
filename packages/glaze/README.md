@@ -51,14 +51,14 @@ Baking the benefits outlined above into a single package, glaze was born.
    ```js
    /* theme.treat.js */
 
-   import { createTheme, defaultTheme } from 'glaze';
+   import { createTheme, defaultTokens } from 'glaze';
 
    export default createTheme({
-     ...defaultTheme,
+     ...defaultTokens,
 
      // Customization
      scales: {
-       ...defaultTheme.scales,
+       ...defaultTokens.scales,
        color: {
          red: '#f8485e',
        },

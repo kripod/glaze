@@ -1,3 +1,3 @@
-import { createTheme, defaultTheme } from 'glaze';
+import { createTheme, defaultTokens } from 'glaze';
 
-export default createTheme(defaultTheme);
+export default createTheme(defaultTokens);

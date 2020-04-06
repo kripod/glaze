@@ -85,7 +85,7 @@ const spacing = {
   64: '16rem',
 };
 
-export const defaultTheme =
+export const defaultTokens =
   {
     breakpoints: [640, 768, 1024, 1280],
 

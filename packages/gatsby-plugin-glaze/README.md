@@ -23,10 +23,10 @@ Applies glaze theming on Gatsby sites.
    ```js
    /* src/gatsby-plugin-glaze/theme.treat.js */
 
-   import { createTheme, defaultTheme } from 'glaze';
+   import { createTheme, defaultTokens } from 'glaze';
 
    export default createTheme({
-     ...defaultTheme,
+     ...defaultTokens,
      // Customization...
    });
    ```

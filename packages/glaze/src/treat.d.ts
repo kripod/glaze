@@ -1,7 +1,7 @@
-import { defaultTheme } from './theme';
+import { defaultTokens } from './theme';
 
 declare module 'treat/theme' {
-  type DefaultTheme = typeof defaultTheme;
+  type Tokens = typeof defaultTokens;
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  export interface Theme extends DefaultTheme {}
+  export interface Theme extends Tokens {}
 }
