@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 const {
   getClientStyleLoader,
 } = require('next/dist/build/webpack/config/blocks/css/loaders/client');
