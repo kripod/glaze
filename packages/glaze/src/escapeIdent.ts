@@ -1,4 +1,4 @@
-export default function escapeIdent(identTail: string): string {
+export default function escapeIdent(ident: string): string {
   // TODO: Replace with `CSS.escape` when widely supported by browsers
-  return identTail.replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '\\$&');
+  return ident.replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '\\$&');
 }
