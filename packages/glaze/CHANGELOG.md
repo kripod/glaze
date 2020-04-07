@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/kripod/glaze/compare/glaze@0.3.1...glaze@0.4.0) (2020-04-07)
+
+
+### Bug Fixes
+
+* **typings:** error when theme is not given ([e0d2c29](https://github.com/kripod/glaze/commit/e0d2c295d61903b48c177c5790a2ed59514da67e))
+
+
+### Code Refactoring
+
+* **theme:** make specifying scales mandatory ([870d040](https://github.com/kripod/glaze/commit/870d0408acd450a4c15da0aa6c7c955b9677644d))
+* rename `defaultTheme` to `defaultTokens` ([6684dc5](https://github.com/kripod/glaze/commit/6684dc59d7bcd3918984ff118c0f218c0deba549))
+
+
+### Features
+
+* autocomplete for themed values and aliases ([4718cbd](https://github.com/kripod/glaze/commit/4718cbded9e2b980cc0d889090d16a5b6df21a93))
+
+
+### BREAKING CHANGES
+
+* **theme:** No action is required when extending `defaultTokens`. Otherwise, each scale must be
+specified, as seen in `StaticTheme`.
+* `defaultTheme` imports shall be rewritten to `defaultTokens`
+
+
+
+
+
 ## [0.3.1](https://github.com/kripod/glaze/compare/glaze@0.3.0...glaze@0.3.1) (2020-04-05)
 
 ### Performance Improvements
