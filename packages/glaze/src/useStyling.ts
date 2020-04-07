@@ -33,10 +33,12 @@ type ResolveAlias<T> = ResolveShorthand<
 export type ThemedStyle = Style &
   {
     // Autocomplete for themed values, aliases and shorthands
-    [key in
+    [key in Extract<
       | keyof ThemeOrAny['aliases']
       | keyof ThemeOrAny['shorthands']
-      | keyof ThemeOrAny['resolvers']]?:
+      | keyof ThemeOrAny['resolvers'],
+      string
+    >]?:
       | keyof ThemeOrAny['scales'][ThemeOrAny['resolvers'][ResolveAlias<key>]]
 
       // Allow non-themed CSS values
