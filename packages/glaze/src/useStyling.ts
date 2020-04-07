@@ -10,6 +10,7 @@ import { ThemeOrAny } from 'treat/theme';
 import { ValueOf } from 'type-fest';
 
 import { isDev } from './env';
+import escapeIdent from './escapeIdent';
 import { StyleInjectorContext } from './StyleInjectorContext';
 import { useTheme } from './ThemeContext';
 import styleRefs from './useStyling.treat';
@@ -89,7 +90,9 @@ export function useStyling(): (themedStyle: ThemedStyle) => string {
             ruleManager.increaseUsage(
               appendedClassName,
               () =>
-                `.${appendedClassName}{${
+                `.${
+                  isDev ? escapeIdent(appendedClassName) : appendedClassName
+                }{${
                   // TODO: Abstract this logic away to a utility function
                   // Convert CSS property to kebab-case and normalize numeric value
                   `${key.replace(/[A-Z]/g, kebabCaseReplacer)}:${
