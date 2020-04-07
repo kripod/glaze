@@ -20,7 +20,7 @@ function kebabCaseReplacer(match: string): string {
 }
 
 function getClassName(identName: string): string {
-  return isDev ? `DYNAMIC_${identName}` : `d_${hash(identName)}`;
+  return isDev ? `DYNAMIC_${identName}` : `g${hash(identName)}`;
 }
 
 type ResolveShorthand<T> = T extends keyof ThemeOrAny['shorthands']
