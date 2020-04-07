@@ -22,7 +22,8 @@
     "build": "pika build"
   },
   "dependencies": {
-    "@emotion/hash": "^0.8.0"
+    "@emotion/hash": "^0.8.0",
+    "type-fest": "^0.13.0"
   },
   "peerDependencies": {
     "@types/react": ">=16.8",
