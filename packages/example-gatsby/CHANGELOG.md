@@ -7,25 +7,15 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package glaze-example-gatsby
 
-
-
-
-
 # [0.4.0](https://github.com/kripod/glaze/compare/glaze-example-gatsby@0.3.1...glaze-example-gatsby@0.4.0) (2020-04-07)
-
 
 ### Code Refactoring
 
-* rename `defaultTheme` to `defaultTokens` ([6684dc5](https://github.com/kripod/glaze/commit/6684dc59d7bcd3918984ff118c0f218c0deba549))
-
+- rename `defaultTheme` to `defaultTokens` ([6684dc5](https://github.com/kripod/glaze/commit/6684dc59d7bcd3918984ff118c0f218c0deba549))
 
 ### BREAKING CHANGES
 
-* `defaultTheme` imports shall be rewritten to `defaultTokens`
-
-
-
-
+- `defaultTheme` imports shall be rewritten to `defaultTokens`
 
 ## [0.3.1](https://github.com/kripod/glaze/compare/glaze-example-gatsby@0.3.0...glaze-example-gatsby@0.3.1) (2020-04-05)
 

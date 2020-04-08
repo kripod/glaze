@@ -5,19 +5,13 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # [0.3.0](https://github.com/kripod/glaze/compare/gatsby-plugin-glaze@0.2.1...gatsby-plugin-glaze@0.3.0) (2020-04-07)
 
-
 ### Code Refactoring
 
-* rename `defaultTheme` to `defaultTokens` ([6684dc5](https://github.com/kripod/glaze/commit/6684dc59d7bcd3918984ff118c0f218c0deba549))
-
+- rename `defaultTheme` to `defaultTokens` ([6684dc5](https://github.com/kripod/glaze/commit/6684dc59d7bcd3918984ff118c0f218c0deba549))
 
 ### BREAKING CHANGES
 
-* `defaultTheme` imports shall be rewritten to `defaultTokens`
-
-
-
-
+- `defaultTheme` imports shall be rewritten to `defaultTokens`
 
 ## [0.2.1](https://github.com/kripod/glaze/compare/gatsby-plugin-glaze@0.2.0...gatsby-plugin-glaze@0.2.1) (2020-04-05)
 

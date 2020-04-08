@@ -5,55 +5,40 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [0.4.1](https://github.com/kripod/glaze/compare/glaze@0.4.0...glaze@0.4.1) (2020-04-08)
 
-
 ### Bug Fixes
 
-* **package:** module bundling compat with treat ([93f9ba7](https://github.com/kripod/glaze/commit/93f9ba7e02e70da95b7d45d0a8b115daa2e90028))
-* escape CSS class names during development ([3ec83d0](https://github.com/kripod/glaze/commit/3ec83d0949aae5d9096e11ca2b9e5b7f66efdbf7))
-
+- **package:** module bundling compat with treat ([93f9ba7](https://github.com/kripod/glaze/commit/93f9ba7e02e70da95b7d45d0a8b115daa2e90028))
+- escape CSS class names during development ([3ec83d0](https://github.com/kripod/glaze/commit/3ec83d0949aae5d9096e11ca2b9e5b7f66efdbf7))
 
 ### improvement
 
-* shorten generated dynamic class names ([1bc3519](https://github.com/kripod/glaze/commit/1bc35199facc9e35f9fb04e1eb1f04f18bd136ec))
-
+- shorten generated dynamic class names ([1bc3519](https://github.com/kripod/glaze/commit/1bc35199facc9e35f9fb04e1eb1f04f18bd136ec))
 
 ### BREAKING CHANGES
 
-* Newly generated dynamic class names differ from existing ones. Rebuild
-server-rendered pages for proper rehydration.
-
-
-
-
+- Newly generated dynamic class names differ from existing ones. Rebuild
+  server-rendered pages for proper rehydration.
 
 # [0.4.0](https://github.com/kripod/glaze/compare/glaze@0.3.1...glaze@0.4.0) (2020-04-07)
 
-
 ### Bug Fixes
 
-* **typings:** error when theme is not given ([e0d2c29](https://github.com/kripod/glaze/commit/e0d2c295d61903b48c177c5790a2ed59514da67e))
-
+- **typings:** error when theme is not given ([e0d2c29](https://github.com/kripod/glaze/commit/e0d2c295d61903b48c177c5790a2ed59514da67e))
 
 ### Code Refactoring
 
-* **theme:** make specifying scales mandatory ([870d040](https://github.com/kripod/glaze/commit/870d0408acd450a4c15da0aa6c7c955b9677644d))
-* rename `defaultTheme` to `defaultTokens` ([6684dc5](https://github.com/kripod/glaze/commit/6684dc59d7bcd3918984ff118c0f218c0deba549))
-
+- **theme:** make specifying scales mandatory ([870d040](https://github.com/kripod/glaze/commit/870d0408acd450a4c15da0aa6c7c955b9677644d))
+- rename `defaultTheme` to `defaultTokens` ([6684dc5](https://github.com/kripod/glaze/commit/6684dc59d7bcd3918984ff118c0f218c0deba549))
 
 ### Features
 
-* autocomplete for themed values and aliases ([4718cbd](https://github.com/kripod/glaze/commit/4718cbded9e2b980cc0d889090d16a5b6df21a93))
-
+- autocomplete for themed values and aliases ([4718cbd](https://github.com/kripod/glaze/commit/4718cbded9e2b980cc0d889090d16a5b6df21a93))
 
 ### BREAKING CHANGES
 
-* **theme:** No action is required when extending `defaultTokens`. Otherwise, each scale must be
-specified, as seen in `StaticTheme`.
-* `defaultTheme` imports shall be rewritten to `defaultTokens`
-
-
-
-
+- **theme:** No action is required when extending `defaultTokens`. Otherwise, each scale must be
+  specified, as seen in `StaticTheme`.
+- `defaultTheme` imports shall be rewritten to `defaultTokens`
 
 ## [0.3.1](https://github.com/kripod/glaze/compare/glaze@0.3.0...glaze@0.3.1) (2020-04-05)
 
