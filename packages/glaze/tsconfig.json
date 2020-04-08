@@ -5,7 +5,6 @@
     "composite": true,
     "declaration": true,
     "rootDir": "./src/",
-    "outDir": "./pkg/dist-src/",
-    "declarationDir": "./pkg/dist-types/"
+    "outDir": "./dist/"
   }
 }
