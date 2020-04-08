@@ -20,14 +20,14 @@
   "sideEffects": false,
   "type": "module",
   "exports": {
-    "import": "./dist/index.js"
+    "import": "./dist-web/index.js"
   },
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
+  "main": "./dist-web/index.js",
+  "module": "./dist-web/index.js",
   "source": "./src/index.ts",
-  "types": "./dist/index.d.ts",
+  "types": "./dist-types/index.d.ts",
   "files": [
-    "dist/",
+    "dist-*/",
     "src/"
   ],
   "scripts": {

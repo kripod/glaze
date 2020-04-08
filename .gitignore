@@ -4,6 +4,6 @@
 .env
 .eslintcache
 .next/
-dist/
+dist-*/
 node_modules/
 public/
