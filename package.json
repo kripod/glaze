@@ -6,12 +6,13 @@
   "scripts": {
     "build": "lerna run build",
     "commit": "git-cz",
+    "develop": "lerna run --parallel develop",
     "format": "prettier --ignore-path .gitignore --write .",
     "postinstall": "lerna bootstrap",
     "lint": "eslint --ignore-path .gitignore \"**/*.{ts,tsx,js}\"",
     "publish": "lerna publish from-git --yes",
     "release": "dotenv -- lerna version --create-release github",
-    "type-check": "lerna exec --stream tsc -- --noEmit --composite false"
+    "type-check": "lerna exec tsc -- --noEmit --composite false"
   },
   "husky": {
     "hooks": {

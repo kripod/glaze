@@ -32,7 +32,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "watch": "tsc --watch"
+    "develop": "tsc --watch"
   },
   "dependencies": {
     "@emotion/hash": "^0.8.0",
