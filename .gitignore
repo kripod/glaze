@@ -3,6 +3,7 @@
 .env
 .eslintcache
 .next/
+dist/
 node_modules/
 pkg/
 public/
