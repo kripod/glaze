@@ -1,6 +1,5 @@
 import { CSSProperties } from 'react';
 import { createTheme as createStaticTheme, ThemeRef } from 'treat';
-// eslint-disable-next-line import/no-unresolved
 import { ThemeOrAny } from 'treat/theme';
 
 import { modularScale } from './scales';

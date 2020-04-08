@@ -4,9 +4,7 @@ import hash from '@emotion/hash';
 import { CSSProperties, useContext, useEffect, useRef } from 'react';
 import { useStyles } from 'react-treat';
 import { Style } from 'treat';
-// eslint-disable-next-line import/no-unresolved
 import { ThemeOrAny } from 'treat/theme';
-// eslint-disable-next-line import/no-unresolved
 import { ValueOf } from 'type-fest';
 
 import { isDev } from './env';
