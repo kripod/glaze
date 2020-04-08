@@ -1,4 +1,7 @@
 {
   "files": [],
-  "references": [{ "path": "./packages/glaze/" }]
+  "references": [
+    { "path": "./packages/gatsby-plugin-glaze/" },
+    { "path": "./packages/glaze/" }
+  ]
 }
