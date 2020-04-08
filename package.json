@@ -33,6 +33,9 @@
       "path": "cz-conventional-changelog"
     }
   },
+  "resolutions": {
+    "webpack": "^4.42.1"
+  },
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
