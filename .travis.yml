@@ -9,9 +9,9 @@ cache:
     - packages/example-nextjs/.next/cache/
 
 script:
-  - yarn type-check
   - yarn lint
   - yarn build
+  - yarn type-check
 
 deploy:
   - provider: npm
