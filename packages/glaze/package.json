@@ -51,5 +51,6 @@
     "@types/react": {
       "optional": true
     }
-  }
+  },
+  "gitHead": "acbb2836499a30a67a24ca9f62c8869bf9186dca"
 }
