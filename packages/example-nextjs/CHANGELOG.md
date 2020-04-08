@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.1](https://github.com/kripod/glaze/compare/glaze-example-nextjs@0.4.0...glaze-example-nextjs@0.4.1) (2020-04-08)
+
+**Note:** Version bump only for package glaze-example-nextjs
+
+
+
+
+
 # [0.4.0](https://github.com/kripod/glaze/compare/glaze-example-nextjs@0.3.1...glaze-example-nextjs@0.4.0) (2020-04-07)
 
 

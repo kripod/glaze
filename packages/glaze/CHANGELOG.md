@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.1](https://github.com/kripod/glaze/compare/glaze@0.4.0...glaze@0.4.1) (2020-04-08)
+
+
+### Bug Fixes
+
+* **package:** module bundling compat with treat ([93f9ba7](https://github.com/kripod/glaze/commit/93f9ba7e02e70da95b7d45d0a8b115daa2e90028))
+* escape CSS class names during development ([3ec83d0](https://github.com/kripod/glaze/commit/3ec83d0949aae5d9096e11ca2b9e5b7f66efdbf7))
+
+
+### improvement
+
+* shorten generated dynamic class names ([1bc3519](https://github.com/kripod/glaze/commit/1bc35199facc9e35f9fb04e1eb1f04f18bd136ec))
+
+
+### BREAKING CHANGES
+
+* Newly generated dynamic class names differ from existing ones. Rebuild
+server-rendered pages for proper rehydration.
+
+
+
+
+
 # [0.4.0](https://github.com/kripod/glaze/compare/glaze@0.3.1...glaze@0.4.0) (2020-04-07)
 
 
