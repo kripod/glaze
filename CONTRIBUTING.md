@@ -24,7 +24,7 @@ Please keep the scope of each pull request to **one** specific feature or fix.
 
 0. Assign related [issues] to yourself
 1. Clone a fork of the `master` branch and install all the required dependencies with `yarn`
-1. Make changes to the codebase
+1. Make changes to the codebase, observing them through `yarn develop`
 1. Before pushing, fix any errors possibly emitted by the following commands:
 
    - `yarn format` fixes stylistic issues using [Prettier]
