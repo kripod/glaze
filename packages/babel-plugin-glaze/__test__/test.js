@@ -1,6 +1,7 @@
 import pluginTester from 'babel-plugin-tester';
-const plugin = require('../src/index.ts');
-const path = require('path');
+import path from 'path';
+
+import plugin from '../src/index';
 
 pluginTester({
   plugin,

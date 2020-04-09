@@ -29,7 +29,8 @@
     "watch": "babel src/index.ts --out-file src/index.js --watch"
   },
   "dependencies": {
-    "@babel/core": "^7.6.4"
+    "@babel/core": "^7.6.4",
+    "babel-plugin-tester": "^9.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.4",
@@ -37,7 +38,6 @@
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-typescript": "^7.9.0",
     "@types/node": "^13.11.0",
-    "babel-plugin-tester": "^9.0.0",
     "jest": "^25.2.7",
     "typescript": "^3.8.3"
   }
