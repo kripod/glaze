@@ -15,10 +15,7 @@ export function ThemeProvider({
   children,
 }: ThemeProviderProps): JSX.Element {
   return (
-    <TreatProvider
-      // Show a clear error message during runtime, even if `theme` is nullish
-      theme={theme?.ref}
-    >
+    <TreatProvider theme={theme.ref}>
       <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>
     </TreatProvider>
   );
