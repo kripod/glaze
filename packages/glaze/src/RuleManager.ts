@@ -1,4 +1,4 @@
-import { canUseDOM, isDev } from './env';
+import { isBrowser, isDev } from './env';
 import { errorOnce, warnOnce } from './logger';
 import type { StyleInjector } from './StyleInjector';
 
@@ -12,7 +12,7 @@ export class NullRuleManager implements RuleManager {
   increaseUsage(): void {
     if (isDev) {
       // TODO: Add instructions for resolving the situation
-      if (canUseDOM) {
+      if (isBrowser) {
         errorOnce('Client-side rendering of dynamic styles is not set up');
       } else {
         warnOnce('Server-side rendering of dynamic styles is not set up');
