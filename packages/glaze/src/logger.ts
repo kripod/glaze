@@ -2,7 +2,7 @@ type LogLevel = 'warn' | 'error';
 
 let instance: Pick<Console, LogLevel> = console;
 
-export function setInstance(logger: typeof instance): void {
+export function setLogger(logger: typeof instance): void {
   instance = logger;
 }
 

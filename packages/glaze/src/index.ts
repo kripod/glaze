@@ -1,4 +1,4 @@
-export { setInstance as setLogger } from './logger';
+export { setLogger } from './logger';
 export { modularScale } from './scales';
 export { VirtualStyleInjector } from './StyleInjector';
 export { StyleInjectorProvider } from './StyleInjectorContext';
