@@ -41,7 +41,7 @@ export interface StaticTheme extends CommonTheme {
   };
   resolvers: {
     [key in keyof CSSProperties]:
-      | keyof StaticTheme['scales']
+      | keyof this['scales']
       | keyof ThemeOrAny['scales'];
   };
 }
