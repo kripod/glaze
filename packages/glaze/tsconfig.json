@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig-base",
-  "include": ["./src/"],
+  "include": ["./src/", "./*.d.ts"],
   "compilerOptions": {
     "composite": true,
     "rootDir": "./src/",
