@@ -5,6 +5,7 @@ Based on:
 */
 
 import React from 'react';
+import { ClassRef } from 'treat';
 
 import { warnOnce } from './logger';
 import {
@@ -23,7 +24,7 @@ function createAndMountStyleElement(): HTMLStyleElement {
 
 function getSheet(): CSSStyleSheet {
   // Hydrate existing style node if available
-  for (let i = 0, { length } = document.styleSheets; i < length; i += 1) {
+  for (let i = 0, l = document.styleSheets.length; i < l; i += 1) {
     const styleSheet = document.styleSheets[i];
     if ((styleSheet.ownerNode as HTMLElement).dataset.glaze === '') {
       return styleSheet as CSSStyleSheet;
@@ -39,8 +40,8 @@ function getSheet(): CSSStyleSheet {
   return (styleEl.sheet as CSSStyleSheet | undefined) || getSheet();
 }
 
-function getInitialRuleIndexes(rules: CSSRuleList): Map<string, number> {
-  const ruleIndexesByClassName = new Map<string, number>();
+function getInitialRuleIndexes(rules: CSSRuleList): Map<ClassRef, number> {
+  const ruleIndexesByClassName = new Map<ClassRef, number>();
 
   for (let i = 0, { length } = rules; i < length; i += 1) {
     const rule = rules[i];
