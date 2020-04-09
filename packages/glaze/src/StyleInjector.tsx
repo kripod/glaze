@@ -1,8 +1,10 @@
-/*
-Based on:
-- https://github.com/threepointone/glamor/blob/78ffd84bfba187f4037a29b389e5a349dbb6e9a8/packages/glamor/src/StyleSheet.ts
-- https://github.com/styled-components/styled-components/blob/94df8bb57c8ba01cd33268b65df93499a7961cb2/packages/styled-components/src/sheet/Tag.js
-*/
+/**
+ * Based on:
+ * https://github.com/threepointone/glamor/blob/78ffd84bfba187f4037a29b389e5a349dbb6e9a8/packages/glamor/src/StyleSheet.ts
+ * https://github.com/styled-components/styled-components/blob/94df8bb57c8ba01cd33268b65df93499a7961cb2/packages/styled-components/src/sheet/Tag.js
+ */
+
+/* eslint-disable no-plusplus */
 
 import React from 'react';
 import { ClassRef } from 'treat';
@@ -24,7 +26,7 @@ function createAndMountStyleElement(): HTMLStyleElement {
 
 function getSheet(): CSSStyleSheet {
   // Hydrate existing style node if available
-  for (let i = 0, l = document.styleSheets.length; i < l; i += 1) {
+  for (let i = 0, len = document.styleSheets.length; i < len; ++i) {
     const styleSheet = document.styleSheets[i];
     if ((styleSheet.ownerNode as HTMLElement).dataset.glaze === '') {
       return styleSheet as CSSStyleSheet;
@@ -43,7 +45,7 @@ function getSheet(): CSSStyleSheet {
 function getInitialRuleIndexes(rules: CSSRuleList): Map<ClassRef, number> {
   const ruleIndexesByClassName = new Map<ClassRef, number>();
 
-  for (let i = 0, { length } = rules; i < length; i += 1) {
+  for (let i = 0, { length } = rules; i < length; ++i) {
     const rule = rules[i];
     if (rule.type === CSSRule.STYLE_RULE) {
       // Remove leading '.' from class selector
@@ -117,13 +119,11 @@ export class OptimizedStyleInjector implements StyleInjector {
       return this.replaceRule(this.freeIndexes.pop()!, cssText);
     }
 
-    // eslint-disable-next-line no-plusplus
     return this.sheet.insertRule(cssText, this.ruleCount++);
   }
 
   nullifyRule(index: number): void {
     if (index === this.ruleCount - 1) {
-      // eslint-disable-next-line no-plusplus
       this.sheet.deleteRule(--this.ruleCount);
     } else {
       // Only allow replacements to prevent modification of existing indexes
