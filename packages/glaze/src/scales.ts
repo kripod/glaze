@@ -1,3 +1,4 @@
+// TODO: Preserve exact type of inputs
 export function modularScale(
   ratio: number,
   steps = [-1, -0.5, 0, +1, +2, +3, +4, +5, +6],
@@ -10,6 +11,7 @@ export function modularScale(
   return tokens;
 }
 
+// TODO: Preserve exact type of inputs
 export function symmetricScale(tokens: {
   [key: string]: string | number;
 }): { readonly [key: string]: string | number } {
