@@ -2,7 +2,7 @@ import { CSSProperties } from 'react';
 import { createTheme as createStaticTheme, ThemeRef } from 'treat';
 import { ThemeOrAny } from 'treat/theme';
 
-import { modularScale } from './scales';
+import { modularScale, symmetricScale } from './scales';
 
 export interface ScaleTokens<T extends keyof CSSProperties> {
   [key: string]: NonNullable<CSSProperties[T]>;
@@ -59,13 +59,12 @@ export function createTheme(
   };
 }
 
-// TODO: symmetricScale()
-const spacing = {
+const spacing = symmetricScale({
   0: 0,
-  '1px': 1,
-  1: '.25rem',
-  2: '.5rem',
-  3: '.75rem',
+  '1px': '1px',
+  1: '0.25rem',
+  2: '0.5rem',
+  3: '0.75rem',
   4: '1rem',
   5: '1.25rem',
   6: '1.5rem',
@@ -80,7 +79,7 @@ const spacing = {
   48: '12rem',
   56: '14rem',
   64: '16rem',
-} as const;
+} as const);
 
 export const defaultTokens = {
   breakpoints: [640, 768, 1024, 1280],
