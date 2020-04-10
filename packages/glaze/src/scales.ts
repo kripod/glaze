@@ -1,8 +1,20 @@
-// TODO: Preserve exact type of inputs
+import { List } from 'ts-toolbelt';
+
+const defaultSteps = [-1, -0.5, 0, +1, +2, +3, +4, +5, +6] as const;
+
+export function modularScale<T extends number>(
+  ratio: number,
+  steps: T[],
+): { [key in T]: string };
+
 export function modularScale(
   ratio: number,
-  steps = [-1, -0.5, 0, +1, +2, +3, +4, +5, +6],
-): { readonly [key: number]: string } {
+): { [key in List.UnionOf<typeof defaultSteps>]: string };
+
+export function modularScale(
+  ratio: number,
+  steps: readonly number[] = defaultSteps,
+): { [key: number]: string } {
   const tokens: { [key: number]: string } = {};
   steps.forEach((step) => {
     // Rounding to 3 decimal places
