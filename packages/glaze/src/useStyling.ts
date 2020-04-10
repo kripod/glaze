@@ -5,7 +5,7 @@ import { CSSProperties, useContext, useEffect, useRef } from 'react';
 import { useStyles } from 'react-treat';
 import { Style } from 'treat';
 import { ThemeOrAny } from 'treat/theme';
-import { List } from 'ts-toolbelt';
+import { ValueOf } from 'type-fest';
 
 import { isDev } from './env';
 import { escape } from './ponyfills/CSS';
@@ -22,7 +22,7 @@ function getClassName(identName: string): string {
 }
 
 type ResolveShorthand<T> = T extends keyof ThemeOrAny['shorthands']
-  ? List.UnionOf<ThemeOrAny['shorthands'][T]>
+  ? ValueOf<ThemeOrAny['shorthands'][T], number>
   : T;
 
 type ResolveAlias<T> = ResolveShorthand<

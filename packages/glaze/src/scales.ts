@@ -1,4 +1,4 @@
-import { List } from 'ts-toolbelt';
+import { ValueOf } from 'type-fest';
 
 const defaultSteps = [-1, -0.5, 0, +1, +2, +3, +4, +5, +6] as const;
 
@@ -9,7 +9,7 @@ export function modularScale<T extends number>(
 
 export function modularScale(
   ratio: number,
-): { readonly [key in List.UnionOf<typeof defaultSteps>]: string };
+): { readonly [key in ValueOf<typeof defaultSteps, number>]: string };
 
 export function modularScale(
   ratio: number,
@@ -43,18 +43,17 @@ export function symmetricScale<T extends string | number>(
     | T
     | Negate<Extract<T, number>>
     | (T extends '1px' ? '-1px' : never)]: string | number;
-} {
+};
+
+export function symmetricScale(nonNegativeTokens: {
+  [key: string]: string | number;
+}): { [key: string]: string | number } {
   return Object.entries(nonNegativeTokens).reduce(
     (tokens, [key, value]) => {
       // eslint-disable-next-line no-param-reassign
-      if (key !== '0') tokens[`-${key}` as keyof typeof tokens] = `-${value}`;
+      if (key !== '0') tokens[`-${key}`] = `-${value}`;
       return tokens;
     },
-    { ...nonNegativeTokens } as {
-      [key in
-        | T
-        | Negate<Extract<T, number>>
-        | (T extends '1px' ? '-1px' : never)]: string | number;
-    },
+    { ...nonNegativeTokens },
   );
 }
