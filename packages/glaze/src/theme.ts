@@ -79,7 +79,7 @@ const spacing = symmetricScale({
   48: '12rem',
   56: '14rem',
   64: '16rem',
-} as const);
+});
 
 export const defaultTokens = {
   breakpoints: [640, 768, 1024, 1280],
