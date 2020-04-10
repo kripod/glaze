@@ -170,9 +170,16 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
+## Acknowledgements
+
+Without its predecessors, glaze wouldn't exist. Thanks for all the wonderful people who have contributed towards the project, even indirectly.
+
+The logo's donut emoji is courtesy of [Twemoji][].
+
 [tailwind css]: https://tailwindcss.com/
 [stylesheet]: https://github.com/giuseppeg/style-sheet
 [css-zero]: https://github.com/CraigCav/css-zero
 [theme ui]: https://theme-ui.com/
 [emotion]: https://emotion.sh/
 [treat]: https://seek-oss.github.io/treat/
+[twemoji]: https://twemoji.twitter.com/
