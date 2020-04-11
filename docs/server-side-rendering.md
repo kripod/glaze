@@ -25,4 +25,8 @@ const styleEl = injector.getStyleElement();
 appendToHead(styleEl);
 ```
 
+## Reference implementation
+
+The [official Gatsby plugin](https://www.npmjs.com/package/gatsby-plugin-glaze) does everything above, as observable [in its source](../packages/gatsby-plugin-glaze/gatsby-ssr.js).
+
 [cssom]: https://developer.mozilla.org/docs/Web/API/CSS_Object_Model
