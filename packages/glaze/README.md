@@ -10,6 +10,7 @@
   <a href="https://www.npmjs.com/package/glaze"><img alt="npm" src="https://img.shields.io/npm/v/glaze"></a>
   <a href="https://lgtm.com/projects/g/kripod/glaze/context:javascript"><img alt="Language grade: JavaScript" src="https://img.shields.io/lgtm/grade/javascript/g/kripod/glaze.svg?logo=lgtm&logoWidth=18"/></a>
   <a href="https://travis-ci.com/github/kripod/glaze"><img alt="Travis (.com)" src="https://img.shields.io/travis/com/kripod/glaze"></a>
+  <a href="https://opencollective.com/glaze"><img alt="Open Collective backers and sponsors" src="https://img.shields.io/opencollective/all/glaze"></a>
 </p>
 
 ## 💡 Motivation
