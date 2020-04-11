@@ -67,9 +67,11 @@ Baking the benefits outlined above into a single package, glaze was born.
    });
    ```
 
+   _Keeping the runtime as small as possible, only a few tokens (`breakpoints`, `shorthands` and `aliases`) are embedded into production JavaScript bundles. Other values can only be accessed exclusively for styling, as shown later._
+
 2. Apply the theme through `ThemeProvider`:
 
-   > 📝 A [Gatsby plugin](https://www.npmjs.com/package/gatsby-plugin-glaze) is available for this task.
+   > 📝 The [Gatsby plugin for glaze](https://www.npmjs.com/package/gatsby-plugin-glaze) does this unobtrusively.
 
    ```jsx
    import { ThemeProvider } from 'glaze';
@@ -102,10 +104,17 @@ Baking the benefits outlined above into a single package, glaze was born.
    }
    ```
 
-4. Please refer to the [treat][] documentation for:
+4. Set up [static style extraction](https://seek-oss.github.io/treat/setup/) with the help of [treat][].
 
-   - Setting up static style extraction and server-side rendering
-   - Applying a selector-based `globalStyle`
+   > 📝 The [Gatsby plugin for treat](https://www.npmjs.com/package/gatsby-plugin-treat) does this unobtrusively.
+
+   - Afterwards, selector-based CSS rules may be created with [`globalStyle`](https://seek-oss.github.io/treat/styling-api/#globalstyle) in `*.treat.js` files. They have to be applied as a side effect, e.g. from a top-level layout component:
+
+     ```js
+     import './globalStyles.treat.js';
+     ```
+
+5. Configure [server-side rendering](./docs/server-side-rendering.md) for dynamically created styles.
 
 ## 🤔 How it works
 
