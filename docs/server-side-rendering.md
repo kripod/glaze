@@ -9,7 +9,6 @@ import { renderToString } from 'react-dom/server';
 import theme from './src/theme.treat';
 
 const injector = new VirtualStyleInjector();
-injectorsByPathname.set(pathname, injector);
 
 const html = renderToString(
   <StyleInjectorProvider injector={injector}>{element}</StyleInjectorProvider>,
