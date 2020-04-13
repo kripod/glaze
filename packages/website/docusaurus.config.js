@@ -7,6 +7,12 @@ module.exports = {
   organizationName: 'kripod',
   projectName: 'glaze',
   themeConfig: {
+    prism: {
+      /* eslint-disable global-require, import/no-extraneous-dependencies */
+      theme: require('prism-react-renderer/themes/nightOwl'),
+      darkTheme: require('prism-react-renderer/themes/dracula'),
+      /* eslint-enable global-require, import/no-extraneous-dependencies */
+    },
     navbar: {
       title: 'glaze',
       logo: {
