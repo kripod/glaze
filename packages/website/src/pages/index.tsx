@@ -66,8 +66,8 @@ function Home(): JSX.Element {
   const { siteConfig = {} } = context;
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />"
+      title="Approachable design systems for React"
+      description={siteConfig.tagline}
     >
       <header className={classnames('hero hero--primary', styles.heroBanner)}>
         <div className="container">
@@ -79,7 +79,7 @@ function Home(): JSX.Element {
                 'button button--outline button--secondary button--lg',
                 styles.getStarted,
               )}
-              to={useBaseUrl('docs/doc1')}
+              to={useBaseUrl('docs/getting-started')}
             >
               Get Started
             </Link>
