@@ -1,4 +1,7 @@
-# Server-side rendering
+---
+title: Server-side rendering
+hide_table_of_contents: true
+---
 
 While prerendering a page, the [CSSOM][] is inaccessible and thus, styles cannot be injected dynamically. However, a `VirtualStyleInjector` can collect the styles instead of applying them through injection:
 

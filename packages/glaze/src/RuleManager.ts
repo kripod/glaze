@@ -20,7 +20,7 @@ export class NullRuleManager implements RuleManager {
         );
       } else {
         warnOnce(
-          'Server-side rendering of dynamic styles is not configured properly. Some of the initially applied CSS could not be prerendered. Please refer to the documentation at https://glaze.js.org/server-side-rendering/ for further information.',
+          'Server-side rendering of dynamic styles is not configured properly. Some of the initially applied CSS could not be prerendered. Please refer to the documentation at https://glaze.js.org/docs/server-side-rendering for further information.',
         );
       }
     }
