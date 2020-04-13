@@ -7,13 +7,13 @@
   --ifm-list-item-margin: 0.5rem;
 
   /* Generated with https://v2.docusaurus.io/docs/styling-layout#styling-your-site-with-infima */
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: rgb(33, 175, 144);
-  --ifm-color-primary-darker: rgb(31, 165, 136);
-  --ifm-color-primary-darkest: rgb(26, 136, 112);
-  --ifm-color-primary-light: rgb(70, 203, 174);
-  --ifm-color-primary-lighter: rgb(102, 212, 189);
-  --ifm-color-primary-lightest: rgb(146, 224, 208);
+  --ifm-color-primary: #ef9600;
+  --ifm-color-primary-dark: #d78700;
+  --ifm-color-primary-darker: #cb7f00;
+  --ifm-color-primary-darkest: #a76900;
+  --ifm-color-primary-light: #ffa308;
+  --ifm-color-primary-lighter: #ffa714;
+  --ifm-color-primary-lightest: #ffb538;
 }
 
 .markdown {
@@ -21,8 +21,11 @@
 }
 
 .docusaurus-highlight-code-line {
-  background-color: rgb(72, 77, 91);
-  display: block;
+  background-color: #1b2d40;
   margin: 0 calc(-1 * var(--ifm-pre-padding));
   padding: 0 var(--ifm-pre-padding);
+}
+
+html[data-theme='dark'] .docusaurus-highlight-code-line {
+  background-color: #3f414e;
 }
