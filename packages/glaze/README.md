@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  CSS-in-JS framework for building approachable design systems.
+  CSS-in-JS microlibrary for making design systems approachable
 </p>
 
 <p align="center">

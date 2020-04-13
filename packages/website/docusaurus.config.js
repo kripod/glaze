@@ -1,12 +1,13 @@
 module.exports = {
   title: 'glaze',
-  tagline: 'CSS-in-JS framework for building approachable design systems',
+  tagline: 'CSS-in-JS microlibrary for making design systems approachable',
   url: 'https://glaze.js.org',
   baseUrl: '/',
   favicon: 'img/favicon.ico',
   organizationName: 'kripod',
   projectName: 'glaze',
   themeConfig: {
+    sidebarCollapsible: false,
     prism: {
       /* eslint-disable global-require, import/no-extraneous-dependencies */
       theme: require('prism-react-renderer/themes/nightOwl'),
@@ -14,6 +15,7 @@ module.exports = {
       /* eslint-enable global-require, import/no-extraneous-dependencies */
     },
     navbar: {
+      hideOnScroll: true,
       title: 'glaze',
       logo: {
         alt: 'glaze logo (donut emoji)',
