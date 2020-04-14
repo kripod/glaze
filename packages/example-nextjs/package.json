@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "dev": "next",
-    "start": "next start"
+    "develop": "next",
+    "serve": "next start"
   },
   "dependencies": {
     "@types/react": "^16.9.32",

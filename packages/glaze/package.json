@@ -31,8 +31,9 @@
     "src/"
   ],
   "scripts": {
-    "build": "tsc",
-    "develop": "tsc --watch"
+    "build": "tsc --build",
+    "clean": "tsc --build --clean",
+    "develop": "tsc --build --watch"
   },
   "dependencies": {
     "@emotion/hash": "^0.8.0",
