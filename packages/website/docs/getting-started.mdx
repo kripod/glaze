@@ -4,35 +4,9 @@ title: Getting Started
 
 ## Installation
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import PackageInstall from '@theme/PackageInstall';
 
-<Tabs
-  groupId="package-managers"
-  defaultValue="npm"
-  values={[
-    { label: 'npm', value: 'npm' },
-    { label: 'Yarn', value: 'yarn' },
-  ]
-}>
-
-<TabItem value="npm">
-
-```sh
-npm install glaze treat react-treat
-```
-
-</TabItem>
-
-<TabItem value="yarn">
-
-```sh
-yarn add glaze treat react-treat
-```
-
-</TabItem>
-
-</Tabs>
+<PackageInstall dependencies={['glaze', 'treat', 'react-treat']} />
 
 ## Managing design tokens
 
