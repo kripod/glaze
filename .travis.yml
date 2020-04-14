@@ -20,6 +20,7 @@ deploy:
     local_dir: ./packages/website/build/
     on:
       branch: master
+      node_js: lts/*
   - provider: npm
     edge: true
     run_script: publish
