@@ -37,44 +37,6 @@ module.exports = {
       ],
     },
     footer: {
-      style: 'dark',
-      links: [
-        {
-          title: 'Docs',
-          items: [
-            {
-              label: 'Style Guide',
-              to: 'docs/doc1',
-            },
-            {
-              label: 'Second Doc',
-              to: 'docs/doc2',
-            },
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/glaze',
-            },
-          ],
-        },
-        {
-          title: 'Social',
-          items: [
-            {
-              label: 'Blog',
-              to: 'blog',
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/kripod/glaze',
-            },
-          ],
-        },
-      ],
       copyright: `Copyright © ${new Date().getFullYear()} <a href="https://twitter.com/kripod97">Kristóf Poduszló</a><br>Released under the MIT License`,
     },
   },
