@@ -21,13 +21,13 @@ export default function PackageInstall({
     >
       <TabItem value="npm">
         <CodeBlock className="shell">
-          {dependencies && `npm install ${dependencies.join(' ')}`}
+          {dependencies ? `npm install ${dependencies.join(' ')}` : ''}
         </CodeBlock>
       </TabItem>
 
       <TabItem value="yarn">
         <CodeBlock className="shell">
-          {dependencies && `yarn add ${dependencies.join(' ')}`}
+          {dependencies ? `yarn add ${dependencies.join(' ')}` : ''}
         </CodeBlock>
       </TabItem>
     </Tabs>
