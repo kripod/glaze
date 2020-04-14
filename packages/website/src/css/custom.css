@@ -6,14 +6,15 @@
   --ifm-list-margin: var(--ifm-leading);
   --ifm-list-item-margin: 0.5rem;
 
-  /* Generated with https://v2.docusaurus.io/docs/styling-layout#styling-your-site-with-infima */
-  --ifm-color-primary: #ef9600;
-  --ifm-color-primary-dark: #d78700;
-  --ifm-color-primary-darker: #cb7f00;
-  --ifm-color-primary-darkest: #a76900;
-  --ifm-color-primary-light: #ffa308;
-  --ifm-color-primary-lighter: #ffa714;
-  --ifm-color-primary-lightest: #ffb538;
+  /* Logo color adjusted with https://leonardocolor.io/?colorKeys=%23f4abba&base=ffffff&ratios=3%2C4.5&mode=HSLuv */
+  /* Palette generated with https://v2.docusaurus.io/docs/styling-layout#styling-your-site-with-infima */
+  --ifm-color-primary: #d8366b;
+  --ifm-color-primary-dark: #cc275d;
+  --ifm-color-primary-darker: #c02558;
+  --ifm-color-primary-darkest: #9e1f48;
+  --ifm-color-primary-light: #dc4d7c;
+  --ifm-color-primary-lighter: #df5884;
+  --ifm-color-primary-lightest: #e57a9d;
 }
 
 .markdown {
