@@ -1,9 +1,6 @@
 *.log*
 *.tsbuildinfo
-.cache/
 .env
+.env.*
 .eslintcache
-.next/
-dist-*/
 node_modules/
-public/
