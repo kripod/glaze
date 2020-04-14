@@ -1,5 +1,6 @@
 module.exports = {
   docs: {
-    Introduction: ['getting-started', 'server-side-rendering'],
+    Introduction: ['getting-started', 'autocompletion', 'how-it-works'],
+    Features: ['theming', 'server-side-rendering'],
   },
 };
