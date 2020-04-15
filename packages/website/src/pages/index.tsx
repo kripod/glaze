@@ -5,7 +5,7 @@ import Layout from '@theme/Layout';
 import * as React from 'react';
 import GitHubButton from 'react-github-btn';
 
-import styles from './styles.module.css';
+import styles from './index.module.css';
 
 const features = [
   {
