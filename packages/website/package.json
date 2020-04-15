@@ -5,7 +5,8 @@
   "scripts": {
     "build": "docusaurus build",
     "develop": "docusaurus start",
-    "swizzle": "docusaurus swizzle"
+    "swizzle": "docusaurus swizzle",
+    "type-check": "tsc --build"
   },
   "browserslist": {
     "production": [
