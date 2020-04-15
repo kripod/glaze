@@ -2,15 +2,15 @@ import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
-import classnames from 'classnames';
 import * as React from 'react';
+import GitHubButton from 'react-github-btn';
 
 import styles from './styles.module.css';
 
 const features = [
   {
     title: 'Familiar',
-    imageUrl: 'img/undraw_experience_design_eq3j.svg',
+    imageURL: 'img/undraw_experience_design_eq3j.svg',
     description: (
       <>
         Co-locating CSS with markup, glaze praises the component-based
@@ -21,7 +21,7 @@ const features = [
   },
   {
     title: 'Personalizable',
-    imageUrl: 'img/undraw_personal_settings_kihd.svg',
+    imageURL: 'img/undraw_personal_settings_kihd.svg',
     description: (
       <>
         Inspired by <a href="https://theme-ui.com/">Theme UI</a>, design tokens
@@ -32,7 +32,7 @@ const features = [
   },
   {
     title: 'Lightweight',
-    imageUrl: 'img/undraw_fast_loading_0lbh.svg',
+    imageURL: 'img/undraw_fast_loading_0lbh.svg',
     description: (
       <>
         Built upon <a href="https://seek-oss.github.io/treat/">treat</a>, styles
@@ -45,29 +45,32 @@ const features = [
 ];
 
 interface FeatureProps {
-  imageUrl: string;
+  imageURL: string;
   title: string;
   description: React.ReactNode;
 }
 
-function Feature({ imageUrl, title, description }: FeatureProps): JSX.Element {
-  const imgUrl = useBaseUrl(imageUrl);
+function Feature({ imageURL, title, description }: FeatureProps): JSX.Element {
   return (
-    <div className={classnames('col col--4', styles.feature)}>
-      {imgUrl && (
-        <div className="text--center">
-          <img className={styles.featureImage} src={imgUrl} alt={title} />
-        </div>
-      )}
+    <div className="col col--4 margin-vert--md">
+      <div className="text--center margin-bottom--md">
+        <img
+          src={useBaseUrl(imageURL)}
+          alt={title}
+          className={styles.featureImage}
+        />
+      </div>
+
       <h3>{title}</h3>
       <p>{description}</p>
     </div>
   );
 }
 
-function Home(): JSX.Element {
-  const context = useDocusaurusContext();
-  const { siteConfig = {} } = context;
+export default function HomePage(): JSX.Element {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const siteConfig = useDocusaurusContext().siteConfig!;
+
   return (
     <Layout description={`${siteConfig.tagline} with React`}>
       <header className="hero text--center shadow--lw">
@@ -77,21 +80,30 @@ function Home(): JSX.Element {
             {siteConfig.tagline}
           </p>
 
-          <div className={styles.buttons}>
-            <Link
-              className={classnames(
-                'button button--primary button--lg',
-                styles.getStarted,
-              )}
-              to={useBaseUrl('docs/getting-started')}
+          <Link
+            to={useBaseUrl('docs/getting-started')}
+            className="button button--primary button--lg margin-bottom--md"
+          >
+            Get Started
+          </Link>
+
+          <div>
+            <GitHubButton
+              /* eslint-disable @typescript-eslint/no-non-null-assertion */
+              href={`https://github.com/${siteConfig.organizationName!}/${siteConfig.projectName!}`}
+              aria-label={`Star ${siteConfig.organizationName!}/${siteConfig.projectName!} on GitHub`}
+              /* eslint-enable @typescript-eslint/no-non-null-assertion */
+              data-size="large"
+              data-show-count
             >
-              Get Started
-            </Link>
+              Star
+            </GitHubButton>
           </div>
         </div>
       </header>
+
       <main>
-        <section className={styles.features}>
+        <section className={`${styles.features} margin-vert--lg`}>
           <div className="container">
             <div className="row">
               {features.map((props, i) => (
@@ -105,5 +117,3 @@ function Home(): JSX.Element {
     </Layout>
   );
 }
-
-export default Home;

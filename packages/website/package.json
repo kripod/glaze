@@ -22,9 +22,8 @@
   "dependencies": {
     "@docusaurus/core": "^2.0.0-alpha.50",
     "@docusaurus/preset-classic": "^2.0.0-alpha.50",
-    "@types/classnames": "^2.2.10",
-    "classnames": "^2.2.6",
     "react": "^16.8.4",
-    "react-dom": "^16.8.4"
+    "react-dom": "^16.8.4",
+    "react-github-btn": "^1.1.1"
   }
 }
