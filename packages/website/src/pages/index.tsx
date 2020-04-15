@@ -24,9 +24,17 @@ const features = [
     imageURL: 'img/undraw_personal_settings_kihd.svg',
     description: (
       <>
-        Inspired by <a href="https://theme-ui.com/">Theme UI</a>, design tokens
-        are first-class citizens. Enjoy frictionless autocompletion for various
-        scales. Define convenient property aliases and shorthands on your own.
+        Inspired by{' '}
+        <a
+          href="https://theme-ui.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Theme UI
+        </a>
+        , design tokens are first-class citizens. Enjoy frictionless
+        autocompletion for various scales. Define convenient property aliases
+        and shorthands on your own.
       </>
     ),
   },
@@ -35,10 +43,17 @@ const features = [
     imageURL: 'img/undraw_fast_loading_0lbh.svg',
     description: (
       <>
-        Built upon <a href="https://seek-oss.github.io/treat/">treat</a>, styles
-        are statically extracted with near-zero runtime by default. Dynamic
-        style injection is an opt-in feature, providing enhanced flexibility at
-        low cost.
+        Built upon{' '}
+        <a
+          href="https://seek-oss.github.io/treat/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          treat
+        </a>
+        , styles are statically extracted with near-zero runtime by default.
+        Dynamic style injection is an opt-in feature, providing enhanced
+        flexibility at low cost.
       </>
     ),
   },

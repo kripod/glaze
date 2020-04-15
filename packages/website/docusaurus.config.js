@@ -36,7 +36,7 @@ module.exports = {
       ],
     },
     footer: {
-      copyright: `Copyright © ${new Date().getFullYear()} <a href="https://twitter.com/kripod97">Kristóf Poduszló</a><br>Released under the MIT License`,
+      copyright: `Copyright © ${new Date().getFullYear()} <a href="https://twitter.com/kripod97" target="_blank" rel="noopener noreferrer">Kristóf Poduszló</a><br>Released under the MIT License`,
     },
   },
   presets: [
