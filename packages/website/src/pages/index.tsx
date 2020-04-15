@@ -9,32 +9,36 @@ import styles from './styles.module.css';
 
 const features = [
   {
-    title: 'Easy to Use',
-    imageUrl: 'img/undraw_docusaurus_mountain.svg',
+    title: 'Familiar',
+    imageUrl: 'img/undraw_experience_design_eq3j.svg',
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Co-locating CSS with markup, glaze praises the component-based
+        development era. Say goodbye to naming conventions with an API
+        resembling inline styles.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
-    imageUrl: 'img/undraw_docusaurus_tree.svg',
+    title: 'Personalizable',
+    imageUrl: 'img/undraw_personal_settings_kihd.svg',
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Inspired by <a href="https://theme-ui.com/">Theme UI</a>, design tokens
+        are first-class citizens. Enjoy frictionless autocompletion for various
+        scales. Define convenient property aliases and shorthands on your own.
       </>
     ),
   },
   {
-    title: 'Powered by React',
-    imageUrl: 'img/undraw_docusaurus_react.svg',
+    title: 'Lightweight',
+    imageUrl: 'img/undraw_fast_loading_0lbh.svg',
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Built upon <a href="https://seek-oss.github.io/treat/">treat</a>, styles
+        are statically extracted with near-zero runtime by default. Dynamic
+        style injection is an opt-in feature, providing enhanced flexibility at
+        low cost.
       </>
     ),
   },
@@ -65,18 +69,18 @@ function Home(): JSX.Element {
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
   return (
-    <Layout
-      title="Approachable design systems for React"
-      description={siteConfig.tagline}
-    >
-      <header className={classnames('hero hero--primary', styles.heroBanner)}>
+    <Layout description={`${siteConfig.tagline} with React`}>
+      <header className="hero text--center shadow--lw">
         <div className="container">
           <h1 className="hero__title">{siteConfig.title}</h1>
-          <p className="hero__subtitle">{siteConfig.tagline}</p>
+          <p className="hero__subtitle margin-bottom--lg">
+            {siteConfig.tagline}
+          </p>
+
           <div className={styles.buttons}>
             <Link
               className={classnames(
-                'button button--outline button--secondary button--lg',
+                'button button--primary button--lg',
                 styles.getStarted,
               )}
               to={useBaseUrl('docs/getting-started')}
@@ -87,18 +91,16 @@ function Home(): JSX.Element {
         </div>
       </header>
       <main>
-        {features && features.length && (
-          <section className={styles.features}>
-            <div className="container">
-              <div className="row">
-                {features.map((props, i) => (
-                  // eslint-disable-next-line react/no-array-index-key
-                  <Feature key={i} {...props} />
-                ))}
-              </div>
+        <section className={styles.features}>
+          <div className="container">
+            <div className="row">
+              {features.map((props, i) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <Feature key={i} {...props} />
+              ))}
             </div>
-          </section>
-        )}
+          </div>
+        </section>
       </main>
     </Layout>
   );
