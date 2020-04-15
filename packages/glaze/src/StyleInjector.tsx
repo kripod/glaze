@@ -6,7 +6,7 @@
 
 /* eslint-disable no-plusplus */
 
-import React from 'react';
+import * as React from 'react';
 import { ClassRef } from 'treat';
 
 import { warnOnce } from './logger';

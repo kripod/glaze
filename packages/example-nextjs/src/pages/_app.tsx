@@ -1,6 +1,6 @@
 import { ThemeProvider } from 'glaze';
 import { AppProps } from 'next/app';
-import React from 'react';
+import * as React from 'react';
 
 import theme from '../theme.treat';
 

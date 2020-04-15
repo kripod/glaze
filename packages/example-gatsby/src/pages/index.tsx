@@ -1,5 +1,6 @@
 import { useStyling } from 'glaze';
-import React, { useState } from 'react';
+import * as React from 'react';
+import { useState } from 'react';
 import { useInterval } from 'web-api-hooks';
 
 import { Text } from '../components/Text';

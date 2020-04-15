@@ -1,7 +1,7 @@
 import CodeBlock from '@theme/CodeBlock';
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
-import React from 'react';
+import * as React from 'react';
 
 export interface PackageInstallProps {
   dependencies?: string[];
