@@ -38,6 +38,7 @@ export interface StaticTheme extends CommonTheme {
     shadow: ScaleTokens<'boxShadow'>;
     opacity: ScaleTokens<'opacity'>;
     zIndex: ScaleTokens<'zIndex'>;
+    duration: ScaleTokens<'animationDuration'>;
   };
   resolvers: {
     [key in keyof CSSProperties]:
@@ -132,6 +133,16 @@ export const defaultTokens = {
     },
     opacity: {},
     zIndex: {},
+    duration: {
+      '75ms': '75ms',
+      '100ms': '100ms',
+      '150ms': '150ms',
+      '200ms': '200ms',
+      '300ms': '300ms',
+      '500ms': '500ms',
+      '700ms': '700ms',
+      '1000ms': '1000ms',
+    },
   },
 
   shorthands: {
@@ -257,5 +268,11 @@ export const defaultTokens = {
     outlineColor: 'color',
     boxShadow: 'shadow',
     opacity: 'opacity',
+
+    transitionDelay: 'duration',
+    transitionDuration: 'duration',
+
+    animationDelay: 'duration',
+    animationDuration: 'duration',
   },
 } as const;
