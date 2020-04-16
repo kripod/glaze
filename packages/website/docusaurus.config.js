@@ -7,6 +7,7 @@ module.exports = {
   organizationName: 'kripod',
   projectName: 'glaze',
   themeConfig: {
+    image: 'img/cover.png',
     sidebarCollapsible: false,
     prism: {
       /* eslint-disable global-require, import/no-extraneous-dependencies */
