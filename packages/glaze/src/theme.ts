@@ -104,7 +104,12 @@ export const defaultTokens = {
     },
     color: {},
     letterSpacing: {
+      tighter: '-.05em',
+      tight: '-.025em',
+      normal: 0,
       wide: '.025em',
+      wider: '.05em',
+      widest: '.1em',
     },
     border: {},
     borderWidth: { 1: 1, 2: 2, 4: 4, 8: 8 },
