@@ -105,8 +105,8 @@ export const defaultTokens = {
     },
     color: {},
     letterSpacing: {
-      tighter: '-.05em',
-      tight: '-.025em',
+      tighter: '-0.05em',
+      tight: '-0.025em',
       normal: 0,
       wide: '.025em',
       wider: '.05em',
