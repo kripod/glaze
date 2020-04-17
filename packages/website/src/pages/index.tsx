@@ -1,6 +1,7 @@
 import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import useThemeContext from '@theme/hooks/useThemeContext';
 import Layout from '@theme/Layout';
 import * as React from 'react';
 import GitHubButton from 'react-github-btn';
@@ -85,6 +86,7 @@ function Feature({ imageURL, title, description }: FeatureProps): JSX.Element {
 export default function HomePage(): JSX.Element {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const siteConfig = useDocusaurusContext().siteConfig!;
+  const { isDarkTheme } = useThemeContext();
 
   return (
     <Layout description={`${siteConfig.tagline} with React`}>
@@ -108,8 +110,13 @@ export default function HomePage(): JSX.Element {
               href={`https://github.com/${siteConfig.organizationName!}/${siteConfig.projectName!}`}
               aria-label={`Star ${siteConfig.organizationName!}/${siteConfig.projectName!} on GitHub`}
               /* eslint-enable @typescript-eslint/no-non-null-assertion */
-              data-size="large"
               data-show-count
+              data-size="large"
+              data-color-scheme={
+                isDarkTheme
+                  ? 'no-preference: dark; light: dark;'
+                  : 'dark: light;'
+              }
             >
               Star
             </GitHubButton>
