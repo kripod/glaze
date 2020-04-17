@@ -14,7 +14,7 @@
     "develop": "lerna run --parallel --scope glaze-example-gatsby --include-dependencies develop",
     "format": "prettier --ignore-path .gitignore --write .",
     "postinstall": "lerna bootstrap",
-    "lint": "eslint --ignore-path .gitignore \"**/*.{ts,tsx,js}\"",
+    "lint": "eslint --ignore-path .gitignore \"**/*.{ts,tsx,js,jsx}\"",
     "publish": "lerna publish from-git --yes",
     "release": "dotenv -- lerna version --create-release github",
     "type-check": "lerna run type-check"
@@ -31,8 +31,8 @@
     ]
   },
   "lint-staged": {
-    "*.{ts,tsx,js,json,yml,md}": "prettier --write",
-    "*.{ts,tsx,js}": "eslint --fix"
+    "*.{ts,tsx,js,jsx,json,yml,md}": "prettier --write",
+    "*.{ts,tsx,js,jsx}": "eslint --fix"
   },
   "config": {
     "commitizen": {
