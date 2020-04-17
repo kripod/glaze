@@ -5,13 +5,18 @@ const withTheme = (Component) => (props) => (
 );
 
 const FancyButton = React.forwardRef((props, ref) => (
-  <button ref={ref} className="FancyButton" sx={{ color: 'blue' }}>
+  <button
+    ref={ref}
+    type="button"
+    className="FancyButton"
+    sx={{ color: 'blue' }}
+  >
     {props.children}
   </button>
 ));
 
 const MemoizedBUtton = React.memo((props) => (
-  <button ref={ref} className="MemoizedButton" sx={{ color: 'blue' }}>
+  <button type="button" className="MemoizedButton" sx={{ color: 'blue' }}>
     {props.children}
   </button>
 ));

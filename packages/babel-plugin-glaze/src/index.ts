@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable no-param-reassign */
+/* eslint-disable @typescript-eslint/explicit-function-return-type, no-param-reassign */
+
 import { NodePath, PluginObj, template, types } from '@babel/core';
 
 /* Source: https://github.com/facebook/react/blob/master/packages/eslint-plugin-react-hooks/src/RulesOfHooks.js */
@@ -163,7 +163,7 @@ module.exports = function plugin({
            `;
 
             if (t.isBlockStatement(nodeToAddHook.body)) {
-              /* Verify that the hook is not yet created. 
+              /* Verify that the hook is not yet created.
                  If not,we create it
               */
 
@@ -209,13 +209,13 @@ module.exports = function plugin({
           if (t.isJSXExpressionContainer(node.value)) {
             if (t.isExpression(node.value.expression)) {
               /* 1. We set this value so we know that somewhere in the file
-                 the `sx` props is used.We will need therefore to import 
+                 the `sx` props is used.We will need therefore to import
                  `useStyling` hook from 'glaze'. This is done in the Program exit.
               */
               state.hasSxProps = true;
 
               /* 2. Find the nearest parent component (or the current scope)
-                 and add it to a list that will be processed wihtin the 
+                 and add it to a list that will be processed wihtin the
                  Function exit. This is where we will create de `sx` variable:
                  `const sx = useStyling()`
               */
@@ -255,7 +255,7 @@ module.exports = function plugin({
                     ],
                   );
 
-                  /* Handle the case where className is currently a 
+                  /* Handle the case where className is currently a
                      an expression. E.g: `className={fn(...)}` or
                      `className={isValid ? "my-class" : ""}`
                   */

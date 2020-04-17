@@ -3,21 +3,21 @@ import * as React from 'react';
 const SimpleClassName = (props) => {
   return (
     <div className="my-class-name" sx={{ color: 'blue' }}>
-      {Component}
+      Hello, world!
     </div>
   );
 };
 
-const ComplexClassName = (props) => {
+const ComplexClassName = ({ className }) => {
   const fn = () => true;
   return (
     <div
-      className={`${props.className} other-class-name ${
+      className={`${className} other-class-name ${
         fn('test') ? 'conditional' : ''
       }`}
       sx={{ color: 'blue' }}
     >
-      {Component}
+      Hello, world!
     </div>
   );
 };

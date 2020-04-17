@@ -18,6 +18,7 @@ const FancyButton = React.forwardRef((props, ref) => {
   return (
     <button
       ref={ref}
+      type="button"
       className={`FancyButton ${sx({
         color: 'blue',
       })}`}
@@ -30,7 +31,7 @@ const MemoizedBUtton = React.memo((props) => {
   const sx = useStyling();
   return (
     <button
-      ref={ref}
+      type="button"
       className={`MemoizedButton ${sx({
         color: 'blue',
       })}`}

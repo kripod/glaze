@@ -1,4 +1,5 @@
 import { useStyling } from 'glaze';
+import * as React from 'react';
 
 const App = () => {
   const sx = useStyling();

@@ -21,6 +21,7 @@ const createComp = () => ({
         className={sx({
           color: 'red',
         })}
+        type="button"
       >
         Button
       </button>
