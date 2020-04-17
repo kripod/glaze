@@ -5,7 +5,7 @@ import plugin from '../src/index';
 
 pluginTester({
   plugin,
-  fixtures: path.join(__dirname, 'fixtures'),
+  fixtures: path.join(__dirname, '__fixtures__'),
   babelOptions: {
     parserOpts: {
       plugins: ['jsx'],

@@ -1,5 +1,5 @@
+import { useStyling as useCustomStyling } from 'glaze';
 import React from 'react';
-import { useStyling as customName } from 'glaze';
 
 const App = () => {
   const InnerComponent = () => <div sx={{ color: 'blue' }}>hello</div>;
