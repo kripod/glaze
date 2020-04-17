@@ -12,6 +12,7 @@ script:
   - yarn lint
   - yarn build
   - yarn type-check
+  - yarn test
   - echo -n glaze.js.org > ./packages/website/build/CNAME
 
 deploy:
