@@ -1,0 +1,32 @@
+:root {
+  --ifm-font-size-base: 100%;
+  --ifm-code-font-size: 93.75%;
+  --ifm-line-height-base: 1.75;
+  --ifm-leading-desktop: 1.25;
+  --ifm-list-margin: var(--ifm-leading);
+  --ifm-list-item-margin: 0.5rem;
+
+  /* Logo color adjusted with https://leonardocolor.io/?colorKeys=%23f4abba&base=ffffff&ratios=3%2C4.5&mode=HSLuv */
+  /* Palette generated with https://v2.docusaurus.io/docs/styling-layout#styling-your-site-with-infima */
+  --ifm-color-primary: #d8366b;
+  --ifm-color-primary-dark: #cc275d;
+  --ifm-color-primary-darker: #c02558;
+  --ifm-color-primary-darkest: #9e1f48;
+  --ifm-color-primary-light: #dc4d7c;
+  --ifm-color-primary-lighter: #df5884;
+  --ifm-color-primary-lightest: #e57a9d;
+}
+
+.markdown {
+  --ifm-heading-vertical-rhythm-bottom: 1.125;
+}
+
+.docusaurus-highlight-code-line {
+  background-color: #1b2d40;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+html[data-theme='dark'] .docusaurus-highlight-code-line {
+  background-color: #3f414e;
+}

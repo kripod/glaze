@@ -1,9 +1,23 @@
+# General
 *.log*
 *.tsbuildinfo
-.cache/
+.DS_Store
 .env
+.env.*
 .eslintcache
-.next/
-dist*/
 node_modules/
+
+# Docusaurus
+.cache-loader/
+.docusaurus/
+build/
+
+# Gatsby
+.cache/
 public/
+
+# Next.js
+.next/
+
+# Package build output
+dist-*/

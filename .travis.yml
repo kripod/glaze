@@ -12,8 +12,16 @@ script:
   - yarn lint
   - yarn build
   - yarn type-check
+  - echo -n glaze.js.org > ./packages/website/build/CNAME
 
 deploy:
+  - provider: pages:git
+    edge: true
+    local_dir: ./packages/website/build/
+    keep_history: false
+    on:
+      branch: master
+      node_js: lts/*
   - provider: npm
     edge: true
     run_script: publish

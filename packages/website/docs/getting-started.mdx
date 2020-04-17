@@ -1,0 +1,99 @@
+---
+title: Getting Started
+---
+
+## Installation
+
+import PackageInstall from '@theme/PackageInstall';
+
+<PackageInstall dependencies={['glaze', 'treat', 'react-treat']} />
+
+## Managing design tokens
+
+Design systems establish a consistent user experience across platforms. Built upon [design tokens](https://css-tricks.com/what-are-design-tokens/), they provide an agnostic way to store information about branding colors, typography and more.
+
+Firstly, define a theme, preferably by overriding the [default tokens](https://github.com/kripod/glaze/blob/master/packages/glaze/src/theme.ts):
+
+```js title="theme.treat.js"
+import { createTheme, defaultTokens } from 'glaze';
+
+export default createTheme({
+  ...defaultTokens,
+
+  // Customization
+  scales: {
+    ...defaultTokens.scales,
+    color: {
+      primary: '#f8485e',
+    },
+  },
+});
+```
+
+:::note
+
+<!-- TODO: Remove spaces sorrounding bracketed items -->
+
+Keeping the runtime as small as possible, only a few tokens ( `breakpoints` , `shorthands` and `aliases` ) are embedded into production JavaScript bundles. Other values can only be accessed exclusively for styling, as [shown below](#usage).
+:::
+
+Apply the theme through `<ThemeProvider>`, by wrapping the component tree:
+
+```jsx
+import { ThemeProvider } from 'glaze';
+import theme from './theme.treat';
+
+export default function Layout({ children }) {
+  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+}
+```
+
+:::tip
+The [Gatsby plugin for glaze](https://www.npmjs.com/package/gatsby-plugin-glaze) does this out of the box.
+:::
+
+## Static style extraction
+
+A single-purpose CSS class needs to be generated for each design token at build time. This can be [set up by following the instructions of treat](https://seek-oss.github.io/treat/setup/).
+
+:::tip
+The [Gatsby plugin for treat](https://www.npmjs.com/package/gatsby-plugin-treat) does this out of the box.
+:::
+
+Afterwards, selector-based CSS rules may be created with [`globalStyle()`](https://seek-oss.github.io/treat/styling-api/#globalstyle) in `*.treat.{js|ts}` files. They have to be applied as a side effect, e.g. from a top-level layout component:
+
+```js
+import './globalStyles.treat'; // {js|ts} file extensions may be omitted
+```
+
+## Usage
+
+Style elements with the `sx` function, as [inspired by Theme UI](https://theme-ui.com/sx-prop):
+
+```jsx
+import { useStyling } from 'glaze';
+
+export default function Component() {
+  const sx = useStyling();
+
+  return (
+    <p
+      className={sx({
+        px: 4, // Sets `padding-left` and `padding-right` to `1rem` (from theme)
+        color: 'primary', // Sets color to `#f8485e` (from theme)
+        backgroundColor: 'red', // Non-tokens are applied as raw CSS values
+      })}
+    >
+      Hello, world!
+    </p>
+  );
+}
+```
+
+[tailwind css]: https://tailwindcss.com/
+[stylesheet]: https://github.com/giuseppeg/style-sheet
+[css-zero]: https://github.com/CraigCav/css-zero
+[theme ui]: https://theme-ui.com/
+[emotion]: https://emotion.sh/
+[treat]: https://seek-oss.github.io/treat/
+[twemoji]: https://twemoji.twitter.com/

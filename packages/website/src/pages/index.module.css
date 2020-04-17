@@ -1,0 +1,10 @@
+.featureImage {
+  width: 200px;
+  height: 200px;
+}
+
+@media (max-width: 996px) {
+  .featureImage {
+    height: auto;
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "extends": "../../tsconfig-base",
+  "include": ["./src/"],
+  "compilerOptions": {
+    "noEmit": true,
+    "esModuleInterop": true,
+    "baseUrl": "./",
+    "paths": {
+      "@site/*": [
+        // https://v2.docusaurus.io/docs/versioning/#use-absolute-import-within-the-docs
+        "./*"
+      ],
+      "@theme/*": [
+        // https://v2.docusaurus.io/docs/using-themes/#theme-components
+        "./src/theme/*",
+        "../../node_modules/@docusaurus/theme-classic/src/theme/*",
+        "../../node_modules/@docusaurus/core/lib/client/theme-fallback/*"
+      ],
+
+      // TODO: Remove when upgrading Docusaurus
+      "@docusaurus/*": [
+        "../../node_modules/@docusaurus/core/lib/client/exports/*"
+      ]
+    }
+  }
+}

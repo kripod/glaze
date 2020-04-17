@@ -1,5 +1,5 @@
 import { useStyling } from 'glaze';
-import React from 'react';
+import * as React from 'react';
 
 export interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
   children: React.ReactNode;

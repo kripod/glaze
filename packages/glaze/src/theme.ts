@@ -2,7 +2,7 @@ import { CSSProperties } from 'react';
 import { createTheme as createStaticTheme, ThemeRef } from 'treat';
 import { ThemeOrAny } from 'treat/theme';
 
-import { modularScale } from './scales';
+import { modularScale, symmetricScale } from './scales';
 
 export interface ScaleTokens<T extends keyof CSSProperties> {
   [key: string]: NonNullable<CSSProperties[T]>;
@@ -38,6 +38,7 @@ export interface StaticTheme extends CommonTheme {
     shadow: ScaleTokens<'boxShadow'>;
     opacity: ScaleTokens<'opacity'>;
     zIndex: ScaleTokens<'zIndex'>;
+    duration: ScaleTokens<'animationDuration'>;
   };
   resolvers: {
     [key in keyof CSSProperties]:
@@ -59,13 +60,12 @@ export function createTheme(
   };
 }
 
-// TODO: symmetricScale()
-const spacing = {
+const spacing = symmetricScale({
   0: 0,
-  '1px': 1,
-  1: '.25rem',
-  2: '.5rem',
-  3: '.75rem',
+  '1px': '1px',
+  1: '0.25rem',
+  2: '0.5rem',
+  3: '0.75rem',
   4: '1rem',
   5: '1.25rem',
   6: '1.5rem',
@@ -80,7 +80,7 @@ const spacing = {
   48: '12rem',
   56: '14rem',
   64: '16rem',
-} as const;
+});
 
 export const defaultTokens = {
   breakpoints: [640, 768, 1024, 1280],
@@ -105,7 +105,12 @@ export const defaultTokens = {
     },
     color: {},
     letterSpacing: {
+      tighter: '-0.05em',
+      tight: '-0.025em',
+      normal: 0,
       wide: '.025em',
+      wider: '.05em',
+      widest: '.1em',
     },
     border: {},
     borderWidth: { 1: 1, 2: 2, 4: 4, 8: 8 },
@@ -116,18 +121,25 @@ export const defaultTokens = {
       full: 9999,
     },
     shadow: {
-      sm: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
-      md:
-        '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-      lg:
-        '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-      xl:
-        '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-      inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
-      outline: '0 0 0 3px rgba(66, 153, 225, 0.5)',
+      sm: '0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px 0 rgba(0,0,0,.06)',
+      md: '0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -1px rgba(0,0,0,.06)',
+      lg: '0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -2px rgba(0,0,0,.05)',
+      xl: '0 20px 25px -5px rgba(0,0,0,.1),0 10px 10px -5px rgba(0,0,0,.04)',
+      inner: 'inset 0 2px 4px 0 rgba(0,0,0,.06)',
+      outline: '0 0 0 3px rgba(66,153,225,.5)',
     },
     opacity: {},
     zIndex: {},
+    duration: {
+      '75ms': '75ms',
+      '100ms': '.1s',
+      '150ms': '.15s',
+      '200ms': '.2s',
+      '300ms': '.3s',
+      '500ms': '.5s',
+      '700ms': '.7s',
+      '1000ms': '1s',
+    },
   },
 
   shorthands: {
@@ -253,5 +265,11 @@ export const defaultTokens = {
     outlineColor: 'color',
     boxShadow: 'shadow',
     opacity: 'opacity',
+
+    transitionDelay: 'duration',
+    transitionDuration: 'duration',
+
+    animationDelay: 'duration',
+    animationDuration: 'duration',
   },
 } as const;

@@ -98,8 +98,7 @@ export function useStyling(): (themedStyle: ThemedStyle) => string {
             );
 
             ownRuleUsageCountsByClassName[appendedClassName] =
-              // eslint-disable-next-line no-bitwise
-              (ownRuleUsageCountsByClassName[appendedClassName] | 0) + 1;
+              (ownRuleUsageCountsByClassName[appendedClassName] || 0) + 1;
           }
 
           className += ` ${appendedClassName}`;

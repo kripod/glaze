@@ -1,7 +1,7 @@
 {
   "name": "glaze",
   "version": "0.4.3",
-  "description": "CSS-in-JS framework for building approachable design systems",
+  "description": "CSS-in-JS microlibrary for making design systems approachable",
   "keywords": [
     "css-in-js",
     "design-system",
@@ -31,8 +31,9 @@
     "src/"
   ],
   "scripts": {
-    "build": "tsc",
-    "develop": "tsc --watch"
+    "build": "tsc --build",
+    "clean": "tsc --build --clean",
+    "develop": "tsc --build --watch"
   },
   "dependencies": {
     "@emotion/hash": "^0.8.0",

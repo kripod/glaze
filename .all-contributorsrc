@@ -4,7 +4,7 @@
   "repoType": "github",
   "repoHost": "https://github.com",
   "files": [
-    "README.md"
+    "./packages/glaze/README.md"
   ],
   "commitConvention": "angular",
   "contributorsPerLine": 7,
@@ -29,6 +29,15 @@
       "name": "Jess Telford",
       "avatar_url": "https://avatars1.githubusercontent.com/u/612020?v=4",
       "profile": "http://jes.st/about",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "tatchi",
+      "name": "Corentin Leruth",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/5595092?v=4",
+      "profile": "https://github.com/tatchi",
       "contributions": [
         "doc"
       ]

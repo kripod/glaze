@@ -5,6 +5,7 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
+    "esModuleInterop": true,
     "resolveJsonModule": true,
     "jsx": "preserve"
   },

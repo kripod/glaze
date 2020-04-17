@@ -3,13 +3,14 @@
 </p>
 
 <p align="center">
-  CSS-in-JS framework for building approachable design systems.
+  CSS-in-JS microlibrary for making design systems approachable
 </p>
 
 <p align="center">
   <a href="https://www.npmjs.com/package/glaze"><img alt="npm" src="https://img.shields.io/npm/v/glaze"></a>
   <a href="https://lgtm.com/projects/g/kripod/glaze/context:javascript"><img alt="Language grade: JavaScript" src="https://img.shields.io/lgtm/grade/javascript/g/kripod/glaze.svg?logo=lgtm&logoWidth=18"/></a>
   <a href="https://travis-ci.com/github/kripod/glaze"><img alt="Travis (.com)" src="https://img.shields.io/travis/com/kripod/glaze"></a>
+  <a href="https://opencollective.com/glaze"><img alt="Open Collective backers and sponsors" src="https://img.shields.io/opencollective/all/glaze"></a>
 </p>
 
 ## 💡 Motivation
@@ -66,9 +67,11 @@ Baking the benefits outlined above into a single package, glaze was born.
    });
    ```
 
+   _Keeping the runtime as small as possible, only a few tokens (`breakpoints`, `shorthands` and `aliases`) are embedded into production JavaScript bundles. Other values can only be accessed exclusively for styling, as shown later._
+
 2. Apply the theme through `ThemeProvider`:
 
-   > 📝 A [Gatsby plugin](https://www.npmjs.com/package/gatsby-plugin-glaze) is available for this task.
+   > 📝 The [Gatsby plugin for glaze](https://www.npmjs.com/package/gatsby-plugin-glaze) does this unobtrusively.
 
    ```jsx
    import { ThemeProvider } from 'glaze';
@@ -101,10 +104,17 @@ Baking the benefits outlined above into a single package, glaze was born.
    }
    ```
 
-4. Please refer to the [treat][] documentation for:
+4. Set up [static style extraction](https://seek-oss.github.io/treat/setup/) with the help of [treat][].
 
-   - Setting up static style extraction and server-side rendering
-   - Applying a selector-based `globalStyle`
+   > 📝 The [Gatsby plugin for treat](https://www.npmjs.com/package/gatsby-plugin-treat) does this unobtrusively.
+
+   - Afterwards, selector-based CSS rules may be created with [`globalStyle`](https://seek-oss.github.io/treat/styling-api/#globalstyle) in `*.treat.js` files. They have to be applied as a side effect, e.g. from a top-level layout component:
+
+     ```js
+     import './globalStyles.treat.js';
+     ```
+
+5. Configure [server-side rendering](./docs/server-side-rendering.md) for dynamically created styles.
 
 ## 🤔 How it works
 
@@ -158,8 +168,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/kripod"><img src="https://avatars3.githubusercontent.com/u/14854048?v=4" width="100px;" alt=""/><br /><sub><b>Kristóf Poduszló</b></sub></a><br /><a href="#maintenance-kripod" title="Maintenance">🚧</a> <a href="https://github.com/kripod/react-hooks/commits?author=kripod" title="Code">💻</a> <a href="https://github.com/kripod/react-hooks/commits?author=kripod" title="Documentation">📖</a> <a href="#example-kripod" title="Examples">💡</a> <a href="#ideas-kripod" title="Ideas, Planning, & Feedback">🤔</a> <a href="#infra-kripod" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+    <td align="center"><a href="https://github.com/kripod"><img src="https://avatars3.githubusercontent.com/u/14854048?v=4" width="100px;" alt=""/><br /><sub><b>Kristóf Poduszló</b></sub></a><br /><a href="#maintenance-kripod" title="Maintenance">🚧</a> <a href="https://github.com/kripod/glaze/commits?author=kripod" title="Code">💻</a> <a href="https://github.com/kripod/glaze/commits?author=kripod" title="Documentation">📖</a> <a href="#example-kripod" title="Examples">💡</a> <a href="#ideas-kripod" title="Ideas, Planning, & Feedback">🤔</a> <a href="#infra-kripod" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
     <td align="center"><a href="http://jes.st/about"><img src="https://avatars1.githubusercontent.com/u/612020?v=4" width="100px;" alt=""/><br /><sub><b>Jess Telford</b></sub></a><br /><a href="https://github.com/kripod/glaze/commits?author=jesstelford" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/tatchi"><img src="https://avatars2.githubusercontent.com/u/5595092?v=4" width="100px;" alt=""/><br /><sub><b>Corentin Leruth</b></sub></a><br /><a href="https://github.com/kripod/glaze/commits?author=tatchi" title="Documentation">📖</a></td>
   </tr>
 </table>
 
@@ -170,9 +181,16 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
+## Acknowledgements
+
+Without its predecessors, glaze wouldn't exist. Thanks for all the wonderful people who have contributed towards the project, even indirectly.
+
+The logo's donut emoji is courtesy of [Twemoji][].
+
 [tailwind css]: https://tailwindcss.com/
 [stylesheet]: https://github.com/giuseppeg/style-sheet
 [css-zero]: https://github.com/CraigCav/css-zero
 [theme ui]: https://theme-ui.com/
 [emotion]: https://emotion.sh/
 [treat]: https://seek-oss.github.io/treat/
+[twemoji]: https://twemoji.twitter.com/

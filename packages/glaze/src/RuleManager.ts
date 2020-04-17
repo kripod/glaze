@@ -1,10 +1,12 @@
+import { ClassRef } from 'treat';
+
 import { isBrowser, isDev } from './env';
 import { errorOnce, warnOnce } from './logger';
 import type { StyleInjector } from './StyleInjector';
 
 export interface RuleManager {
-  increaseUsage(className: string, cssText: () => string): void;
-  decreaseUsage(className: string, byAmount: number): void;
+  increaseUsage(className: ClassRef, cssText: () => string): void;
+  decreaseUsage(className: ClassRef, byAmount: number): void;
 }
 
 export class NullRuleManager implements RuleManager {
@@ -13,9 +15,13 @@ export class NullRuleManager implements RuleManager {
     if (isDev) {
       // TODO: Add instructions for resolving the situation
       if (isBrowser) {
-        errorOnce('Client-side rendering of dynamic styles is not set up');
+        errorOnce(
+          'Client-side injection of dynamic styles is not set up. Wrap the component tree inside a `<StyleInjectorProvider>` without parameters.',
+        );
       } else {
-        warnOnce('Server-side rendering of dynamic styles is not set up');
+        warnOnce(
+          'Server-side rendering of dynamic styles is not configured properly. Some of the initially applied CSS could not be prerendered. Please refer to the documentation at https://glaze.js.org/docs/server-side-rendering for further information.',
+        );
       }
     }
   }
@@ -27,19 +33,19 @@ export class NullRuleManager implements RuleManager {
 export class OptimizedRuleManager implements RuleManager {
   private injector: StyleInjector;
 
-  private ruleIndexesByClassName = new Map<string, number>();
+  private ruleIndexesByClassName = new Map<ClassRef, number>();
 
-  private usageCountsByClassName = new Map<string, number>();
+  private usageCountsByClassName = new Map<ClassRef, number>();
 
   constructor(
     injector: StyleInjector,
-    initialRuleIndexesByClassName: Map<string, number>,
+    initialRuleIndexesByClassName: Map<ClassRef, number>,
   ) {
     this.injector = injector;
     this.ruleIndexesByClassName = initialRuleIndexesByClassName;
   }
 
-  increaseUsage(className: string, cssText: () => string): void {
+  increaseUsage(className: ClassRef, cssText: () => string): void {
     const prevUsageCount = this.usageCountsByClassName.get(className) || 0;
     this.usageCountsByClassName.set(className, prevUsageCount + 1);
 
@@ -52,7 +58,7 @@ export class OptimizedRuleManager implements RuleManager {
     }
   }
 
-  decreaseUsage(className: string, byAmount: number): void {
+  decreaseUsage(className: ClassRef, byAmount: number): void {
     const nextUsageCount =
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       this.usageCountsByClassName.get(className)! - byAmount;

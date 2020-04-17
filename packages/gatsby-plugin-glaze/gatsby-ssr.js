@@ -3,7 +3,7 @@ import {
   ThemeProvider,
   VirtualStyleInjector,
 } from 'glaze';
-import React from 'react';
+import * as React from 'react';
 
 import theme from './src/theme.treat';
 

@@ -4,16 +4,16 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "dev": "next",
-    "start": "next start"
+    "develop": "next",
+    "serve": "next start"
   },
   "dependencies": {
-    "@types/react": "^16.9.32",
+    "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.6",
-    "@types/webpack": "*",
+    "@types/webpack": "4.41.11",
     "babel-plugin-treat": "^1.1.0",
     "glaze": "^0.4.3",
-    "next": "^9.3.4",
+    "next": "^9.3.5",
     "next-transpile-modules": "^3.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
