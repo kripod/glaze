@@ -4,7 +4,6 @@
   --ifm-line-height-base: 1.75;
   --ifm-leading-desktop: 1.25;
   --ifm-list-margin: var(--ifm-leading);
-  --ifm-list-item-margin: 0.5rem;
 
   /* Logo color adjusted with https://leonardocolor.io/?colorKeys=%23f4abba&base=ffffff&ratios=3%2C4.5&mode=HSLuv */
   /* Palette generated with https://v2.docusaurus.io/docs/styling-layout#styling-your-site-with-infima */
@@ -19,6 +18,15 @@
 
 .markdown {
   --ifm-heading-vertical-rhythm-bottom: 1.125;
+}
+
+.alert.alert--secondary code {
+  background: var(--ifm-color-gray-100);
+}
+
+.alert.alert--secondary code,
+a code {
+  color: inherit;
 }
 
 .docusaurus-highlight-code-line {
