@@ -1,0 +1,43 @@
+{
+  "name": "babel-plugin-glaze",
+  "version": "0.0.1",
+  "description": "Babel plugin to transform sx prop",
+  "keywords": [
+    "babel",
+    "sx",
+    "glaze"
+  ],
+  "bugs": {
+    "url": "https://github.com/kripod/glaze/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kripod/glaze.git",
+    "directory": "packages/babel-plugin-glaze"
+  },
+  "license": "MIT",
+  "author": "Corentin Leruth <corentin.leruth@gmail.com>",
+  "main": "./dist-node/index.js",
+  "files": [
+    "dist-*/",
+    "src/"
+  ],
+  "scripts": {
+    "build": "babel ./src/ --out-dir ./dist-node/ --extensions \".ts\" --source-maps",
+    "develop": "yarn build --watch",
+    "test": "jest",
+    "type-check": "tsc --build"
+  },
+  "dependencies": {
+    "@babel/core": "^7.6.4",
+    "babel-plugin-tester": "^9.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.6.4",
+    "@babel/plugin-syntax-jsx": "^7.8.3",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-typescript": "^7.9.0",
+    "jest": "^25.2.7",
+    "typescript": "^3.8.3"
+  }
+}

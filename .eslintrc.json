@@ -29,9 +29,24 @@
 
   "overrides": [
     {
-      "files": ["gatsby-*.js", "next.config.js"],
+      "files": ["*.js", "*.jsx"],
       "rules": {
-        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/explicit-function-return-type": "off"
+      }
+    },
+    {
+      "files": ["**/fixtures/**/*"],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "off",
+        "func-names": "off",
+        "import/newline-after-import": "off",
+        "import/no-extraneous-dependencies": "off",
+        "no-shadow": "off"
+      }
+    },
+    {
+      "files": ["**/fixtures/**/*", "gatsby-*.js", "next.config.js"],
+      "rules": {
         "@typescript-eslint/no-var-requires": "off",
         "import/prefer-default-export": "off",
         "react/jsx-filename-extension": "off",
