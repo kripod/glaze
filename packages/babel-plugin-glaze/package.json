@@ -17,15 +17,16 @@
   },
   "license": "MIT",
   "author": "Corentin Leruth <corentin.leruth@gmail.com>",
-  "main": "dist/index.js",
+  "main": "./dist-node/index.js",
   "files": [
-    "index.js",
-    "README.md"
+    "dist-*/",
+    "src/"
   ],
   "scripts": {
-    "build": "babel src/index.ts --out-file dist/index.js",
+    "build": "babel ./src/ --out-dir ./dist-node/ --extensions \".ts\" --source-maps",
+    "develop": "yarn build --watch",
     "test": "jest",
-    "watch": "babel src/index.ts --out-file src/index.js --watch"
+    "type-check": "tsc --build"
   },
   "dependencies": {
     "@babel/core": "^7.6.4",
@@ -36,7 +37,6 @@
     "@babel/plugin-syntax-jsx": "^7.8.3",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-typescript": "^7.9.0",
-    "@types/node": "^13.11.0",
     "jest": "^25.2.7",
     "typescript": "^3.8.3"
   }
