@@ -13,6 +13,54 @@ import { StyleInjectorContext } from './StyleInjectorContext';
 import { useTheme } from './ThemeContext';
 import styleRefs from './useStyling.treat';
 
+const shorthandProperties = new Set([
+  'all',
+  'animation',
+  'background',
+  'border',
+  'borderBlock',
+  'borderBlockEnd',
+  'borderBlockStart',
+  'borderBottom',
+  'borderColor',
+  'borderImage',
+  'borderInline',
+  'borderInlineEnd',
+  'borderInlineStart',
+  'borderLeft',
+  'borderRadius',
+  'borderRight',
+  'borderStyle',
+  'borderTop',
+  'borderWidth',
+  'columnRule',
+  'columns',
+  'flex',
+  'flexFlow',
+  'font',
+  'gap',
+  'grid',
+  'gridArea',
+  'gridColumn',
+  'gridRow',
+  'gridTemplate',
+  'lineClamp',
+  'listStyle',
+  'margin',
+  'mask',
+  'maskBorder',
+  'motion',
+  'offset',
+  'outline',
+  'overflow',
+  'padding',
+  'placeItems',
+  'placeSelf',
+  'textDecoration',
+  'textEmphasis',
+  'transition',
+]);
+
 function kebabCaseReplacer(match: string): string {
   return `-${match.toLowerCase()}`;
 }
@@ -85,17 +133,19 @@ export function useStyling(): (themedStyle: ThemedStyle) => string {
           if (!appendedClassName) {
             // TODO: Use same hashing algorithm during static CSS generation
             appendedClassName = getClassName(identName);
-            ruleManager.increaseUsage(
-              appendedClassName,
-              () =>
-                `.${isDev ? escape(appendedClassName) : appendedClassName}{${
-                  // TODO: Abstract this logic away to a utility function
-                  // Convert CSS property to kebab-case and normalize numeric value
-                  `${key.replace(/[A-Z]/g, kebabCaseReplacer)}:${
-                    typeof value !== 'number' ? value : `${value}px`
-                  }`
-                }}`,
-            );
+            ruleManager.increaseUsage(appendedClassName, () => {
+              // Increase specificity of rules for non-shorthand CSS properties
+              const selector = `.${
+                isDev ? escape(appendedClassName) : appendedClassName
+              }`.repeat(shorthandProperties.has(key) ? 1 : 2);
+              return `${selector}{${
+                // TODO: Abstract this logic away to a utility function
+                // Convert CSS property to kebab-case and normalize numeric value
+                `${key.replace(/[A-Z]/g, kebabCaseReplacer)}:${
+                  typeof value !== 'number' ? value : `${value}px`
+                }`
+              }}`;
+            });
 
             ownRuleUsageCountsByClassName[appendedClassName] =
               (ownRuleUsageCountsByClassName[appendedClassName] || 0) + 1;
