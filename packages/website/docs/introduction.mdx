@@ -46,12 +46,13 @@ export default createTheme({
   ...defaultTokens, // Defines aliases like `bg`, shorthands and more
   scales: {
     ...defaultTokens.scales, // Has several values, e.g. `spacing[4] === '1rem'`
+    // highlight-next-line
     color: { highlight: '#f9c' },
   },
 });
 ```
 
-The initial example should now be rewritten with scalability in mind:
+So then, we can rearchitect the initial example in a scalable manner:
 
 ```jsx
 function Component() {
