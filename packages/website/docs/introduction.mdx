@@ -1,0 +1,62 @@
+---
+title: Introduction
+hide_table_of_contents: true
+---
+
+## Motivation
+
+This project was born to combine the best of its predecessors into a single solution:
+
+- **Utility-first CSS,** as implemented by [Tailwind CSS][]
+  - Fully static, but customizable upfront
+  - Embraces reusability with no duplicated rules
+- **Constraint-based layouts,** popularized by [Theme UI][]
+  - Highly dynamic, thankfully to [Emotion][]
+  - One-off styles can be defined naturally
+- **Near-zero runtime,** made possible by [treat][]
+  - Theming support with legacy browsers in mind
+  - Static style extraction while retaining type safety
+
+[tailwind css]: https://tailwindcss.com/
+[stylesheet]: https://github.com/giuseppeg/style-sheet
+[css-zero]: https://github.com/CraigCav/css-zero
+[theme ui]: https://theme-ui.com/
+[emotion]: https://emotion.sh/
+[treat]: https://seek-oss.github.io/treat/
+
+## Systematic approach
+
+An element's appearance can be customized through objects. Similarly to [`style` attributes in React](https://reactjs.org/docs/dom-elements.html#style), properties are camelCased. Aliases and shorthands may also be used (and even defined):
+
+```jsx
+function Component() {
+  return <p sx={{ bg: '#f9c' /* pink */, paddingX: '1rem' }}>Hello, world!</p>;
+}
+```
+
+- The `bg` alias will be transformed into `background`
+- The `paddingX` shorthand can set `paddingLeft` and `paddingRight` at once
+
+Each value may also be part of a scale. Store [design tokens](https://css-tricks.com/what-are-design-tokens/) in a theme:
+
+```js title="theme.treat.js"
+import { createTheme, defaultTokens } from 'glaze';
+
+export default createTheme({
+  ...defaultTokens, // Defines aliases like `bg`, shorthands and more
+  scales: {
+    ...defaultTokens.scales, // Has several values, e.g. `spacing[4] === '1rem'`
+    color: { highlight: '#f9c' },
+  },
+});
+```
+
+The initial example should now be rewritten with scalability in mind:
+
+```jsx
+function Component() {
+  return <p sx={{ bg: 'highlight', paddingX: 4 }}>Hello, world!</p>;
+}
+```
+
+Concepts like these will be thoroughly explained in the next chapters. Follow along and delve into the world of styling with confidence and convenience.

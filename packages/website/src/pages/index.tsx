@@ -98,7 +98,7 @@ export default function HomePage(): JSX.Element {
           </p>
 
           <Link
-            to={useBaseUrl('docs/getting-started')}
+            to={useBaseUrl('docs/introduction')}
             className="button button--primary button--lg margin-bottom--md"
           >
             Get Started
