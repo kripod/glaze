@@ -19,22 +19,16 @@ import { createTheme, defaultTokens } from 'glaze';
 
 export default createTheme({
   ...defaultTokens,
-
-  // Customization
   scales: {
     ...defaultTokens.scales,
-    color: {
-      primary: '#f8485e',
-    },
+    // highlight-next-line
+    color: { primary: '#d8366b' }, // Example for customization
   },
 });
 ```
 
 :::note
-
-<!-- TODO: Remove spaces sorrounding bracketed items -->
-
-Keeping the runtime as small as possible, only a few tokens ( `breakpoints` , `shorthands` and `aliases` ) are embedded into production JavaScript bundles. Other values can only be accessed exclusively for styling, as [shown below](#usage).
+Keeping the runtime as small as possible, only a few tokens (`breakpoints`, `shorthands` and `aliases`) are embedded into production JavaScript bundles. Other values can only be accessed exclusively for styling, as [shown below](#usage).
 :::
 
 Apply the theme through `<ThemeProvider>`, by wrapping the component tree:
@@ -80,7 +74,7 @@ export default function Component() {
     <p
       className={sx({
         px: 4, // Sets `padding-left` and `padding-right` to `1rem` (from theme)
-        color: 'primary', // Sets color to `#f8485e` (from theme)
+        color: 'primary', // Sets color to `#d8366b` (from theme)
         backgroundColor: 'red', // Non-tokens are applied as raw CSS values
       })}
     >
