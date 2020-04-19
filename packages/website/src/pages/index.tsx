@@ -89,7 +89,7 @@ export default function HomePage(): JSX.Element {
   const { isDarkTheme } = useThemeContext();
 
   return (
-    <Layout description={`${siteConfig.tagline} with React`}>
+    <Layout description={siteConfig.tagline}>
       <header className="hero text--center shadow--lw">
         <div className="container">
           <h1 className="hero__title">{siteConfig.title}</h1>

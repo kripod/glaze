@@ -1,6 +1,7 @@
 module.exports = {
   title: 'glaze',
-  tagline: 'CSS-in-JS microlibrary for making design systems approachable',
+  tagline:
+    'CSS-in-JS microlibrary for making design systems approachable with React',
   url: 'https://glaze.js.org',
   baseUrl: '/',
   favicon: 'img/favicon.ico',
