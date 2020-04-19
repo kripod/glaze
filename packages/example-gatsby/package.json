@@ -6,7 +6,8 @@
     "build": "gatsby build",
     "clean": "gatsby clean",
     "develop": "gatsby develop --open",
-    "serve": "gatsby serve"
+    "serve": "gatsby serve",
+    "type-check": "tsc --build"
   },
   "dependencies": {
     "@types/react": "^16.9.34",
