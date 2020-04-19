@@ -33,7 +33,7 @@ export default createTheme({
   aliases: {
     px: 'paddingX',
   },
-  resolvers: {
+  matchers: {
     paddingLeft: 'spacing',
     paddingRight: 'spacing',
   },
@@ -45,4 +45,4 @@ An `sx` parameter is matched to CSS rules as follows:
 1. `{ px: 4 }`
 2. `{ paddingX: 4 }`, after transforming aliases
 3. `{ paddingLeft: 4, paddingRight: 4 }`, after unfolding custom shorthands
-4. `{ paddingLeft: '1rem', paddingRight: '1rem' }`, after applying resolvers
+4. `{ paddingLeft: '1rem', paddingRight: '1rem' }`, after applying matchers

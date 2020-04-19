@@ -40,8 +40,8 @@ export interface StaticTheme extends CommonTheme {
     zIndex: ScaleTokens<'zIndex'>;
     duration: ScaleTokens<'animationDuration'>;
   };
-  resolvers: {
-    [key in keyof CSSProperties]:
+  matchers: {
+    [property in keyof CSSProperties]:
       | keyof this['scales']
       | keyof ThemeOrAny['scales'];
   };
@@ -180,7 +180,7 @@ export const defaultTokens = {
     bg: 'background',
   },
 
-  resolvers: {
+  matchers: {
     top: 'spacing',
     right: 'spacing',
     bottom: 'spacing',

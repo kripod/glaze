@@ -85,10 +85,10 @@ export type ThemedStyle = Style &
     [key in Extract<
       | keyof ThemeOrAny['aliases']
       | keyof ThemeOrAny['shorthands']
-      | keyof ThemeOrAny['resolvers'],
+      | keyof ThemeOrAny['matchers'],
       string
     >]?:
-      | keyof ThemeOrAny['scales'][ThemeOrAny['resolvers'][ResolveAlias<key>]]
+      | keyof ThemeOrAny['scales'][ThemeOrAny['matchers'][ResolveAlias<key>]]
 
       // Allow non-themed CSS values
       // TODO: Replace literal union hack, see https://github.com/microsoft/TypeScript/issues/29729
