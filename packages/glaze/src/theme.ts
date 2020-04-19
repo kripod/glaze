@@ -4,6 +4,11 @@ import { ThemeOrAny } from 'treat/theme';
 
 import { modularScale, symmetricScale } from './scales';
 
+export type Tokens<T extends keyof ThemeOrAny> = Extract<
+  keyof ThemeOrAny[T],
+  string | number
+>;
+
 export interface ScaleTokens<T extends keyof CSSProperties> {
   [key: string]: NonNullable<CSSProperties[T]>;
 }
@@ -11,11 +16,7 @@ export interface ScaleTokens<T extends keyof CSSProperties> {
 export interface CommonTheme {
   breakpoints: readonly number[];
   shorthands: { [key: string]: ReadonlyArray<keyof CSSProperties> };
-  aliases: {
-    [key: string]:
-      | keyof CSSProperties
-      | Extract<keyof ThemeOrAny['shorthands'], string>;
-  };
+  aliases: { [key: string]: keyof CSSProperties | Tokens<'shorthands'> };
 }
 
 export interface RuntimeTheme extends CommonTheme {
@@ -41,9 +42,7 @@ export interface StaticTheme extends CommonTheme {
     duration: ScaleTokens<'animationDuration'>;
   };
   matchers: {
-    [property in keyof CSSProperties]:
-      | keyof this['scales']
-      | keyof ThemeOrAny['scales'];
+    [property in keyof CSSProperties]: keyof this['scales'] | Tokens<'scales'>;
   };
 }
 
@@ -213,7 +212,7 @@ export const defaultTokens = {
     paddingTop: 'spacing',
     paddingRight: 'spacing',
     paddingBottom: 'spacing',
-    paddingLeft: 'spacing',
+    // paddingLeft: 'spacing',
 
     margin: 'spacing',
     // TODO: marginInline: 'spacing',
