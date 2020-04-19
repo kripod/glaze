@@ -34,7 +34,7 @@ export type ThemedStyle = CSSProperties &
   { [key in Tokens<'shorthands'>]?: ScaleKeys<ResolveShorthand<key>> } &
   { [key in Tokens<'aliases'>]?: ScaleKeys<ResolveAlias<key>> };
 
-export function useStaticStyling(): (themedStyle: ThemedStyle) => string {
+export function useStyling(): (themedStyle: ThemedStyle) => string {
   const theme = useTheme();
   const staticClassNames = useStyles(styleRefs);
   const getDynamicClassName = useStyleInjector();
