@@ -2,6 +2,8 @@ import { CSSProperties } from 'react';
 import { createTheme as createStaticTheme, ThemeRef } from 'treat';
 import { ThemeOrAny } from 'treat/theme';
 
+import { isDev } from './env';
+import { warnOnce } from './logger';
 import { modularScale, symmetricScale } from './scales';
 
 export type Tokens<T extends keyof ThemeOrAny> = Extract<
@@ -51,6 +53,13 @@ export function createTheme(
   localDebugName?: string,
 ): RuntimeTheme {
   const { breakpoints, shorthands, aliases } = tokens;
+  if (isDev) {
+    if (breakpoints?.some((breakpoint, i) => breakpoint > breakpoints[i + 1])) {
+      warnOnce(
+        '`tokens.breakpoints` should be in ascending order to avoid issues with CSS specificity.',
+      );
+    }
+  }
   return {
     ref: createStaticTheme(tokens, localDebugName),
     breakpoints,
