@@ -29,7 +29,7 @@ type ScaleKeys<Property> = LiteralUnion<
     >]],
     ValueOf<CSSProperties>
   >,
-  CSSProperties[keyof CSSProperties]
+  ValueOf<CSSProperties>
 >;
 
 export type ThemedStyle = CSSProperties &
