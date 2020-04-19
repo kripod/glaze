@@ -3,7 +3,7 @@
 import { CSSProperties } from 'react';
 import { useStyles } from 'react-treat';
 import { ThemeOrAny } from 'treat/theme';
-import { ValueOf } from 'type-fest';
+import { LiteralUnion, ValueOf } from 'type-fest';
 
 import { Tokens } from './theme';
 import { useTheme } from './ThemeContext';
@@ -21,12 +21,15 @@ type ResolveAlias<
   ? ResolveShorthand<ThemeOrAny['aliases'][T]>
   : ThemeOrAny['aliases'][T];
 
-type ScaleKeys<Property> = Extract<
-  keyof ThemeOrAny['scales'][ThemeOrAny['matchers'][Extract<
-    Property,
-    Tokens<'matchers'>
-  >]],
-  ValueOf<CSSProperties>
+type ScaleKeys<Property> = LiteralUnion<
+  Extract<
+    keyof ThemeOrAny['scales'][ThemeOrAny['matchers'][Extract<
+      Property,
+      Tokens<'matchers'>
+    >]],
+    ValueOf<CSSProperties>
+  >,
+  CSSProperties[keyof CSSProperties]
 >;
 
 export type ThemedStyle = CSSProperties &
