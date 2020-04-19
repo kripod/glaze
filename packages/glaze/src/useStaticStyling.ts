@@ -8,6 +8,7 @@ import { ValueOf } from 'type-fest';
 import { Tokens } from './theme';
 import { useTheme } from './ThemeContext';
 import styleRefs from './useStaticStyling.treat';
+import { useStyleInjector } from './useStyleInjector';
 
 type ResolveShorthand<T extends Tokens<'shorthands'>> = ValueOf<
   ThemeOrAny['shorthands'][T],
@@ -28,13 +29,15 @@ type ScaleKeys<Property> = Extract<
   ValueOf<CSSProperties>
 >;
 
-export type ThemedStyle = { [key in Tokens<'matchers'>]?: ScaleKeys<key> } &
+export type ThemedStyle = CSSProperties &
+  { [key in Tokens<'matchers'>]?: ScaleKeys<key> } &
   { [key in Tokens<'shorthands'>]?: ScaleKeys<ResolveShorthand<key>> } &
   { [key in Tokens<'aliases'>]?: ScaleKeys<ResolveAlias<key>> };
 
 export function useStaticStyling(): (themedStyle: ThemedStyle) => string {
-  const styles = useStyles(styleRefs);
   const theme = useTheme();
+  const staticClassNames = useStyles(styleRefs);
+  const getDynamicClassName = useStyleInjector();
 
   return function sx(themedStyle: ThemedStyle): string {
     let className = '';
@@ -43,18 +46,22 @@ export function useStaticStyling(): (themedStyle: ThemedStyle) => string {
     for (const alias in themedStyle) {
       // TODO: Remove type assertion if possible
       const value = themedStyle[alias as keyof ThemedStyle];
-      const shorthand = theme.aliases[alias] || alias;
 
-      // eslint-disable-next-line no-loop-func
-      (theme.shorthands[shorthand] || [shorthand]).forEach((key) => {
-        // TODO: Support selectors and media queries
-        if (typeof value !== 'object') {
-          const identName = `${key}-${value}`;
-          const appendedClassName = styles[identName];
+      if (value != null) {
+        const shorthand = theme.aliases[alias] || alias;
 
-          className += ` ${appendedClassName}`;
-        }
-      });
+        // eslint-disable-next-line no-loop-func
+        (theme.shorthands[shorthand] || [shorthand]).forEach((property) => {
+          // TODO: Support selectors and media queries
+          if (typeof value !== 'object') {
+            const identName = `${property}-${value}`;
+            className += ` ${
+              staticClassNames[identName] ||
+              getDynamicClassName(identName, property, value)
+            }`;
+          }
+        });
+      }
     }
 
     // Remove prepended whitespace
