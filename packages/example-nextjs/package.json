@@ -5,7 +5,8 @@
   "scripts": {
     "build": "next build",
     "develop": "next",
-    "serve": "next start"
+    "serve": "next start",
+    "type-check": "tsc --build"
   },
   "dependencies": {
     "@types/react": "^16.9.34",
