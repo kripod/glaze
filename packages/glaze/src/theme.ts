@@ -53,13 +53,16 @@ export function createTheme(
   localDebugName?: string,
 ): RuntimeTheme {
   const { breakpoints, shorthands, aliases } = tokens;
-  if (isDev) {
-    if (breakpoints?.some((breakpoint, i) => breakpoint > breakpoints[i + 1])) {
-      warnOnce(
-        '`tokens.breakpoints` should be in ascending order to avoid issues with CSS specificity.',
-      );
-    }
+
+  if (
+    isDev &&
+    breakpoints.some((breakpoint, i) => breakpoint > breakpoints[i + 1])
+  ) {
+    warnOnce(
+      '`breakpoints` of a theme should be in ascending order to avoid issues with CSS specificity.',
+    );
   }
+
   return {
     ref: createStaticTheme(tokens, localDebugName),
     breakpoints,
