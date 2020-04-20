@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.1](https://github.com/kripod/glaze/compare/v0.5.0...v0.5.1) (2020-04-20)
+
+### Features
+
+- export `ThemedStyle` for Babel `sx` typedefs ([2e2886f](https://github.com/kripod/glaze/commit/2e2886f1e2b38cf4a5b566964ac3d3c3a37016c6))
+
 # 0.5.0 (2020-04-20)
 
 ### Bug Fixes
