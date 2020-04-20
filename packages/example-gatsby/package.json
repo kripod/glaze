@@ -1,6 +1,6 @@
 {
   "name": "glaze-example-gatsby",
-  "version": "0.4.3",
+  "version": "0.5.0",
   "private": true,
   "scripts": {
     "build": "gatsby build",
@@ -12,10 +12,10 @@
   "dependencies": {
     "@types/react": "^16.9.34",
     "gatsby": "^2.20.26",
-    "gatsby-plugin-glaze": "^0.4.3",
+    "gatsby-plugin-glaze": "^0.5.0",
     "gatsby-plugin-treat": "^1.2.3",
     "gatsby-plugin-typescript": "^2.3.2",
-    "glaze": "^0.4.3",
+    "glaze": "^0.5.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-treat": "^1.2.4",

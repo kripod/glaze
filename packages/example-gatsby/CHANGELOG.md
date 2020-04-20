@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.5.0 (2020-04-20)
+
+### Bug Fixes
+
+- auto-convert dynamic property keys and values ([4bca582](https://github.com/kripod/glaze/commit/4bca582aa1bbc91e4e6b917ca508d0560167ed30))
+
+### Code Refactoring
+
+- rename `defaultTheme` to `defaultTokens` ([6684dc5](https://github.com/kripod/glaze/commit/6684dc59d7bcd3918984ff118c0f218c0deba549))
+
+### Features
+
+- allow disabling dynamic style injection ([adca16f](https://github.com/kripod/glaze/commit/adca16fba065e814a43f7bd755d968e550e458dd))
+
+### Performance Improvements
+
+- optimize bundled outputs ([577eda6](https://github.com/kripod/glaze/commit/577eda6385f2f7f44e8ced5e4be6ced960ee6241))
+
+### BREAKING CHANGES
+
+- `defaultTheme` imports shall be rewritten to `defaultTokens`
+
 ## [0.4.3](https://github.com/kripod/glaze/compare/glaze-example-gatsby@0.4.2...glaze-example-gatsby@0.4.3) (2020-04-08)
 
 **Note:** Version bump only for package glaze-example-gatsby
