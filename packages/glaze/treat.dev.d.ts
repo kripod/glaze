@@ -1,4 +1,4 @@
-import { defaultTokens } from './src/theme';
+import { defaultTokens } from './src';
 
 declare module 'treat/theme' {
   type Tokens = typeof defaultTokens;
