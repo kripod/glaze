@@ -1,9 +1,9 @@
 export { setLogger } from './logger';
+export { defaultTokens } from './presets/defaultTokens';
 export { modularScale } from './scales';
 export { VirtualStyleInjector } from './StyleInjector';
 export { StyleInjectorProvider } from './StyleInjectorContext';
 export { createTheme } from './theme';
 export { ThemeProvider, useTheme } from './ThemeContext';
-export { defaultTokens } from './tokens/defaultTokens';
 export type { ThemedStyle } from './useStyling';
 export { useStyling } from './useStyling';

@@ -3,7 +3,7 @@ import { createTheme as createStaticTheme, ThemeRef } from 'treat';
 import { ThemeOrAny } from 'treat/theme';
 
 import { warnOnce } from './logger';
-import { emptyTokens } from './tokens/emptyTokens';
+import { emptyTokens } from './presets/emptyTokens';
 
 export type Tokens<T extends keyof ThemeOrAny> = Extract<
   keyof ThemeOrAny[T],
