@@ -18,11 +18,7 @@
   "license": "MIT",
   "author": "Kristóf Poduszló <kripod@protonmail.com>",
   "sideEffects": false,
-  "type": "module",
-  "exports": {
-    "import": "./dist-web/index.js"
-  },
-  "main": "./dist-web/index.js",
+  "main": "./dist-node/index.js",
   "module": "./dist-web/index.js",
   "source": "./src/index.ts",
   "types": "./dist-types/index.d.ts",

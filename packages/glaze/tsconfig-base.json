@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig-base",
+  "include": ["./src/", "./*.d.ts"],
+  "compilerOptions": {
+    "composite": true,
+    "rootDir": "./src/",
+    "declarationDir": "./dist-types/",
+    "sourceMap": true,
+    "declarationMap": true
+  }
+}
