@@ -51,19 +51,21 @@ export function useStyling(): (themedStyle: ThemedStyle) => string {
       const value = themedStyle[alias as keyof ThemedStyle];
 
       if (value != null) {
-        const shorthand = theme.aliases[alias] || alias;
+        const shorthand = (theme && theme.aliases[alias]) || alias;
 
-        // eslint-disable-next-line no-loop-func
-        (theme.shorthands[shorthand] || [shorthand]).forEach((property) => {
-          // TODO: Support selectors and media queries
-          if (typeof value !== 'object') {
-            const identName = `${property}-${value}`;
-            className += ` ${
-              staticClassNames[identName] ||
-              getDynamicClassName(identName, property, value)
-            }`;
-          }
-        });
+        ((theme && theme.shorthands[shorthand]) || [shorthand]).forEach(
+          // eslint-disable-next-line no-loop-func
+          (property: string) => {
+            // TODO: Support selectors and media queries
+            if (typeof value !== 'object') {
+              const identName = `${property}-${value}`;
+              className += ` ${
+                staticClassNames[identName] ||
+                getDynamicClassName(identName, property, value)
+              }`;
+            }
+          },
+        );
       }
     }
 
