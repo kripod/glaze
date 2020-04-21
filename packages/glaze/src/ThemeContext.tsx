@@ -3,7 +3,7 @@ import { useContext } from 'react';
 
 import { RuntimeTheme } from './theme';
 
-const ThemeContext = React.createContext<RuntimeTheme>(undefined as never);
+const ThemeContext = React.createContext<RuntimeTheme | undefined>(undefined);
 
 export interface ThemeProviderProps {
   theme: RuntimeTheme;
@@ -19,6 +19,6 @@ export function ThemeProvider({
   );
 }
 
-export function useTheme(): RuntimeTheme {
+export function useTheme(): RuntimeTheme | undefined {
   return useContext(ThemeContext);
 }
