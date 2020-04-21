@@ -1,3 +1,5 @@
+/* Prefer performance over elegance, as this code is critical for the runtime */
+
 import hash from '@emotion/hash';
 import { useContext, useEffect, useRef } from 'react';
 import { ClassRef } from 'treat';
