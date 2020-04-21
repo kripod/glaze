@@ -67,7 +67,6 @@
     "prettier-plugin-packagejson": "^2.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-treat": "^1.2.4",
     "treat": "^1.2.4",
     "typescript": "^3.8.3"
   }

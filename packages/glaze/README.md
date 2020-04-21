@@ -39,7 +39,7 @@ This project was born to combine the best of its predecessors into a single solu
 0. Install the package and its peer dependencies:
 
    ```sh
-   npm install glaze treat react-treat
+   npm install glaze treat
    ```
 
 1. Define a theme, preferably by overriding the [default tokens](https://github.com/kripod/glaze/blob/master/packages/glaze/src/presets/defaultTokens.ts):

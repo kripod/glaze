@@ -1,7 +1,7 @@
 /* Prefer performance over elegance, as this code is critical for the runtime */
 
 import { CSSProperties } from 'react';
-import { useStyles } from 'react-treat';
+import { resolveStyles } from 'treat';
 import { ThemeOrAny } from 'treat/theme';
 import { LiteralUnion, ValueOf } from 'type-fest';
 
@@ -38,9 +38,9 @@ export type ThemedStyle = CSSProperties &
   { [key in Tokens<'aliases'>]?: ScaleKeys<ResolveAlias<key>> };
 
 export function useStyling(): (themedStyle: ThemedStyle) => string {
-  const theme = useTheme();
-  const staticClassNames = useStyles(styleRefs);
   const getDynamicClassName = useStyleInjector();
+  const theme = useTheme();
+  const staticClassNames = theme ? resolveStyles(theme.ref, styleRefs) : {};
 
   return function sx(themedStyle: ThemedStyle): string {
     let className = '';

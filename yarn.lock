@@ -15090,11 +15090,6 @@ react-toggle@^4.1.1:
   dependencies:
     classnames "^2.2.5"
 
-react-treat@^1.2.4:
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/react-treat/-/react-treat-1.2.4.tgz#0db41d800f0eb6a56eb2ed534c9788a4a823e5df"
-  integrity sha512-WO+seyOIgxMvf/re78DzU7pgdLODz8P2bD8dAeTkO95ZyatneaisZRA7Og0iusN5Twvygp/bCujWD/0SDT9kvg==
-
 react@^16.13.1, react@^16.8.0, react@^16.8.4:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react/-/react-16.13.1.tgz#2e818822f1a9743122c063d6410d85c1e3afe48e"
