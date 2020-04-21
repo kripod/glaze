@@ -49,10 +49,43 @@ export interface StaticTheme extends CommonTheme {
 }
 
 export function createTheme(
-  tokens: ThemeOrAny & StaticTheme,
+  tokens: ThemeOrAny,
   localDebugName?: string,
 ): RuntimeTheme {
-  const { breakpoints, shorthands, aliases } = tokens;
+  const emptyTokens: StaticTheme = {
+    breakpoints: [],
+    scales: {
+      spacing: {},
+      size: {},
+      fontFamily: {},
+      fontSize: {},
+      fontWeight: {},
+      lineHeight: {},
+      color: {},
+      letterSpacing: {},
+      border: {},
+      borderWidth: {},
+      radius: {},
+      shadow: {},
+      opacity: {},
+      zIndex: {},
+      duration: {},
+    },
+    shorthands: {},
+    aliases: {},
+    matchers: {},
+  };
+
+  // All tokens are optional, but must have an empty value by default
+  const extendedTokens = {
+    ...emptyTokens,
+    ...tokens,
+    scales: {
+      ...emptyTokens.scales,
+      ...tokens.scales,
+    },
+  };
+  const { breakpoints, shorthands, aliases } = extendedTokens;
 
   if (
     isDev &&
@@ -64,7 +97,7 @@ export function createTheme(
   }
 
   return {
-    ref: createStaticTheme(tokens, localDebugName),
+    ref: createStaticTheme(extendedTokens, localDebugName),
     breakpoints,
     shorthands,
     aliases,
