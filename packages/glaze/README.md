@@ -15,29 +15,24 @@
 
 ## 💡 Motivation
 
-When styling HTML elements, [quite a few approaches](https://seek-oss.github.io/treat/background#backstory) may come to mind, including:
+This project was born to combine the best of its predecessors into a single solution:
 
-- **Utility-first/Atomic CSS,** as implemented by [Tailwind CSS][], [StyleSheet][] and [CSS-Zero][]
+- **Utility-first CSS,** as implemented by [Tailwind CSS][]
   - Fully static, but customizable upfront
   - Embraces reusability with no duplicated rules
 - **Constraint-based layouts,** popularized by [Theme UI][]
   - Highly dynamic, thankfully to [Emotion][]
   - One-off styles can be defined naturally
+- **Near-zero runtime,** made possible by [treat][]
+  - Theming support with legacy browsers in mind
+  - Static style extraction while retaining type safety
 
-Baking the benefits outlined above into a single package, glaze was born.
-
-## 🚀 Key features
-
-- **Simple API** inspired by inline styles
-- **Near-zero runtime** built upon [treat][]
-- **Personalizable** design tokens inherited from [Tailwind CSS][] and [Theme UI][]
-- **Composable** property aliases and shorthands mapped to scales
-  - E.g. `paddingX` or `px` for defining horizontal padding
-
-### 🚧 In development
-
-- **Responsive values** defined as an array
-- **Pseudo-class** support
+[tailwind css]: https://tailwindcss.com/
+[stylesheet]: https://github.com/giuseppeg/style-sheet
+[css-zero]: https://github.com/CraigCav/css-zero
+[theme ui]: https://theme-ui.com/
+[emotion]: https://emotion.sh/
+[treat]: https://seek-oss.github.io/treat/
 
 ## 📚 Usage
 
@@ -177,6 +172,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
@@ -185,12 +181,4 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 
 Without its predecessors, glaze wouldn't exist. Thanks for all the wonderful people who have contributed towards the project, even indirectly.
 
-The logo's donut emoji is courtesy of [Twemoji][].
-
-[tailwind css]: https://tailwindcss.com/
-[stylesheet]: https://github.com/giuseppeg/style-sheet
-[css-zero]: https://github.com/CraigCav/css-zero
-[theme ui]: https://theme-ui.com/
-[emotion]: https://emotion.sh/
-[treat]: https://seek-oss.github.io/treat/
-[twemoji]: https://twemoji.twitter.com/
+The logo's donut emoji is courtesy of [Twemoji](https://twemoji.twitter.com/).
