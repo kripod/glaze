@@ -48,12 +48,11 @@ export function symmetricScale<T extends string | number>(
 export function symmetricScale(nonNegativeTokens: {
   [key: string]: string | number;
 }): { [key: string]: string | number } {
-  return Object.entries(nonNegativeTokens).reduce(
-    (tokens, [key, value]) => {
-      // eslint-disable-next-line no-param-reassign
-      if (key !== '0') tokens[`-${key}`] = `-${value}`;
-      return tokens;
-    },
-    { ...nonNegativeTokens },
-  );
+  const tokens = { ...nonNegativeTokens };
+  Object.entries(nonNegativeTokens)
+    .filter(([key]) => key !== '0')
+    .forEach(([key, value]) => {
+      tokens[`-${key}`] = `-${value}`;
+    });
+  return tokens;
 }
