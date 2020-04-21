@@ -42,7 +42,7 @@ This project was born to combine the best of its predecessors into a single solu
    npm install glaze treat react-treat
    ```
 
-1. Define a theme, preferably by overriding the [default tokens](https://github.com/kripod/glaze/blob/master/packages/glaze/src/theme.ts):
+1. Define a theme, preferably by overriding the [default tokens](https://github.com/kripod/glaze/blob/master/packages/glaze/src/tokens/defaultTokens.ts):
 
    ```js
    /* theme.treat.js */
