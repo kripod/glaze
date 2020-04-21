@@ -2,7 +2,6 @@ import { CSSProperties } from 'react';
 import { createTheme as createStaticTheme, ThemeRef } from 'treat';
 import { ThemeOrAny } from 'treat/theme';
 
-import { isDev } from './env';
 import { warnOnce } from './logger';
 import { modularScale, symmetricScale } from './scales';
 
@@ -87,10 +86,7 @@ export function createTheme(
   };
   const { breakpoints, shorthands, aliases } = extendedTokens;
 
-  if (
-    isDev &&
-    breakpoints.some((breakpoint, i) => breakpoint > breakpoints[i + 1])
-  ) {
+  if (breakpoints.some((breakpoint, i) => breakpoint > breakpoints[i + 1])) {
     warnOnce(
       '`breakpoints` of a theme should be in ascending order to avoid issues with CSS specificity.',
     );
