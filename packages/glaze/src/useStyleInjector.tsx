@@ -65,7 +65,6 @@ function getClassName(identName: string): string {
   return isDev ? `DYNAMIC_${identName}` : `g${hash(identName)}`;
 }
 
-// eslint-disable-next-line import/prefer-default-export
 export function useStyleInjector(): (
   identName: string,
   property: string,

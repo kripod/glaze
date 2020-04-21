@@ -23,7 +23,6 @@ const spacing = symmetricScale({
   64: '16rem',
 });
 
-// eslint-disable-next-line import/prefer-default-export
 export const defaultTokens = {
   breakpoints: [640, 768, 1024, 1280],
 

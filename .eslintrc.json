@@ -24,6 +24,7 @@
     "react/jsx-props-no-spreading": "off",
 
     // Custom preferences
+    "import/prefer-default-export": "off",
     "max-classes-per-file": "off"
   },
 
@@ -48,7 +49,6 @@
       "files": ["**/fixtures/**/*", "gatsby-*.js", "next.config.js"],
       "rules": {
         "@typescript-eslint/no-var-requires": "off",
-        "import/prefer-default-export": "off",
         "react/jsx-filename-extension": "off",
         "react/prop-types": "off"
       }
