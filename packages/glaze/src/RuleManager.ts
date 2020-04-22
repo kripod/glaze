@@ -46,23 +46,27 @@ export class OptimizedRuleManager implements RuleManager {
 
   increaseUsage(className: ClassRef, cssText: () => string): void {
     const prevUsageCount = this.usageCountsByClassName.get(className) || 0;
-    this.usageCountsByClassName.set(className, prevUsageCount + 1);
 
     // Append new rule only if it wasn't available in the server-rendered code
     if (!prevUsageCount && !this.ruleIndexesByClassName.has(className)) {
       // eslint-disable-next-line no-underscore-dangle
       if (isDev && isBrowser && window.__glaze_disableStyleInjection) {
         new NullRuleManager().increaseUsage();
-      } else {
-        this.ruleIndexesByClassName.set(
-          className,
-          this.injector.addRule(cssText()),
-        );
+        return;
       }
+      this.ruleIndexesByClassName.set(
+        className,
+        this.injector.addRule(cssText()),
+      );
     }
+
+    this.usageCountsByClassName.set(className, prevUsageCount + 1);
   }
 
   decreaseUsage(className: ClassRef, byAmount: number): void {
+    // eslint-disable-next-line no-underscore-dangle
+    if (isDev && window.__glaze_disableStyleInjection) return;
+
     const nextUsageCount =
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       this.usageCountsByClassName.get(className)! - byAmount;
@@ -71,12 +75,9 @@ export class OptimizedRuleManager implements RuleManager {
       this.usageCountsByClassName.set(className, nextUsageCount);
     } else {
       this.usageCountsByClassName.delete(className);
-      // eslint-disable-next-line no-underscore-dangle
-      if (!isDev || !window.__glaze_disableStyleInjection) {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        this.injector.nullifyRule(this.ruleIndexesByClassName.get(className)!);
-        this.ruleIndexesByClassName.delete(className);
-      }
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      this.injector.nullifyRule(this.ruleIndexesByClassName.get(className)!);
+      this.ruleIndexesByClassName.delete(className);
     }
   }
 }
