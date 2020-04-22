@@ -18,7 +18,11 @@
   "license": "MIT",
   "author": "Kristóf Poduszló <kripod@protonmail.com>",
   "sideEffects": false,
-  "main": "./dist-node/index.js",
+  "type": "module",
+  "exports": {
+    "import": "./dist-web/index.js"
+  },
+  "main": "./dist-web/index.js",
   "module": "./dist-web/index.js",
   "source": "./src/index.ts",
   "types": "./dist-types/index.d.ts",
@@ -27,19 +31,15 @@
     "src/"
   ],
   "scripts": {
-    "build": "run-p build:*",
-    "build:node": "tsc --project ./tsconfig-node.json",
-    "build:web": "tsc --build",
-    "clean": "run-p clean:*",
-    "clean:web": "tsc --build --clean",
-    "develop": "run-p --print-label \"build:* --watch\""
+    "build": "tsc --build",
+    "clean": "tsc --build --clean",
+    "develop": "tsc --build --watch"
   },
   "dependencies": {
     "@emotion/hash": "^0.8.0",
     "type-fest": "^0.13.1"
   },
   "devDependencies": {
-    "npm-run-all": "^4.1.5",
     "tsd": "^0.11.0"
   },
   "peerDependencies": {
