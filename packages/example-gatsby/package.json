@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@types/react": "^16.9.34",
-    "gatsby": "^2.20.26",
+    "gatsby": "^2.20.29",
     "gatsby-plugin-glaze": "^0.5.0",
     "gatsby-plugin-treat": "^1.2.3",
     "gatsby-plugin-typescript": "^2.3.2",
