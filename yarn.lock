@@ -2776,6 +2776,13 @@
   dependencies:
     defer-to-connect "^1.0.1"
 
+"@theme-ui/css@^0.4.0-alpha.0":
+  version "0.4.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/@theme-ui/css/-/css-0.4.0-alpha.0.tgz#7c4da1b65c96a1efd693475a3e20b45a3593bad6"
+  integrity sha512-4pgAwQAgPLdGlPM7/JM8n+/8FRoyXftGAgO11AghGTE5Z4Ksi5s0Kn16TfgiA63gX6izK2C1bkHr0YGDnCPahA==
+  dependencies:
+    csstype "^2.5.7"
+
 "@types/anymatch@*":
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/@types/anymatch/-/anymatch-1.3.1.tgz#336badc1beecb9dacc38bea2cf32adf627a8421a"
@@ -6069,7 +6076,7 @@ cssstyle@^2.0.0:
   dependencies:
     cssom "~0.3.6"
 
-csstype@^2.2.0, csstype@^2.6.3:
+csstype@^2.2.0, csstype@^2.5.7, csstype@^2.6.3:
   version "2.6.10"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.10.tgz#e63af50e66d7c266edb6b32909cfd0aabe03928b"
   integrity sha512-D34BqZU4cIlMCY93rZHbrq9pjTAQJ3U8S8rfBqjwHxkGPThWFjzZDQpgMJY0QViLxth6ZKYiwFBo14RdN44U/w==
