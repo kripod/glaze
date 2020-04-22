@@ -153,7 +153,7 @@ export const defaultTokens = {
     paddingTop: 'spacing',
     paddingRight: 'spacing',
     paddingBottom: 'spacing',
-    // paddingLeft: 'spacing',
+    paddingLeft: 'spacing',
 
     margin: 'spacing',
     // TODO: marginInline: 'spacing',
