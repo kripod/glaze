@@ -37,10 +37,10 @@
   },
   "dependencies": {
     "@emotion/hash": "^0.8.0",
+    "@theme-ui/css": "^0.4.0-alpha.0",
     "type-fest": "^0.13.1"
   },
   "devDependencies": {
-    "@theme-ui/css": "^0.4.0-alpha.0",
     "tsd": "^0.11.0"
   },
   "peerDependencies": {
