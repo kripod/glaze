@@ -51,7 +51,7 @@ export class OptimizedRuleManager implements RuleManager {
     // Append new rule only if it wasn't available in the server-rendered code
     if (!prevUsageCount && !this.ruleIndexesByClassName.has(className)) {
       // eslint-disable-next-line no-underscore-dangle
-      if (isDev && window.__glaze_disableStyleInjection) {
+      if (isDev && isBrowser && window.__glaze_disableStyleInjection) {
         new NullRuleManager().increaseUsage();
       } else {
         this.ruleIndexesByClassName.set(
