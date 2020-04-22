@@ -1,5 +1,4 @@
 import { modularScale, symmetricScale } from '../scales';
-import type { StaticTheme } from '../theme';
 
 const spacing = symmetricScale({
   0: 0,
@@ -214,6 +213,3 @@ export const defaultTokens = {
     animationDuration: 'duration',
   },
 } as const;
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
-const assertTypeCompatibility: StaticTheme = defaultTokens; // lgtm [js/unused-local-variable]
