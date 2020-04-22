@@ -3,9 +3,7 @@ import { CSSProperties } from 'react';
 import { createTheme as createStaticTheme, ThemeRef } from 'treat';
 import { ThemeOrAny } from 'treat/theme';
 
-import { isDev } from './env';
-import { warnOnce } from './logger';
-import { defaultTokens } from './presets/defaultTokens';
+import { errorOnce, warnOnce } from './logger';
 import { emptyTokens } from './presets/emptyTokens';
 
 export type Tokens<T extends keyof ThemeOrAny> = Extract<
@@ -81,262 +79,103 @@ export function createTheme(
 
 export function fromThemeUI(theme: ThemeUI): StaticTheme {
   /** Breakpoints
-   *  Theme UI allows any string value. Treat only wants pixel values in numbers.
+   * Theme UI allows any string value. Treat only wants pixel values in numbers.
+   * We strip `px` as a direct conversion.
+   * We strip `rem` or `em` and multiply by an assumed `16px`
    */
-  const breakpoints = theme.breakpoints?.map((breakpoint) => {
-    const glazeBreakpoint = Number(breakpoint.replace('px', ''));
-    if (glazeBreakpoint > -1) {
-      return glazeBreakpoint;
+  function convertBreakpoint(breakpoint: string | number): number {
+    if (typeof breakpoint === 'string') {
+      const [, value, unit] = /(\d+)(.+)/i.exec(breakpoint) ?? [];
+      if (unit === 'px') {
+        return Number(value);
+      }
+      if (['rem', 'em'].includes(unit)) {
+        warnOnce(
+          `"${breakpoint}" was converted to ${value}. This could have unintended side-effects.`,
+        );
+        return Number(value) * 16;
+      }
+      errorOnce(
+        `${unit} is not a valid breakpoint unit. \`breakpoints\` should be an array of numbers.`,
+      );
+      return undefined;
     }
-    if (isDev) {
-      warnOnce(`Could not convert breakpoint value '${breakpoint}' to number`);
-    }
-    return undefined;
-  });
+
+    return breakpoint;
+  }
+
+  let breakpoints: Array<number | undefined> = [];
+  if (
+    !Array.isArray(theme.breakpoints) &&
+    typeof theme.breakpoints === 'object'
+  ) {
+    breakpoints = Object.values(theme.breakpoints)
+      .map(convertBreakpoint)
+      .sort((a, b) => a - b);
+  }
+  if (Array.isArray(theme.breakpoints)) {
+    breakpoints = theme.breakpoints
+      .map(convertBreakpoint)
+      .sort((a, b) => a - b);
+  }
 
   /** Color
    * We just ignore color modes for now and show a warning
    */
-  if (theme.colors?.modes) {
-    warnOnce('Color Modes are not currently supported in glaze.');
-  }
-
   const color = {};
   // glaze only supports strings for color tokens
-  Object.keys(theme.colors).forEach((colorKey) => {
-    if (typeof theme.colors[colorKey] === 'string') {
-      color[colorKey] = theme.colors[colorKey];
+  if (theme.colors) {
+    if (theme.colors?.modes) {
+      warnOnce(
+        'Color Modes are not currently supported in glaze. See https://github.com/kripod/glaze/issues/7',
+      );
+    }
+
+    Object.keys(theme.colors).forEach((colorKey) => {
+      if (typeof theme.colors[colorKey] === 'string') {
+        color[colorKey] = theme.colors[colorKey];
+      }
+    });
+  }
+
+  /**
+   * Glaze doesn't support array token lookups so we convert to an object using its index as a key
+   */
+  function ensureObjectLiteral(token: [] | {}): {} {
+    if (Array.isArray(token)) {
+      return token.reduce((obj, curr, i) => {
+        // eslint-disable-next-line no-param-reassign
+        obj[i] = curr;
+        return obj;
+      }, {});
+    }
+
+    return token;
+  }
+
+  const scales = {
+    color: ensureObjectLiteral(color),
+    spacing: ensureObjectLiteral(theme.space),
+    border: ensureObjectLiteral(theme.borders),
+    borderWidth: ensureObjectLiteral(theme.borderWidths),
+    size: ensureObjectLiteral(theme.sizes),
+    fontFamily: ensureObjectLiteral(theme.fonts),
+    fontSize: ensureObjectLiteral(theme.fontSizes),
+    fontWeight: ensureObjectLiteral(theme.fontWeights),
+    letterSpacing: ensureObjectLiteral(theme.letterSpacings),
+    lineHeight: ensureObjectLiteral(theme.lineHeights),
+  } as StaticTheme['scales'];
+
+  // Remove any undefined tokens
+  Object.keys(scales).forEach((key) => {
+    if (typeof scales[key] === 'undefined') {
+      delete scales[key];
     }
   });
 
   return {
     ...emptyTokens,
     breakpoints,
-    scales: {
-      ...emptyTokens.scales,
-      color,
-      spacing: theme.space as StaticTheme['scales']['spacing'],
-      border: theme.borders as StaticTheme['scales']['border'],
-      borderWidth: theme.borderWidths as StaticTheme['scales']['borderWidth'],
-      size: theme.sizes as StaticTheme['scales']['size'],
-      fontFamily: theme.fonts as StaticTheme['scales']['fontFamily'],
-      fontSize: theme.fontSizes as StaticTheme['scales']['fontSize'],
-    },
-    // shorthands: defaultTokens.shorthands,
-    // aliases: defaultTokens.aliases,
-    // matchers: defaultTokens.matchers,
+    scales,
   };
 }
-
-const convertedTheme = fromThemeUI({
-  breakpoints: ['576px', '768px', '992px', '1200px', '100%'],
-  colors: {
-    white: '#fff',
-    black: '#000',
-    gray: [
-      '#fff',
-      '#f8f9fa',
-      '#e9ecef',
-      '#dee2e6',
-      '#ced4da',
-      '#adb5bd',
-      '#6c757d',
-      '#495057',
-      '#343a40',
-      '#212529',
-    ],
-    blue: '#007bff',
-    indigo: '#6610f2',
-    purple: '#6f42c1',
-    pink: '#e83e8c',
-    red: '#dc3545',
-    orange: '#fd7e14',
-    yellow: '#ffc107',
-    green: '#28a745',
-    teal: '#20c997',
-    cyan: '#17a2b8',
-    grayDark: '#343a40',
-    text: '#212529',
-    background: '#fff',
-    primary: '#007bff',
-    secondary: '#6c757d',
-    muted: '#dee2e6',
-    success: '#28a745',
-    info: '#17a2b8',
-    warning: '#ffc107',
-    danger: '#dc3545',
-    light: '#f8f9fa',
-    dark: '#343a40',
-    textMuted: '#6c757d',
-  },
-  space: ['0rem', '0.25rem', '0.5rem', '1rem', '1.5rem', '3rem'],
-  fonts: {
-    body:
-      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
-    heading: 'inherit',
-    monospace:
-      'SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
-    sans:
-      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
-  },
-  fontSizes: [
-    '0.75rem',
-    '0.875rem',
-    '1rem',
-    '1.25rem',
-    '1.5rem',
-    '1.75rem',
-    '2rem',
-    '2.5rem',
-    '3.5rem',
-    '4.5rem',
-    '5.5rem',
-    '6rem',
-  ],
-  fontWeights: {
-    body: 400,
-    heading: 500,
-    bold: 700,
-    light: 300,
-    normal: 400,
-    display: 300,
-  },
-  lineHeights: {
-    body: 1.5,
-    heading: 1.2,
-  },
-  sizes: {
-    sm: 540,
-    md: 720,
-    lg: 960,
-    xl: 1140,
-  },
-  shadows: {
-    default: '0 .5rem 1rem rgba(0, 0, 0, .15)',
-    sm: '0 .125rem .25rem rgba(0, 0, 0, .075)',
-    lg: '0 1rem 3rem rgba(0, 0, 0, .175)',
-  },
-  radii: {
-    default: '0.25rem',
-    sm: '0.2rem',
-    lg: '0.3rem',
-    pill: '50rem',
-  },
-  typeStyles: {
-    heading: {
-      fontFamily: 'heading',
-      fontWeight: 'heading',
-      lineHeight: 'heading',
-      mt: 0,
-      mb: 2,
-    },
-    display: {
-      fontWeight: 'display',
-      lineHeight: 'heading',
-    },
-  },
-  styles: {
-    root: {
-      fontFamily: 'body',
-      lineHeight: 'body',
-      fontWeight: 'body',
-    },
-    a: {
-      color: 'primary',
-      textDecoration: 'none',
-      ':hover': {
-        textDecoration: 'underline',
-      },
-    },
-    p: {
-      mb: 3,
-      lineHeight: 'body',
-    },
-    h1: {
-      fontFamily: 'heading',
-      fontWeight: 'heading',
-      lineHeight: 'heading',
-      mt: 0,
-      mb: 2,
-      fontSize: 7,
-    },
-    h2: {
-      fontFamily: 'heading',
-      fontWeight: 'heading',
-      lineHeight: 'heading',
-      mt: 0,
-      mb: 2,
-      fontSize: 6,
-    },
-    h3: {
-      fontFamily: 'heading',
-      fontWeight: 'heading',
-      lineHeight: 'heading',
-      mt: 0,
-      mb: 2,
-      fontSize: 5,
-    },
-    h4: {
-      fontFamily: 'heading',
-      fontWeight: 'heading',
-      lineHeight: 'heading',
-      mt: 0,
-      mb: 2,
-      fontSize: 4,
-    },
-    h5: {
-      fontFamily: 'heading',
-      fontWeight: 'heading',
-      lineHeight: 'heading',
-      mt: 0,
-      mb: 2,
-      fontSize: 3,
-    },
-    h6: {
-      fontFamily: 'heading',
-      fontWeight: 'heading',
-      lineHeight: 'heading',
-      mt: 0,
-      mb: 2,
-      fontSize: 2,
-    },
-    blockquote: {
-      fontSize: 3,
-      mb: 3,
-    },
-    table: {
-      width: '100%',
-      marginBottom: 3,
-      color: 'gray.9',
-      borderCollapse: 'collapse',
-    },
-    th: {
-      verticalAlign: 'bottom',
-      borderTopWidth: 2,
-      borderTopStyle: 'solid',
-      borderTopColor: 'gray.3',
-      borderBottomWidth: 2,
-      borderBottomStyle: 'solid',
-      borderBottomColor: 'gray.3',
-      padding: '.75rem',
-      textAlign: 'inherit',
-    },
-    td: {
-      borderBottomWidth: 2,
-      borderBottomStyle: 'solid',
-      borderBottomColor: 'gray.3',
-      verticalAlign: 'top',
-      padding: '.75rem',
-    },
-    inlineCode: {
-      color: 'pink',
-    },
-    img: {
-      maxWidth: '100%',
-      height: 'auto',
-    },
-  },
-});
-
-// console.log(convertedTheme);
-console.log(convertedTheme.scales.size.md);

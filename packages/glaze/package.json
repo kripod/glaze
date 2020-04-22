@@ -41,7 +41,6 @@
   },
   "devDependencies": {
     "@theme-ui/css": "^0.4.0-alpha.0",
-    "microbundle": "^0.12.0-next.8",
     "tsd": "^0.11.0"
   },
   "peerDependencies": {
