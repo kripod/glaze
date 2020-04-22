@@ -11,7 +11,7 @@
     "build": "lerna run build",
     "clean": "lerna run --parallel clean",
     "commit": "git-cz",
-    "develop": "lerna run --parallel --scope glaze-example-gatsby --include-dependencies develop",
+    "develop": "lerna run --scope glaze build && lerna run --parallel --scope glaze-example-gatsby --include-dependencies develop",
     "format": "prettier --ignore-path .gitignore --write .",
     "postinstall": "lerna bootstrap",
     "lint": "eslint --ignore-path .gitignore \"**/*.{ts,tsx,js,jsx}\"",

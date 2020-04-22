@@ -13,7 +13,6 @@ export class NullRuleManager implements RuleManager {
   // eslint-disable-next-line class-methods-use-this
   increaseUsage(): void {
     if (isDev) {
-      // TODO: Add instructions for resolving the situation
       if (isBrowser) {
         errorOnce(
           'Client-side injection of dynamic styles is not set up. Wrap the component tree inside a `<StyleInjectorProvider>` without parameters.',
@@ -51,10 +50,15 @@ export class OptimizedRuleManager implements RuleManager {
 
     // Append new rule only if it wasn't available in the server-rendered code
     if (!prevUsageCount && !this.ruleIndexesByClassName.has(className)) {
-      this.ruleIndexesByClassName.set(
-        className,
-        this.injector.addRule(cssText()),
-      );
+      // eslint-disable-next-line no-underscore-dangle
+      if (isDev && window.__glaze_disableStyleInjection) {
+        new NullRuleManager().increaseUsage();
+      } else {
+        this.ruleIndexesByClassName.set(
+          className,
+          this.injector.addRule(cssText()),
+        );
+      }
     }
   }
 
@@ -67,9 +71,12 @@ export class OptimizedRuleManager implements RuleManager {
       this.usageCountsByClassName.set(className, nextUsageCount);
     } else {
       this.usageCountsByClassName.delete(className);
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      this.injector.nullifyRule(this.ruleIndexesByClassName.get(className)!);
-      this.ruleIndexesByClassName.delete(className);
+      // eslint-disable-next-line no-underscore-dangle
+      if (!isDev || !window.__glaze_disableStyleInjection) {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        this.injector.nullifyRule(this.ruleIndexesByClassName.get(className)!);
+        this.ruleIndexesByClassName.delete(className);
+      }
     }
   }
 }

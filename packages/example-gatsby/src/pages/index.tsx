@@ -9,7 +9,7 @@ export default function IndexPage(): JSX.Element {
   const sx = useStyling();
 
   const [isFirstTextMounted, setFirstTextMounted] = useState(true);
-  const [isSecondTextMounted, setSecondTextMounted] = useState(true);
+  const [isSecondTextMounted, setSecondTextMounted] = useState(false);
   useInterval(() => setFirstTextMounted((value) => !value), 3000);
   useInterval(() => setSecondTextMounted((value) => !value), 5000);
 
@@ -19,7 +19,11 @@ export default function IndexPage(): JSX.Element {
         Hello, world!
       </h1>
       {isFirstTextMounted && <Text>1: Lorem ipsum dolor sit amet</Text>}
-      {isSecondTextMounted && <Text>2: Lorem ipsum dolor sit amet</Text>}
+      {isSecondTextMounted && (
+        <Text className={sx({ fontWeight: 'bold' })}>
+          2: Lorem ipsum dolor sit amet
+        </Text>
+      )}
     </>
   );
 }

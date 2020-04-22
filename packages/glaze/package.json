@@ -27,16 +27,19 @@
     "src/"
   ],
   "scripts": {
-    "build": "tsc --build",
-    "clean": "tsc --build --clean",
-    "develop": "tsc --build --watch"
+    "build": "run-p build:*",
+    "build:node": "tsc --project ./tsconfig-node.json",
+    "build:web": "tsc --build",
+    "clean": "run-p clean:*",
+    "clean:web": "tsc --build --clean",
+    "develop": "run-p --print-label \"build:* --watch\""
   },
   "dependencies": {
     "@emotion/hash": "^0.8.0",
     "type-fest": "^0.13.1"
   },
   "devDependencies": {
-    "microbundle": "^0.12.0-next.8"
+    "npm-run-all": "^4.1.5"
   },
   "peerDependencies": {
     "@types/react": ">=16.8",
@@ -47,6 +50,5 @@
     "@types/react": {
       "optional": true
     }
-  },
-  "gitHead": "acbb2836499a30a67a24ca9f62c8869bf9186dca"
+  }
 }

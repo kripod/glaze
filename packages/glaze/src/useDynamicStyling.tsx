@@ -67,7 +67,7 @@ function getClassName(identName: string): string {
   return isDev ? `DYNAMIC_${identName}` : `g${hash(identName)}`;
 }
 
-export function useStyleInjector(): (
+export function useDynamicStyling(): (
   identName: string,
   property: string,
   value: string | number,

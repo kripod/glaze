@@ -1,7 +1,12 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig-node.json" },
-    { "path": "./tsconfig-web.json" }
-  ]
+  "extends": "../../tsconfig-base",
+  "include": ["./src/", "./*.d.ts", "../../globals.d.ts"],
+  "compilerOptions": {
+    "composite": true,
+    "rootDir": "./src/",
+    "outDir": "./dist-web/",
+    "declarationDir": "./dist-types/",
+    "sourceMap": true,
+    "declarationMap": true
+  }
 }

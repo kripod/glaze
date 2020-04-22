@@ -7,7 +7,7 @@ import { LiteralUnion, ValueOf } from 'type-fest';
 
 import { Tokens } from './theme';
 import { useTheme } from './ThemeContext';
-import { useStyleInjector } from './useStyleInjector';
+import { useDynamicStyling } from './useDynamicStyling';
 import styleRefs from './useStyling.treat';
 
 type ResolveShorthand<T extends Tokens<'shorthands'>> = ValueOf<
@@ -38,7 +38,7 @@ export type ThemedStyle = CSSProperties &
   { [key in Tokens<'aliases'>]?: ScaleKeys<ResolveAlias<key>> };
 
 export function useStyling(): (themedStyle: ThemedStyle) => string {
-  const getDynamicClassName = useStyleInjector();
+  const getDynamicClassName = useDynamicStyling();
   const theme = useTheme();
   const staticClassNames = theme ? resolveStyles(theme.ref, styleRefs) : {};
 

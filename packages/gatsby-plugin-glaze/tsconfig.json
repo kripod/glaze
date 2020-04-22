@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig-base",
-  "include": ["./src/", "./gatsby-*.js"],
+  "include": ["./src/", "./gatsby-*.js", "../../globals.d.ts"],
   "references": [{ "path": "../glaze/" }],
   "compilerOptions": {
     "noEmit": true,
