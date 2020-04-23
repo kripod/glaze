@@ -85,19 +85,29 @@ export function fromThemeUI(theme: ThemeUI): StaticTheme {
    */
   function convertBreakpoint(breakpoint: string | number): number {
     if (typeof breakpoint === 'string') {
-      const [, value, unit] = /(\d+)(.+)/i.exec(breakpoint) ?? [];
-      if (unit === 'px') {
-        return Number(value);
+      const [, numberCandidate, unit] =
+        /(.*\d)([a-z]*)/.exec(
+          // Support units case-insensitively, adhering to the CSS spec
+          breakpoint.toLowerCase(),
+        ) || [];
+      const number = Number(numberCandidate);
+
+      if (!Number.isNaN(number)) {
+        if (!unit || unit === 'px') return number;
+
+        if (unit === 'em' || unit === 'rem') {
+          const value = number * 16;
+          warnOnce(
+            `Breakpoint "${breakpoint}" has been converted to ${value}px. This may cause unintended side-effects.`,
+          );
+          return value;
+        }
       }
-      if (['rem', 'em'].includes(unit)) {
-        warnOnce(
-          `"${breakpoint}" was converted to ${value}. This could have unintended side-effects.`,
-        );
-        return Number(value) * 16;
-      }
+
       errorOnce(
-        `${unit} is not a valid breakpoint unit. \`breakpoints\` should be an array of numbers.`,
+        `Invalid breakpoint: "${breakpoint}". Specify a number with an optional unit of 'px', 'em' or 'rem' instead.`,
       );
+
       return undefined;
     }
 
