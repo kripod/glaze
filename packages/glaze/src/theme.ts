@@ -1,4 +1,4 @@
-import type { Theme as ThemeUI } from '@theme-ui/css';
+import type { Theme as ThemeUITheme } from '@theme-ui/css';
 import { CSSProperties } from 'react';
 import { createTheme as createStaticTheme, ThemeRef } from 'treat';
 import { ThemeOrAny } from 'treat/theme';
@@ -77,7 +77,7 @@ export function createTheme(
   };
 }
 
-export function fromThemeUI(theme: ThemeUI): StaticTheme {
+export function fromThemeUI(tokens: ThemeUITheme): StaticTheme {
   /** Breakpoints
    * Theme UI allows any string value. Treat only wants pixel values in numbers.
    * We strip `px` as a direct conversion.
@@ -113,15 +113,15 @@ export function fromThemeUI(theme: ThemeUI): StaticTheme {
 
   let breakpoints: Array<number | undefined> = [];
   if (
-    !Array.isArray(theme.breakpoints) &&
-    typeof theme.breakpoints === 'object'
+    !Array.isArray(tokens.breakpoints) &&
+    typeof tokens.breakpoints === 'object'
   ) {
-    breakpoints = Object.values<string>(theme.breakpoints)
+    breakpoints = Object.values<string>(tokens.breakpoints)
       .map(convertBreakpoint)
       .sort((a?: number, b?: number) => (a && b ? a - b : 0));
   }
-  if (Array.isArray(theme.breakpoints)) {
-    breakpoints = theme.breakpoints
+  if (Array.isArray(tokens.breakpoints)) {
+    breakpoints = tokens.breakpoints
       .map(convertBreakpoint)
       .sort((a, b) => (a && b ? a - b : 0));
   }
@@ -131,16 +131,16 @@ export function fromThemeUI(theme: ThemeUI): StaticTheme {
    */
   const color: Record<string, string | {} | []> = {};
   // glaze only supports strings for color tokens
-  if (theme.colors) {
-    if (theme.colors?.modes) {
+  if (tokens.colors) {
+    if (tokens.colors?.modes) {
       warnOnce(
         'Color Modes are not currently supported in glaze. See https://github.com/kripod/glaze/issues/7',
       );
     }
 
-    Object.keys(theme.colors).forEach((colorKey) => {
-      if (typeof theme.colors?.[colorKey] === 'string') {
-        color[colorKey] = theme.colors[colorKey];
+    Object.keys(tokens.colors).forEach((colorKey) => {
+      if (typeof tokens.colors?.[colorKey] === 'string') {
+        color[colorKey] = tokens.colors[colorKey];
       }
     });
   }
@@ -165,15 +165,15 @@ export function fromThemeUI(theme: ThemeUI): StaticTheme {
 
   const scales: Record<string, {}> = {
     ...ensureObjectLiteral('color', color),
-    ...ensureObjectLiteral('spacing', theme.space),
-    ...ensureObjectLiteral('border', theme.borders),
-    ...ensureObjectLiteral('borderWidth', theme.borderWidths),
-    ...ensureObjectLiteral('size', theme.sizes),
-    ...ensureObjectLiteral('fontFamily', theme.fonts),
-    ...ensureObjectLiteral('fontSize', theme.fontSizes),
-    ...ensureObjectLiteral('fontWeight', theme.fontWeights),
-    ...ensureObjectLiteral('letterSpacing', theme.letterSpacings),
-    ...ensureObjectLiteral('lineHeight', theme.lineHeights),
+    ...ensureObjectLiteral('spacing', tokens.space),
+    ...ensureObjectLiteral('border', tokens.borders),
+    ...ensureObjectLiteral('borderWidth', tokens.borderWidths),
+    ...ensureObjectLiteral('size', tokens.sizes),
+    ...ensureObjectLiteral('fontFamily', tokens.fonts),
+    ...ensureObjectLiteral('fontSize', tokens.fontSizes),
+    ...ensureObjectLiteral('fontWeight', tokens.fontWeights),
+    ...ensureObjectLiteral('letterSpacing', tokens.letterSpacings),
+    ...ensureObjectLiteral('lineHeight', tokens.lineHeights),
   };
 
   // Remove any undefined tokens
