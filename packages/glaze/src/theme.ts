@@ -84,34 +84,31 @@ export function fromThemeUI(theme: ThemeUI): StaticTheme {
    * We strip `rem` or `em` and multiply by an assumed `16px`
    */
   function convertBreakpoint(breakpoint: string | number): number | undefined {
-    if (typeof breakpoint === 'string') {
-      const [, numberCandidate, unit] =
-        /(.*\d)([a-z%]*)/.exec(
-          // Support units case-insensitively, adhering to the CSS spec
-          breakpoint.toLowerCase(),
-        ) || [];
-      const number = Number(numberCandidate);
+    if (typeof breakpoint === 'number') return breakpoint;
 
-      if (!Number.isNaN(number)) {
-        if (!unit || unit === 'px') return number;
+    const [, numberCandidate, unit] =
+      /(.*\d)([a-z%]*)/.exec(
+        // Support units case-insensitively, adhering to the CSS spec
+        breakpoint.toLowerCase(),
+      ) || [];
+    const number = Number(numberCandidate);
 
-        if (unit === 'em' || unit === 'rem') {
-          const value = number * 16;
-          warnOnce(
-            `Breakpoint "${breakpoint}" has been converted to ${value}px. This may cause unintended side-effects.`,
-          );
-          return value;
-        }
+    if (!Number.isNaN(number)) {
+      if (!unit || unit === 'px') return number;
+
+      if (unit === 'em' || unit === 'rem') {
+        const value = number * 16;
+        warnOnce(
+          `Breakpoint "${breakpoint}" has been converted to ${value}px. This may cause unintended side-effects.`,
+        );
+        return value;
       }
-
-      errorOnce(
-        `Invalid breakpoint: "${breakpoint}". Specify a number with an optional unit of 'px', 'em' or 'rem' instead.`,
-      );
-
-      return undefined;
     }
 
-    return breakpoint;
+    errorOnce(
+      `Invalid breakpoint: "${breakpoint}". Specify a number with an optional unit of 'px', 'em' or 'rem' instead.`,
+    );
+    return undefined;
   }
 
   let breakpoints: Array<number | undefined> = [];
