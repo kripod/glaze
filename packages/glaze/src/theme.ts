@@ -83,10 +83,10 @@ export function fromThemeUI(theme: ThemeUI): StaticTheme {
    * We strip `px` as a direct conversion.
    * We strip `rem` or `em` and multiply by an assumed `16px`
    */
-  function convertBreakpoint(breakpoint: string | number): number {
+  function convertBreakpoint(breakpoint: string | number): number | undefined {
     if (typeof breakpoint === 'string') {
       const [, numberCandidate, unit] =
-        /(.*\d)([a-z]*)/.exec(
+        /(.*\d)([a-z%]*)/.exec(
           // Support units case-insensitively, adhering to the CSS spec
           breakpoint.toLowerCase(),
         ) || [];
@@ -119,20 +119,20 @@ export function fromThemeUI(theme: ThemeUI): StaticTheme {
     !Array.isArray(theme.breakpoints) &&
     typeof theme.breakpoints === 'object'
   ) {
-    breakpoints = Object.values(theme.breakpoints)
+    breakpoints = Object.values<string>(theme.breakpoints)
       .map(convertBreakpoint)
-      .sort((a, b) => a - b);
+      .sort((a?: number, b?: number) => (a && b ? a - b : 0));
   }
   if (Array.isArray(theme.breakpoints)) {
     breakpoints = theme.breakpoints
       .map(convertBreakpoint)
-      .sort((a, b) => a - b);
+      .sort((a, b) => (a && b ? a - b : 0));
   }
 
   /** Color
    * We just ignore color modes for now and show a warning
    */
-  const color = {};
+  const color: Record<string, string | {} | []> = {};
   // glaze only supports strings for color tokens
   if (theme.colors) {
     if (theme.colors?.modes) {
@@ -142,7 +142,7 @@ export function fromThemeUI(theme: ThemeUI): StaticTheme {
     }
 
     Object.keys(theme.colors).forEach((colorKey) => {
-      if (typeof theme.colors[colorKey] === 'string') {
+      if (typeof theme.colors?.[colorKey] === 'string') {
         color[colorKey] = theme.colors[colorKey];
       }
     });
@@ -151,30 +151,33 @@ export function fromThemeUI(theme: ThemeUI): StaticTheme {
   /**
    * Glaze doesn't support array token lookups so we convert to an object using its index as a key
    */
-  function ensureObjectLiteral(token: [] | {}): {} {
+  function ensureObjectLiteral(
+    key: keyof StaticTheme['scales'],
+    token: [] | {} | undefined,
+  ): {} | undefined {
     if (Array.isArray(token)) {
-      return token.reduce((obj, curr, i) => {
+      return token.reduce<Record<number, string | number>>((obj, curr, i) => {
         // eslint-disable-next-line no-param-reassign
         obj[i] = curr;
         return obj;
       }, {});
     }
 
-    return token;
+    return token ? { [key]: token } : undefined;
   }
 
-  const scales = {
-    color: ensureObjectLiteral(color),
-    spacing: ensureObjectLiteral(theme.space),
-    border: ensureObjectLiteral(theme.borders),
-    borderWidth: ensureObjectLiteral(theme.borderWidths),
-    size: ensureObjectLiteral(theme.sizes),
-    fontFamily: ensureObjectLiteral(theme.fonts),
-    fontSize: ensureObjectLiteral(theme.fontSizes),
-    fontWeight: ensureObjectLiteral(theme.fontWeights),
-    letterSpacing: ensureObjectLiteral(theme.letterSpacings),
-    lineHeight: ensureObjectLiteral(theme.lineHeights),
-  } as StaticTheme['scales'];
+  const scales: Record<string, {}> = {
+    ...ensureObjectLiteral('color', color),
+    ...ensureObjectLiteral('spacing', theme.space),
+    ...ensureObjectLiteral('border', theme.borders),
+    ...ensureObjectLiteral('borderWidth', theme.borderWidths),
+    ...ensureObjectLiteral('size', theme.sizes),
+    ...ensureObjectLiteral('fontFamily', theme.fonts),
+    ...ensureObjectLiteral('fontSize', theme.fontSizes),
+    ...ensureObjectLiteral('fontWeight', theme.fontWeights),
+    ...ensureObjectLiteral('letterSpacing', theme.letterSpacings),
+    ...ensureObjectLiteral('lineHeight', theme.lineHeights),
+  };
 
   // Remove any undefined tokens
   Object.keys(scales).forEach((key) => {
@@ -185,7 +188,7 @@ export function fromThemeUI(theme: ThemeUI): StaticTheme {
 
   return {
     ...emptyTokens,
-    breakpoints,
-    scales,
+    breakpoints: breakpoints as StaticTheme['breakpoints'],
+    scales: scales as StaticTheme['scales'],
   };
 }
