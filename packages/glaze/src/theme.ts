@@ -78,12 +78,7 @@ export function createTheme(
 }
 
 export function fromThemeUI(tokens: ThemeUITheme): StaticTheme {
-  /** Breakpoints
-   * Theme UI allows any string value. Treat only wants pixel values in numbers.
-   * We strip `px` as a direct conversion.
-   * We strip `rem` or `em` and multiply by an assumed `16px`
-   */
-  function convertBreakpoint(breakpoint: string | number): number | undefined {
+  function parseBreakpoint(breakpoint: string | number): number {
     if (typeof breakpoint === 'number') return breakpoint;
 
     const [, numberCandidate, unit] =
@@ -108,33 +103,20 @@ export function fromThemeUI(tokens: ThemeUITheme): StaticTheme {
     errorOnce(
       `Invalid breakpoint: "${breakpoint}". Specify a number with an optional unit of 'px', 'em' or 'rem' instead.`,
     );
-    return undefined;
+    return Number.NaN;
   }
 
-  let breakpoints: Array<number | undefined> = [];
-  if (
-    !Array.isArray(tokens.breakpoints) &&
-    typeof tokens.breakpoints === 'object'
-  ) {
-    breakpoints = Object.values<string>(tokens.breakpoints)
-      .map(convertBreakpoint)
-      .sort((a?: number, b?: number) => (a && b ? a - b : 0));
-  }
-  if (Array.isArray(tokens.breakpoints)) {
-    breakpoints = tokens.breakpoints
-      .map(convertBreakpoint)
-      .sort((a, b) => (a && b ? a - b : 0));
-  }
+  const breakpoints = Object.values(tokens.breakpoints || [])
+    .map(parseBreakpoint)
+    .filter(Boolean);
 
-  /** Color
-   * We just ignore color modes for now and show a warning
-   */
   const color: Record<string, string | {} | []> = {};
   // glaze only supports strings for color tokens
   if (tokens.colors) {
-    if (tokens.colors?.modes) {
+    if (tokens.colors.modes) {
+      // TODO: Add support for converting color schemes
       warnOnce(
-        'Color Modes are not currently supported in glaze. See https://github.com/kripod/glaze/issues/7',
+        'Color schemes are not yet supported. Please see https://github.com/kripod/glaze/issues/7 for further details.',
       );
     }
 
