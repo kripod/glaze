@@ -1,4 +1,4 @@
-# Contributing
+# Contributing to glaze 🍩
 
 Thank you for taking the time to contribute! Guidelines below are meant to help you along the way. All contributions are welcome, including ideas, tweaks and more.
 

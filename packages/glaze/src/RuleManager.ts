@@ -15,11 +15,11 @@ export class NullRuleManager implements RuleManager {
     if (isDev) {
       if (isBrowser) {
         errorOnce(
-          'Client-side injection of dynamic styles is not set up. Wrap the component tree inside a `<StyleInjectorProvider>` without parameters.',
+          'Client-side injection of dynamic styles is not set up. Wrap the component tree inside a `<StyleInjectorProvider>` without parameters. Make sure that `useStyling()` and the `sx` prop are only used within the encapsulated components.',
         );
       } else {
         warnOnce(
-          'Server-side rendering of dynamic styles is not configured properly. Some of the initially applied CSS could not be prerendered. Please refer to the documentation at https://glaze.js.org/docs/server-side-rendering for further information.',
+          'Server-side rendering of dynamic styles is not configured properly. Some of the initially applied CSS could not be prerendered. Please refer to the documentation at https://glaze.js.org/docs/server-side-rendering/ for further information.',
         );
       }
     }

@@ -1,0 +1,65 @@
+---
+title: Quick Setup
+---
+
+## Installation
+
+import PackageInstall from '@theme/PackageInstall';
+
+<PackageInstall dependencies={['glaze', 'treat']} />
+
+## Generating CSS on the fly
+
+To enable client-side injection of styles, wrap the entry point of your application as shown:
+
+```jsx
+import { StyleInjectorProvider } from 'glaze';
+
+function App({ children }) {
+  // highlight-next-line
+  return <StyleInjectorProvider>{children}</StyleInjectorProvider>;
+}
+```
+
+Later on, you may decide to opt out of the dynamic runtime to shrink bundle sizes.
+
+## Vanilla usage
+
+Style elements with the `sx` function, as [inspired by Theme UI](https://theme-ui.com/sx-prop/):
+
+```jsx
+import { useStyling } from 'glaze';
+
+function Component() {
+  const sx = useStyling();
+  // highlight-next-line
+  return <p className={sx({ background: 'pink' })}>Hello, world!</p>;
+}
+```
+
+Multiple class names can be concatenated through a template literal:
+
+```jsx
+function CustomizableComponent({ className }) {
+  // …
+  // highlight-next-line
+  return <p className={`${sx({ background: 'pink' })} ${className}`}>…</p>;
+}
+```
+
+## `sx` prop via transforms
+
+A terser syntax is available by using [`babel-plugin-glaze`](https://www.npmjs.com/package/babel-plugin-glaze):
+
+```jsx
+function Component() {
+  // highlight-next-line
+  return <p sx={{ background: 'pink' }}>Hello, world!</p>;
+}
+```
+
+The resulting code is identical to the main vanilla example. Please refer to the plugin's linked page for setting it up.
+
+:::info
+For brevity, this syntax is preferred throughout the documentation. However, vanilla and transformed approaches may be used interchangeably.
+:::

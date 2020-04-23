@@ -27,7 +27,7 @@ Applies glaze theming on Gatsby sites.
 
    export default createTheme({
      ...defaultTokens,
-     // Customization...
+     // Customization…
    });
    ```
 
