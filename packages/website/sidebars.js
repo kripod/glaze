@@ -23,6 +23,11 @@ module.exports = {
         label: 'Code of Conduct',
         href: 'https://github.com/kripod/glaze/blob/master/CODE_OF_CONDUCT.md',
       },
+      {
+        type: 'link',
+        label: 'Become a Sponsor',
+        href: 'https://opencollective.com/glaze',
+      },
     ],
   },
 };
