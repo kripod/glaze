@@ -1,9 +1,3 @@
-@media (max-width: 996px) {
-  :root {
-    --ifm-code-font-size: 87.5%;
-  }
-}
-
 :root {
   --ifm-font-size-base: 100%;
   --ifm-code-font-size: 93.75%;
@@ -24,6 +18,12 @@
 
 .markdown {
   --ifm-heading-vertical-rhythm-bottom: 1.125;
+}
+
+@media (max-width: 996px) {
+  :root {
+    --ifm-code-font-size: 87.5%;
+  }
 }
 
 .docusaurus-highlight-code-line {
