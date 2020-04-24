@@ -1,3 +1,4 @@
+export { fromThemeUI } from './converters/fromThemeUI';
 export { setLogger } from './logger';
 export { defaultTokens } from './presets/defaultTokens';
 export { modularScale } from './scales';

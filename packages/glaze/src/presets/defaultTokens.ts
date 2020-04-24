@@ -33,8 +33,8 @@ export const defaultTokens = {
       '100%': '100%',
     },
     fontFamily: {},
-    fontSize: modularScale(1.333),
     fontWeight: {},
+    fontSize: modularScale(1.333),
     lineHeight: {
       1: 1,
       tight: 1.25,

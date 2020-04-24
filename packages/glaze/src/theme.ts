@@ -10,9 +10,9 @@ export type Tokens<T extends keyof ThemeOrAny> = Extract<
   string | number
 >;
 
-export interface ScaleTokens<T extends keyof CSSProperties> {
-  [key: string]: NonNullable<CSSProperties[T]>;
-}
+export type ScaleTokens<T extends keyof CSSProperties> =
+  | { [key: string]: NonNullable<CSSProperties[T]> }
+  | readonly NonNullable<CSSProperties[T]>[];
 
 export interface CommonTheme {
   breakpoints: readonly number[];
@@ -29,8 +29,8 @@ export interface StaticTheme extends CommonTheme {
     spacing: ScaleTokens<'margin'>;
     size: ScaleTokens<'width'>;
     fontFamily: ScaleTokens<'fontFamily'>;
-    fontSize: ScaleTokens<'fontSize'>;
     fontWeight: ScaleTokens<'fontWeight'>;
+    fontSize: ScaleTokens<'fontSize'>;
     lineHeight: ScaleTokens<'lineHeight'>;
     color: ScaleTokens<'color'>;
     letterSpacing: ScaleTokens<'letterSpacing'>;
@@ -64,7 +64,7 @@ export function createTheme(
 
   if (breakpoints.some((breakpoint, i) => breakpoint > breakpoints[i + 1])) {
     warnOnce(
-      '`breakpoints` of a theme should be in ascending order to avoid issues with CSS specificity.',
+      'The `breakpoints` of a theme should be in ascending order to avoid issues with CSS specificity.',
     );
   }
 
