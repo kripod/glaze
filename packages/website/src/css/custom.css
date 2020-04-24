@@ -29,6 +29,10 @@ a code {
   color: inherit;
 }
 
+#nprogress .bar {
+  background: var(--ifm-color-primary) !important;
+}
+
 .docusaurus-highlight-code-line {
   background-color: #1b2d40;
   margin: 0 calc(-1 * var(--ifm-pre-padding));
