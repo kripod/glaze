@@ -123,27 +123,25 @@ export function fromThemeUI(tokens: ThemeUITheme): StaticTheme {
     );
   }
 
-  const scales = {
-    spacing: tokens.space,
-    size: tokens.sizes,
-    fontFamily: tokens.fonts,
-    fontWeight: tokens.fontWeights,
-    fontSize: tokens.fontSizes,
-    lineHeight: tokens.lineHeights,
-    color: colorScale,
-    letterSpacing: tokens.letterSpacings,
-    border: tokens.borders,
-    borderWidth: tokens.borderWidths,
-    radius: tokens.radii,
-    shadow: tokens.shadows,
-    zIndex: tokens.zIndices,
-  };
-
   return {
     ...emptyTokens,
     breakpoints: Object.values(tokens.breakpoints || [])
       .map(parseBreakpoint)
       .filter(Boolean),
-    scales: scales as StaticTheme['scales'],
+    scales: {
+      spacing: tokens.space,
+      size: tokens.sizes,
+      fontFamily: tokens.fonts,
+      fontWeight: tokens.fontWeights,
+      fontSize: tokens.fontSizes,
+      lineHeight: tokens.lineHeights,
+      color: colorScale,
+      letterSpacing: tokens.letterSpacings,
+      border: tokens.borders,
+      borderWidth: tokens.borderWidths,
+      radius: tokens.radii,
+      shadow: tokens.shadows,
+      zIndex: tokens.zIndices,
+    } as StaticTheme['scales'],
   };
 }
