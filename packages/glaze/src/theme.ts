@@ -31,8 +31,8 @@ export interface StaticTheme extends CommonTheme {
     spacing: ScaleTokens<'margin'>;
     size: ScaleTokens<'width'>;
     fontFamily: ScaleTokens<'fontFamily'>;
-    fontSize: ScaleTokens<'fontSize'>;
     fontWeight: ScaleTokens<'fontWeight'>;
+    fontSize: ScaleTokens<'fontSize'>;
     lineHeight: ScaleTokens<'lineHeight'>;
     color: ScaleTokens<'color'>;
     letterSpacing: ScaleTokens<'letterSpacing'>;
@@ -142,16 +142,16 @@ export function fromThemeUI(tokens: ThemeUITheme): StaticTheme {
   }
 
   const scales: Record<string, {}> = {
-    ...ensureObjectLiteral('color', colorScale),
     ...ensureObjectLiteral('spacing', tokens.space),
-    ...ensureObjectLiteral('border', tokens.borders),
-    ...ensureObjectLiteral('borderWidth', tokens.borderWidths),
     ...ensureObjectLiteral('size', tokens.sizes),
     ...ensureObjectLiteral('fontFamily', tokens.fonts),
-    ...ensureObjectLiteral('fontSize', tokens.fontSizes),
     ...ensureObjectLiteral('fontWeight', tokens.fontWeights),
-    ...ensureObjectLiteral('letterSpacing', tokens.letterSpacings),
+    ...ensureObjectLiteral('fontSize', tokens.fontSizes),
     ...ensureObjectLiteral('lineHeight', tokens.lineHeights),
+    color: colorScale,
+    ...ensureObjectLiteral('letterSpacing', tokens.letterSpacings),
+    ...ensureObjectLiteral('border', tokens.borders),
+    ...ensureObjectLiteral('borderWidth', tokens.borderWidths),
   };
 
   return {
