@@ -12,9 +12,9 @@ export type Tokens<T extends keyof ThemeOrAny> = Extract<
   string | number
 >;
 
-export interface ScaleTokens<T extends keyof CSSProperties> {
-  [key: string]: NonNullable<CSSProperties[T]>;
-}
+export type ScaleTokens<T extends keyof CSSProperties> =
+  | { [key: string]: NonNullable<CSSProperties[T]> }
+  | readonly NonNullable<CSSProperties[T]>[];
 
 export interface CommonTheme {
   breakpoints: readonly number[];
@@ -123,38 +123,20 @@ export function fromThemeUI(tokens: ThemeUITheme): StaticTheme {
     );
   }
 
-  /**
-   * Glaze doesn't support array token lookups so we convert to an object using its index as a key
-   */
-  function ensureObjectLiteral(
-    key: keyof StaticTheme['scales'],
-    token: [] | {} | undefined,
-  ): {} | undefined {
-    if (Array.isArray(token)) {
-      return token.reduce<Record<number, string | number>>((obj, curr, i) => {
-        // eslint-disable-next-line no-param-reassign
-        obj[i] = curr;
-        return obj;
-      }, {});
-    }
-
-    return token ? { [key]: token } : undefined;
-  }
-
-  const scales: Record<string, {}> = {
-    ...ensureObjectLiteral('spacing', tokens.space),
-    ...ensureObjectLiteral('size', tokens.sizes),
-    ...ensureObjectLiteral('fontFamily', tokens.fonts),
-    ...ensureObjectLiteral('fontWeight', tokens.fontWeights),
-    ...ensureObjectLiteral('fontSize', tokens.fontSizes),
-    ...ensureObjectLiteral('lineHeight', tokens.lineHeights),
+  const scales = {
+    spacing: tokens.space,
+    size: tokens.sizes,
+    fontFamily: tokens.fonts,
+    fontWeight: tokens.fontWeights,
+    fontSize: tokens.fontSizes,
+    lineHeight: tokens.lineHeights,
     color: colorScale,
-    ...ensureObjectLiteral('letterSpacing', tokens.letterSpacings),
-    ...ensureObjectLiteral('border', tokens.borders),
-    ...ensureObjectLiteral('borderWidth', tokens.borderWidths),
-    ...ensureObjectLiteral('radius', tokens.radii),
-    ...ensureObjectLiteral('shadow', tokens.shadows),
-    ...ensureObjectLiteral('zIndex', tokens.zIndices),
+    letterSpacing: tokens.letterSpacings,
+    border: tokens.borders,
+    borderWidth: tokens.borderWidths,
+    radius: tokens.radii,
+    shadow: tokens.shadows,
+    zIndex: tokens.zIndices,
   };
 
   return {
