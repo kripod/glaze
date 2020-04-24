@@ -20,6 +20,16 @@
   --ifm-heading-vertical-rhythm-bottom: 1.125;
 }
 
+.docusaurus-highlight-code-line {
+  background-color: #1b2d40;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+html[data-theme='dark'] .docusaurus-highlight-code-line {
+  background-color: #3f414e;
+}
+
 .alert.alert--secondary code {
   background: var(--ifm-color-gray-100);
 }
@@ -31,14 +41,4 @@ a code {
 
 #nprogress .bar {
   background: var(--ifm-color-primary) !important;
-}
-
-.docusaurus-highlight-code-line {
-  background-color: #1b2d40;
-  margin: 0 calc(-1 * var(--ifm-pre-padding));
-  padding: 0 var(--ifm-pre-padding);
-}
-
-html[data-theme='dark'] .docusaurus-highlight-code-line {
-  background-color: #3f414e;
 }
