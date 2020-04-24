@@ -2,7 +2,6 @@ import type { Theme as ThemeUITheme } from '@theme-ui/css';
 
 import { errorOnce, warnOnce } from '../logger';
 import { fromEntries } from '../ponyfills/Object';
-import { emptyTokens } from '../presets/emptyTokens';
 import { StaticTheme } from '../theme';
 
 function parseBreakpoint(breakpoint: string | number): number {
@@ -33,7 +32,29 @@ function parseBreakpoint(breakpoint: string | number): number {
   return Number.NaN;
 }
 
-export function fromThemeUI(tokens: ThemeUITheme): StaticTheme {
+type ConvertibleScales = Pick<
+  StaticTheme['scales'],
+  | 'spacing'
+  | 'size'
+  | 'fontFamily'
+  | 'fontWeight'
+  | 'fontSize'
+  | 'lineHeight'
+  | 'color'
+  | 'letterSpacing'
+  | 'border'
+  | 'borderWidth'
+  | 'radius'
+  | 'shadow'
+  | 'zIndex'
+>;
+
+export function fromThemeUI(
+  tokens: ThemeUITheme,
+): {
+  breakpoints: StaticTheme['breakpoints'];
+  scales: ConvertibleScales;
+} {
   const {
     breakpoints = [],
     space,
@@ -69,7 +90,6 @@ export function fromThemeUI(tokens: ThemeUITheme): StaticTheme {
   }
 
   return {
-    ...emptyTokens,
     breakpoints: Object.values(breakpoints)
       .map(parseBreakpoint)
       .filter(Boolean),
@@ -83,7 +103,7 @@ export function fromThemeUI(tokens: ThemeUITheme): StaticTheme {
       color: fromEntries(
         Object.entries(colors || {}).filter(
           ([, value]) => typeof value === 'string',
-        ) as [string, string][],
+        ),
       ),
       letterSpacing: tokens.letterSpacings,
       border: tokens.borders,
@@ -91,6 +111,6 @@ export function fromThemeUI(tokens: ThemeUITheme): StaticTheme {
       radius: tokens.radii,
       shadow: tokens.shadows,
       zIndex: tokens.zIndices,
-    } as StaticTheme['scales'],
+    } as ConvertibleScales,
   };
 }
