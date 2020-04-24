@@ -1,3 +1,9 @@
+@media (max-width: 996px) {
+  :root {
+    --ifm-code-font-size: 87.5%;
+  }
+}
+
 :root {
   --ifm-font-size-base: 100%;
   --ifm-code-font-size: 93.75%;
