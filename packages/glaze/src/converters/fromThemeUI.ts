@@ -73,19 +73,19 @@ export function fromThemeUI(
     ...unknownTokens
   } = tokens;
 
-  if (colors && colors.modes) {
-    // TODO: Add support for converting color schemes
-    warnOnce(
-      'Color schemes are not yet supported. Please see https://github.com/kripod/glaze/issues/7 for further details.',
-    );
-  }
-
   const unknownTokenKeys = Object.keys(unknownTokens)
     .map((key) => `"${key}"`)
     .join(', ');
   if (unknownTokenKeys) {
     warnOnce(
-      `The following Theme UI tokens couldn't be converted and thus, will not have an effect: ${unknownTokenKeys}.`,
+      `The following Theme UI tokens can't be converted and thus, will not have an effect: ${unknownTokenKeys}.`,
+    );
+  }
+
+  if (colors && colors.modes) {
+    // TODO: Add support for converting color schemes
+    warnOnce(
+      'Color schemes are not yet supported. Please see https://github.com/kripod/glaze/issues/7 for further details.',
     );
   }
 
