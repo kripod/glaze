@@ -23,7 +23,9 @@ function App({ children }) {
 
 Later on, you may decide to opt out of the dynamic runtime to shrink bundle sizes.
 
-## Vanilla usage
+## Usage
+
+### Vanilla
 
 Style elements with the `sx` function, as [inspired by Theme UI](https://theme-ui.com/sx-prop/):
 
@@ -47,9 +49,9 @@ function CustomizableComponent({ className }) {
 }
 ```
 
-## `sx` prop via transforms
+### `sx` prop via transforms
 
-A terser syntax is available by using [`babel-plugin-glaze`](https://www.npmjs.com/package/babel-plugin-glaze):
+A terser syntax is available once setting up [`babel-plugin-glaze`](https://www.npmjs.com/package/babel-plugin-glaze). The following code produces output identical to the main vanilla example:
 
 ```jsx
 function Component() {
@@ -58,8 +60,18 @@ function Component() {
 }
 ```
 
-The resulting code is identical to the main vanilla example. Please refer to the plugin's linked page for setting it up.
+Style composition is done automatically when a `className` prop is specified:
+
+<!-- prettier-ignore-start -->
+```jsx
+function CustomizableComponent({ className }) {
+  // `{...props}` containing `className` works similarly
+  // highlight-next-line
+  return <p sx={{ background: 'pink' }} className={className}>…</p>;
+}
+```
+<!-- prettier-ignore-end -->
 
 :::info
-For brevity, this syntax is preferred throughout the documentation. However, vanilla and transformed approaches may be used interchangeably.
+For brevity, this syntax is preferred throughout the documentation. However, vanilla and transform-based approaches may be used interchangeably.
 :::
