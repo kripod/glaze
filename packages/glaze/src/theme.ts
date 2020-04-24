@@ -66,7 +66,7 @@ export function createTheme(
 
   if (breakpoints.some((breakpoint, i) => breakpoint > breakpoints[i + 1])) {
     warnOnce(
-      '`breakpoints` of a theme should be in ascending order to avoid issues with CSS specificity.',
+      'The `breakpoints` of a theme should be in ascending order to avoid issues with CSS specificity.',
     );
   }
 
@@ -107,25 +107,43 @@ export function fromThemeUI(tokens: ThemeUITheme): StaticTheme {
     return Number.NaN;
   }
 
-  let colorScale: StaticTheme['scales']['color'] = {};
-  if (tokens.colors) {
-    if (tokens.colors.modes) {
-      // TODO: Add support for converting color schemes
-      warnOnce(
-        'Color schemes are not yet supported. Please see https://github.com/kripod/glaze/issues/7 for further details.',
-      );
-    }
+  const {
+    breakpoints = [],
+    space,
+    sizes,
+    fonts,
+    fontWeights,
+    fontSizes,
+    lineHeights,
+    colors,
+    letterSpacings,
+    borders,
+    borderWidths,
+    radii,
+    shadows,
+    zIndices,
+    ...unknownTokens
+  } = tokens;
 
-    colorScale = fromEntries(
-      Object.entries(tokens.colors).filter(
-        ([, value]) => typeof value === 'string',
-      ) as [string, string][],
+  if (colors && colors.modes) {
+    // TODO: Add support for converting color schemes
+    warnOnce(
+      'Color schemes are not yet supported. Please see https://github.com/kripod/glaze/issues/7 for further details.',
+    );
+  }
+
+  const unknownTokenKeys = Object.keys(unknownTokens)
+    .map((key) => `"${key}"`)
+    .join(', ');
+  if (unknownTokenKeys) {
+    warnOnce(
+      `The following Theme UI tokens couldn't be converted and thus, will not have an effect: ${unknownTokenKeys}.`,
     );
   }
 
   return {
     ...emptyTokens,
-    breakpoints: Object.values(tokens.breakpoints || [])
+    breakpoints: Object.values(breakpoints)
       .map(parseBreakpoint)
       .filter(Boolean),
     scales: {
@@ -135,7 +153,11 @@ export function fromThemeUI(tokens: ThemeUITheme): StaticTheme {
       fontWeight: tokens.fontWeights,
       fontSize: tokens.fontSizes,
       lineHeight: tokens.lineHeights,
-      color: colorScale,
+      color: fromEntries(
+        Object.entries(colors || {}).filter(
+          ([, value]) => typeof value === 'string',
+        ) as [string, string][],
+      ),
       letterSpacing: tokens.letterSpacings,
       border: tokens.borders,
       borderWidth: tokens.borderWidths,
