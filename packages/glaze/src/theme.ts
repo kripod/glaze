@@ -4,6 +4,7 @@ import { createTheme as createStaticTheme, ThemeRef } from 'treat';
 import { ThemeOrAny } from 'treat/theme';
 
 import { errorOnce, warnOnce } from './logger';
+import { fromEntries } from './ponyfills/Object';
 import { emptyTokens } from './presets/emptyTokens';
 
 export type Tokens<T extends keyof ThemeOrAny> = Extract<
@@ -106,12 +107,7 @@ export function fromThemeUI(tokens: ThemeUITheme): StaticTheme {
     return Number.NaN;
   }
 
-  const breakpoints = Object.values(tokens.breakpoints || [])
-    .map(parseBreakpoint)
-    .filter(Boolean);
-
-  const color: Record<string, string | {} | []> = {};
-  // glaze only supports strings for color tokens
+  let colorScale: StaticTheme['scales']['color'] = {};
   if (tokens.colors) {
     if (tokens.colors.modes) {
       // TODO: Add support for converting color schemes
@@ -120,11 +116,11 @@ export function fromThemeUI(tokens: ThemeUITheme): StaticTheme {
       );
     }
 
-    Object.keys(tokens.colors).forEach((colorKey) => {
-      if (typeof tokens.colors?.[colorKey] === 'string') {
-        color[colorKey] = tokens.colors[colorKey];
-      }
-    });
+    colorScale = fromEntries(
+      Object.entries(tokens.colors).filter(
+        ([, value]) => typeof value === 'string',
+      ) as [string, string][],
+    );
   }
 
   /**
@@ -146,7 +142,7 @@ export function fromThemeUI(tokens: ThemeUITheme): StaticTheme {
   }
 
   const scales: Record<string, {}> = {
-    ...ensureObjectLiteral('color', color),
+    ...ensureObjectLiteral('color', colorScale),
     ...ensureObjectLiteral('spacing', tokens.space),
     ...ensureObjectLiteral('border', tokens.borders),
     ...ensureObjectLiteral('borderWidth', tokens.borderWidths),
@@ -158,16 +154,11 @@ export function fromThemeUI(tokens: ThemeUITheme): StaticTheme {
     ...ensureObjectLiteral('lineHeight', tokens.lineHeights),
   };
 
-  // Remove any undefined tokens
-  Object.keys(scales).forEach((key) => {
-    if (typeof scales[key] === 'undefined') {
-      delete scales[key];
-    }
-  });
-
   return {
     ...emptyTokens,
-    breakpoints: breakpoints as StaticTheme['breakpoints'],
+    breakpoints: Object.values(tokens.breakpoints || [])
+      .map(parseBreakpoint)
+      .filter(Boolean),
     scales: scales as StaticTheme['scales'],
   };
 }
