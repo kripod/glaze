@@ -152,6 +152,9 @@ export function fromThemeUI(tokens: ThemeUITheme): StaticTheme {
     ...ensureObjectLiteral('letterSpacing', tokens.letterSpacings),
     ...ensureObjectLiteral('border', tokens.borders),
     ...ensureObjectLiteral('borderWidth', tokens.borderWidths),
+    ...ensureObjectLiteral('radius', tokens.radii),
+    ...ensureObjectLiteral('shadow', tokens.shadows),
+    ...ensureObjectLiteral('zIndex', tokens.zIndices),
   };
 
   return {
