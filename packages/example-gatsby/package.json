@@ -11,10 +11,10 @@
   },
   "dependencies": {
     "@types/react": "^16.9.34",
-    "gatsby": "^2.20.29",
+    "gatsby": "^2.20.36",
     "gatsby-plugin-glaze": "^0.5.0",
-    "gatsby-plugin-treat": "^1.2.3",
-    "gatsby-plugin-typescript": "^2.3.2",
+    "gatsby-plugin-treat": "^1.4.0",
+    "gatsby-plugin-typescript": "^2.3.5",
     "glaze": "^0.5.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
