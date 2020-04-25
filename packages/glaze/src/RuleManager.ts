@@ -32,7 +32,7 @@ export class NullRuleManager implements RuleManager {
 export class OptimizedRuleManager implements RuleManager {
   private injector: StyleInjector;
 
-  private ruleIndexesByClassName = new Map<ClassRef, number>();
+  private ruleIndexesByClassName: Map<ClassRef, number>;
 
   private usageCountsByClassName = new Map<ClassRef, number>();
 
