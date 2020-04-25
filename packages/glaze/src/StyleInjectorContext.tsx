@@ -24,7 +24,7 @@ export function StyleInjectorProvider({
   children,
   nonce,
   injector = isDev
-    ? new DebuggableStyleInjector()
+    ? new DebuggableStyleInjector(nonce)
     : new OptimizedStyleInjector(nonce),
 }: StyleInjectorProviderProps): JSX.Element {
   if (!isBrowser) {

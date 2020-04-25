@@ -154,11 +154,15 @@ export class OptimizedStyleInjector implements StyleInjector {
 export class DebuggableStyleInjector implements StyleInjector {
   ruleManager: RuleManager = new OptimizedRuleManager(this, new Map());
 
-  private styleEl = createAndMountStyleElement();
+  private styleEl: HTMLStyleElement;
 
   private nodes: Text[] = [];
 
   private freeIndexes: number[] = [];
+
+  constructor(nonce?: string) {
+    this.styleEl = createAndMountStyleElement(nonce);
+  }
 
   addRule(cssText: string): number {
     if (this.freeIndexes.length) {
