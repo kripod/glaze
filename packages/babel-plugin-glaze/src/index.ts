@@ -109,6 +109,8 @@ module.exports = function plugin({
   types: typeof types;
 }): PluginObj<{
   hasSxProps: boolean | undefined;
+  useStylingImportName: string;
+  glazeImportDeclaration: types.ImportDeclaration | undefined;
   pathsToAddHook: Set<NodePath<types.Function>>;
 }> {
   return {
@@ -117,20 +119,34 @@ module.exports = function plugin({
       Program: {
         enter(path, state) {
           state.hasSxProps = false;
+          state.useStylingImportName = 'useStyling';
           state.pathsToAddHook = new Set();
-        },
-        exit(path, { hasSxProps }) {
-          if (hasSxProps) {
-            const importUseStyling = template.ast`import { useStyling } from 'glaze'`;
-            const { node } = path;
 
-            // Check if something from glaze is already imported
-            const glazeImportDeclaration = node.body.find(
-              (s) => t.isImportDeclaration(s) && s.source.value === 'glaze',
+          const { node } = path;
+          // Check if something from glaze is already imported
+          const glazeImportDeclaration = node.body.find(
+            (s) => t.isImportDeclaration(s) && s.source.value === 'glaze',
+          );
+
+          // Something is already imported from glaze
+          if (t.isImportDeclaration(glazeImportDeclaration)) {
+            state.glazeImportDeclaration = glazeImportDeclaration;
+            // Check if it's `useStyling` which is imported
+            const useStylingImport = glazeImportDeclaration.specifiers.find(
+              (s) => t.isImportSpecifier(s) && s.imported.name === 'useStyling',
             );
 
+            if (useStylingImport) {
+              state.useStylingImportName = useStylingImport.local.name;
+            }
+          }
+        },
+        exit(path, { hasSxProps, glazeImportDeclaration }) {
+          if (hasSxProps) {
+            const importUseStyling = template.ast`import { useStyling } from 'glaze'`;
+
             // Something is already imported from glaze
-            if (t.isImportDeclaration(glazeImportDeclaration)) {
+            if (glazeImportDeclaration) {
               // Check if it's `useStyling` which is imported
               const useStylingImport = glazeImportDeclaration.specifiers.find(
                 (s) =>
@@ -159,7 +175,7 @@ module.exports = function plugin({
           if (state.pathsToAddHook.has(path)) {
             const nodeToAddHook = path.node;
             const createUseStylingHook = template.statement.ast`
-            const sx = useStyling();
+            const sx = ${state.useStylingImportName}();
            `;
 
             if (t.isBlockStatement(nodeToAddHook.body)) {
@@ -175,7 +191,7 @@ module.exports = function plugin({
                     (decl) =>
                       t.isCallExpression(decl.init) &&
                       t.isIdentifier(decl.init.callee, {
-                        name: 'useStyling',
+                        name: state.useStylingImportName,
                       }),
                   ),
               );
