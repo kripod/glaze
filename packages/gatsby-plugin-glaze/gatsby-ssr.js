@@ -16,7 +16,8 @@ export const wrapRootElement = ({ element, pathname }) => {
   injectorsByPathname.set(pathname, injector);
 
   return (
-    <StyleInjectorProvider injector={injector}>
+    // eslint-disable-next-line @typescript-eslint/camelcase, no-undef
+    <StyleInjectorProvider injector={injector} nonce={__webpack_nonce__}>
       <ThemeProvider theme={theme}>{element}</ThemeProvider>
     </StyleInjectorProvider>
   );

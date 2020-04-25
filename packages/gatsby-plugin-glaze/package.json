@@ -18,6 +18,9 @@
   "scripts": {
     "type-check": "tsc --build"
   },
+  "dependencies": {
+    "@types/webpack-env": "^1.15.2"
+  },
   "peerDependencies": {
     "gatsby": "^2",
     "glaze": ">=0.3",

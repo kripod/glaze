@@ -12,7 +12,10 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   );
 
   return process.browser ? (
-    <StyleInjectorProvider>{themedComponent}</StyleInjectorProvider>
+    // eslint-disable-next-line @typescript-eslint/camelcase, no-undef
+    <StyleInjectorProvider nonce={__webpack_nonce__}>
+      {themedComponent}
+    </StyleInjectorProvider>
   ) : (
     themedComponent
   );

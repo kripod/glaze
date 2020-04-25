@@ -12,7 +12,8 @@ export default class MyDocument extends Document {
     ctx.renderPage = (): ReturnType<typeof ctx.renderPage> =>
       originalRenderPage({
         enhanceApp: (App) => (props): JSX.Element => (
-          <StyleInjectorProvider injector={injector}>
+          // eslint-disable-next-line @typescript-eslint/camelcase, no-undef
+          <StyleInjectorProvider injector={injector} nonce={__webpack_nonce__}>
             <App {...props} />
           </StyleInjectorProvider>
         ),

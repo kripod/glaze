@@ -19,13 +19,14 @@ import {
 
 const MAX_RULE_COUNT = 0xffff;
 
-function createAndMountStyleElement(): HTMLStyleElement {
+function createAndMountStyleElement(nonce?: string): HTMLStyleElement {
   const el = document.createElement('style');
   el.dataset.glaze = '';
+  el.nonce = nonce;
   return document.head.appendChild(el);
 }
 
-function getSheet(): CSSStyleSheet {
+function getSheet(nonce?: string): CSSStyleSheet {
   // Hydrate existing style node if available
   for (let i = 0, len = document.styleSheets.length; i < len; ++i) {
     const styleSheet = document.styleSheets[i];
@@ -34,13 +35,13 @@ function getSheet(): CSSStyleSheet {
     }
   }
 
-  const styleEl = createAndMountStyleElement();
+  const styleEl = createAndMountStyleElement(nonce);
 
   // Avoid Edge bug where empty style elements don't create sheets
   styleEl.appendChild(document.createTextNode(''));
 
   // Avoid Firefox quirk where the style element might not have a sheet property
-  return (styleEl.sheet as CSSStyleSheet | undefined) || getSheet();
+  return (styleEl.sheet as CSSStyleSheet | undefined) || getSheet(nonce);
 }
 
 function getInitialRuleIndexes(rules: CSSRuleList): Map<ClassRef, number> {
@@ -60,7 +61,7 @@ function getInitialRuleIndexes(rules: CSSRuleList): Map<ClassRef, number> {
 }
 
 export interface StyleInjector {
-  ruleManager: RuleManager;
+  readonly ruleManager: RuleManager;
 
   addRule(cssText: string): number;
   nullifyRule(index: number): void;
@@ -83,10 +84,17 @@ export class VirtualStyleInjector implements StyleInjector {
 
   private cssTexts: string[] = [];
 
+  private nonce?: string;
+
+  setNonce(nonce?: string): void {
+    this.nonce = nonce;
+  }
+
   getStyleElement(): JSX.Element {
     return (
       <style
         data-glaze=""
+        nonce={this.nonce}
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: this.cssTexts.join('') }}
       />
@@ -103,7 +111,7 @@ export class VirtualStyleInjector implements StyleInjector {
 }
 
 export class OptimizedStyleInjector implements StyleInjector {
-  private sheet = getSheet();
+  private sheet: CSSStyleSheet;
 
   private ruleCount = 0;
 
@@ -113,6 +121,10 @@ export class OptimizedStyleInjector implements StyleInjector {
     this,
     getInitialRuleIndexes(this.sheet.rules), // Hydrate server-rendered rules
   );
+
+  constructor(nonce?: string) {
+    this.sheet = getSheet(nonce);
+  }
 
   addRule(cssText: string): number {
     if (this.freeIndexes.length) {
@@ -142,15 +154,11 @@ export class OptimizedStyleInjector implements StyleInjector {
 export class DebuggableStyleInjector implements StyleInjector {
   ruleManager: RuleManager = new OptimizedRuleManager(this, new Map());
 
-  private styleEl: HTMLStyleElement;
+  private styleEl = createAndMountStyleElement();
 
   private nodes: Text[] = [];
 
   private freeIndexes: number[] = [];
-
-  constructor() {
-    this.styleEl = createAndMountStyleElement();
-  }
 
   addRule(cssText: string): number {
     if (this.freeIndexes.length) {
