@@ -19,7 +19,10 @@ export const wrapRootElement = ({ element }, { disableStyleInjection }) => {
   );
 };
 
-export const onInitialClientRender = () => {
-  // eslint-disable-next-line no-underscore-dangle
-  if (isDev) window.__glaze_disableStyleInjection = true;
+/** @type {import('gatsby').GatsbyBrowser["onInitialClientRender"]} */
+export const onInitialClientRender = (_, { disableStyleInjection }) => {
+  if (isDev && disableStyleInjection) {
+    // eslint-disable-next-line no-underscore-dangle
+    window.__glaze_disableStyleInjection = true;
+  }
 };

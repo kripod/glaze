@@ -3,7 +3,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-glaze',
       options: {
-        disableStyleInjection: true,
+        // disableStyleInjection: true,
       },
     },
     'gatsby-plugin-treat',
