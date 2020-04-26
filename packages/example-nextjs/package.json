@@ -13,6 +13,7 @@
     "@types/react-dom": "^16.9.6",
     "@types/webpack": "4.41.12",
     "@types/webpack-env": "^1.15.2",
+    "babel-plugin-glaze": "^0.5.0",
     "babel-plugin-treat": "^1.1.0",
     "glaze": "^0.5.1",
     "next": "^9.3.5",
