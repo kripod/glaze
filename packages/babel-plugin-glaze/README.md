@@ -39,20 +39,20 @@ npm install --save-dev babel-plugin-glaze
 
 ```json
 {
-  "plugins": ["glaze"]
+  "plugins": ["babel-plugin-glaze"]
 }
 ```
 
 ### Via CLI
 
 ```shell
-babel --plugins glaze script.js
+babel --plugins babel-plugin-glaze script.js
 ```
 
 ### Via Node API
 
 ```js
 require('@babel/core').transform('code', {
-  plugins: ['glaze'],
+  plugins: ['babel-plugin-glaze'],
 });
 ```
