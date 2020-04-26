@@ -29,6 +29,7 @@
   "files": [
     "dist-*/",
     "src/",
+    "sx-prop.d.ts",
     "!*.test.*"
   ],
   "scripts": {
