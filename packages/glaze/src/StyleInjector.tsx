@@ -117,13 +117,14 @@ export class OptimizedStyleInjector implements StyleInjector {
 
   private freeIndexes: number[] = [];
 
-  ruleManager: RuleManager = new OptimizedRuleManager(
-    this,
-    getInitialRuleIndexes(this.sheet.rules), // Hydrate server-rendered rules
-  );
+  ruleManager: RuleManager;
 
   constructor(nonce?: string) {
     this.sheet = getSheet(nonce);
+    this.ruleManager = new OptimizedRuleManager(
+      this,
+      getInitialRuleIndexes(this.sheet.rules), // Hydrate server-rendered rules
+    );
   }
 
   addRule(cssText: string): number {
