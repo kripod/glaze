@@ -1,4 +1,3 @@
-import { useStyling } from 'glaze';
 import * as React from 'react';
 import { useState } from 'react';
 import { useInterval } from 'web-api-hooks';
@@ -6,8 +5,6 @@ import { useInterval } from 'web-api-hooks';
 import { Text } from '../components/Text';
 
 export default function IndexPage(): JSX.Element {
-  const sx = useStyling();
-
   const [isFirstTextMounted, setFirstTextMounted] = useState(true);
   const [isSecondTextMounted, setSecondTextMounted] = useState(false);
   useInterval(() => setFirstTextMounted((value) => !value), 3000);
@@ -15,14 +12,10 @@ export default function IndexPage(): JSX.Element {
 
   return (
     <>
-      <h1 className={sx({ px: 4, color: 'white', bg: 'red' })}>
-        Hello, world!
-      </h1>
+      <h1 sx={{ px: 4, color: 'white', bg: 'red' }}>Hello, world!</h1>
       {isFirstTextMounted && <Text>1: Lorem ipsum dolor sit amet</Text>}
       {isSecondTextMounted && (
-        <Text className={sx({ fontWeight: 'bold' })}>
-          2: Lorem ipsum dolor sit amet
-        </Text>
+        <Text sx={{ fontWeight: 'bold' }}>2: Lorem ipsum dolor sit amet</Text>
       )}
     </>
   );
