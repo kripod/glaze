@@ -1,9 +1,5 @@
 {
   "private": true,
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/glaze"
-  },
   "workspaces": [
     "packages/*"
   ],

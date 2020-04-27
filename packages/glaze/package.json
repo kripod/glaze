@@ -15,6 +15,10 @@
     "url": "https://github.com/kripod/glaze.git",
     "directory": "packages/glaze"
   },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/glaze"
+  },
   "license": "MIT",
   "author": "Kristóf Poduszló <kripod@protonmail.com>",
   "sideEffects": false,
