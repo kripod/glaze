@@ -1,1 +1,0 @@
-import 'glaze/sx-prop';

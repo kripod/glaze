@@ -2760,6 +2760,15 @@
   resolved "https://registry.yarnpkg.com/@types/anymatch/-/anymatch-1.3.1.tgz#336badc1beecb9dacc38bea2cf32adf627a8421a"
   integrity sha512-/+CRPXpBDpo2RK9C68N3b2cOvO0Cf5B9aPijHsoDQTHivnGSObdOF2BRQOYjojWTDy6nQvMjmqRXIxH55VjxxA==
 
+"@types/babel-plugin-glaze@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@types/babel-plugin-glaze/-/babel-plugin-glaze-0.5.0.tgz#07db30e45690628580a76590f88365b1b5a3f998"
+  integrity sha512-r/fU7A4zBtPebkeRdoUaqGpL1DJfFRHwQka5qSSpVKig3AWgYbwBHzfTwyPLv131Z2zDzx5ql2G36t8/qT9Sfw==
+  dependencies:
+    "@types/react" "*"
+    glaze ">=0.5.1"
+    treat "^1.2.4"
+
 "@types/babel__core@^7.1.7":
   version "7.1.7"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.1.7.tgz#1dacad8840364a57c98d0dd4855c6dd3752c6b89"

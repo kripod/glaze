@@ -1,7 +1,6 @@
 {
   "extends": "../../tsconfig-base",
   "include": ["./src/", "./*.d.ts", "../../globals.d.ts"],
-  "exclude": ["./sx-prop.d.ts"],
   "compilerOptions": {
     "composite": true,
     "rootDir": "./src/",
