@@ -21,8 +21,8 @@
     ]
   },
   "dependencies": {
-    "@docusaurus/core": "^2.0.0-alpha.50",
-    "@docusaurus/preset-classic": "^2.0.0-alpha.50",
+    "@docusaurus/core": "^2.0.0-alpha.53",
+    "@docusaurus/preset-classic": "^2.0.0-alpha.53",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-github-btn": "^1.1.1"

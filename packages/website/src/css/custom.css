@@ -1,9 +1,6 @@
 :root {
-  --ifm-font-size-base: 100%;
   --ifm-code-font-size: 93.75%;
   --ifm-line-height-base: 1.75;
-  --ifm-leading-desktop: 1.25;
-  --ifm-list-margin: var(--ifm-leading);
 
   /* Logo color adjusted with https://leonardocolor.io/?colorKeys=%23f4abba&base=ffffff&ratios=3%2C4.5&mode=HSLuv */
   /* Palette generated with https://v2.docusaurus.io/docs/styling-layout#styling-your-site-with-infima */
