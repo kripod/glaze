@@ -54,7 +54,7 @@ export function createTheme(
   localDebugName?: string,
 ): RuntimeTheme {
   // All tokens are optional, but must have an empty value by default
-  const extendedTokens: StaticTheme = {
+  const extendedTokens = {
     ...emptyTokens,
     ...tokens,
     scales: {
@@ -62,7 +62,7 @@ export function createTheme(
       ...tokens.scales,
     },
   };
-  const { breakpoints, shorthands, aliases } = extendedTokens;
+  const { breakpoints, shorthands, aliases } = extendedTokens as StaticTheme;
 
   if (breakpoints.some((breakpoint, i) => breakpoint > breakpoints[i + 1])) {
     warnOnce(
