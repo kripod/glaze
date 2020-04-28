@@ -17,7 +17,9 @@ export type ScaleTokens<T extends keyof CSSProperties> =
 export interface CommonTheme {
   breakpoints: readonly number[];
   shorthands: { [key: string]: ReadonlyArray<keyof CSSProperties> };
-  aliases: { [key: string]: keyof CSSProperties | Tokens<'shorthands'> };
+  aliases: {
+    [key: string]: keyof CSSProperties | Extract<Tokens<'shorthands'>, string>;
+  };
 }
 
 export interface RuntimeTheme extends CommonTheme {
@@ -52,7 +54,7 @@ export function createTheme(
   localDebugName?: string,
 ): RuntimeTheme {
   // All tokens are optional, but must have an empty value by default
-  const extendedTokens = {
+  const extendedTokens: StaticTheme = {
     ...emptyTokens,
     ...tokens,
     scales: {

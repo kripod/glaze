@@ -47,7 +47,6 @@ export function useStyling(): (themedStyle: ThemedStyle) => string {
 
     // eslint-disable-next-line guard-for-in, no-restricted-syntax
     for (const alias in themedStyle) {
-      // TODO: Remove type assertion if possible
       const value = themedStyle[alias as keyof ThemedStyle];
 
       if (value != null) {
