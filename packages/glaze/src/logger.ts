@@ -1,6 +1,19 @@
 type LogLevel = 'warn' | 'error';
 
-let instance: Pick<Console, LogLevel> = console;
+function prefixMessage(message?: unknown): string {
+  return `[glaze] ${message}`;
+}
+
+let instance: Pick<Console, LogLevel> = {
+  warn(message?: unknown, ...optionalParams: unknown[]) {
+    // eslint-disable-next-line no-console
+    console.warn(prefixMessage(message), ...optionalParams);
+  },
+  error(message?: unknown, ...optionalParams: unknown[]) {
+    // eslint-disable-next-line no-console
+    console.error(prefixMessage(message), ...optionalParams);
+  },
+};
 
 export function setLogger(logger: typeof instance): void {
   instance = logger;
