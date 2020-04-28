@@ -2,7 +2,9 @@
 title: Theming
 ---
 
-## Managing design tokens
+## Setup
+
+### Managing design tokens
 
 Design systems establish a consistent user experience across platforms. They are built upon tokens, which store information about branding colors, typography and more.
 
@@ -22,7 +24,7 @@ export default createTheme({
 ```
 
 :::note
-Keeping the runtime as small as possible, only a few tokens (`breakpoints`, `shorthands` and `aliases`) are embedded into production JavaScript bundles. Other values can only be accessed exclusively for styling, as [shown below](#usage).
+Keeping the runtime as small as possible, only a few tokens (`breakpoints`, `shorthands` and `aliases`) are embedded into production JavaScript bundles. Other values can only be accessed exclusively for styling, as shown in usage.
 :::
 
 Apply the theme through `<ThemeProvider>`, by wrapping the component tree:
@@ -40,12 +42,25 @@ export default function Layout({ children }) {
 The [Gatsby plugin for glaze](https://www.npmjs.com/package/gatsby-plugin-glaze) does this out of the box.
 :::
 
-## Static style extraction
+### Precise autocompletion
+
+Being written in [TypeScript](https://www.typescriptlang.org/), glaze offers extensive type safety. To activate theme-agnostic code suggestions, include the following snippet in your project:
+
+```ts title="treat.d.ts"
+import { tokens } from './theme.treat'; // The previously written theme
+
+declare module 'treat/theme' {
+  type Tokens = typeof tokens;
+  export interface Theme extends Tokens {}
+}
+```
+
+### Static style extraction
 
 A single-purpose CSS class needs to be generated for each design token at build time. This can be [set up by following the instructions of treat](https://seek-oss.github.io/treat/setup/).
 
 :::tip
-The [Gatsby plugin for treat](https://www.npmjs.com/package/gatsby-plugin-treat) does this out of the box.
+Multiple integrations are available for treat, including a [Gatsby plugin](https://www.npmjs.com/package/gatsby-plugin-treat) and a [Next.js plugin](https://www.npmjs.com/package/next-treat).
 :::
 
 Afterwards, selector-based CSS rules may be created with [`globalStyle()`](https://seek-oss.github.io/treat/styling-api/#globalstyle) in `*.treat.{js|ts}` files. They have to be applied as a side effect, e.g. from a top-level layout component:
@@ -56,22 +71,16 @@ import './globalStyles.treat'; // {js|ts} file extensions may be omitted
 
 ## Usage
 
-Style elements with the `sx` function, as [inspired by Theme UI](https://theme-ui.com/sx-prop):
-
 ```jsx
-import { useStyling } from 'glaze';
-
 export default function Component() {
-  const sx = useStyling();
-
   return (
     <p
       {/* highlight-start */}
-      className={sx({
+      sx={{
         px: 4, // Sets `padding-left` and `padding-right` to `1rem` (from theme)
         color: 'primary', // Sets color to `#d8366b` (from theme)
         backgroundColor: 'red', // Non-tokens are applied as raw CSS values
-      })}
+      }}
       {/* highlight-end */}
     >
       Hello, world!

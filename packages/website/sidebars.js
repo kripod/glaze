@@ -4,7 +4,6 @@ module.exports = {
       'introduction',
       'quick-setup',
       'theming',
-      'autocompletion',
       'how-it-works',
     ],
     // TODO: Integrations: ['gatsby', 'nextjs'],
