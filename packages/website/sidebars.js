@@ -10,7 +10,7 @@ module.exports = {
     // TODO: Integrations: ['gatsby', 'nextjs'],
     'Advanced Topics': [
       'server-side-rendering',
-      // TODO: 'security' (e.g. enforcing CSP and tips on input sanitization)
+      'security',
       // TODO: 'architectural-overview'
     ],
     Contributing: [

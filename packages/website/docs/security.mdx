@@ -1,0 +1,26 @@
+---
+title: Security
+hide_table_of_contents: true
+---
+
+## Input sanitization
+
+While [React escapes potentially malicious inputs](https://reactjs.org/docs/introducing-jsx.html#jsx-prevents-injection-attacks) before rendering a view, major CSS-in-JS solutions bypass this step. This is also done by glaze to allow loading external resources (e.g. background images) on purpose.
+
+User-specified data shall be escaped manually using [`CSS.escape()`](https://developer.mozilla.org/docs/Web/API/CSS/escape) or an equivalent method.
+
+## Enforcing a CSP
+
+In order to prevent harmful code injection on the web, a [Content Security Policy (CSP)](https://developer.mozilla.org/docs/Web/HTTP/CSP) should be put in place.
+
+During [server-side rendering](./server-side-rendering.mdx), a cryptographic nonce (number used once) may be embedded when generating a page on demand:
+
+```tsx
+// Usage with webpack: https://webpack.js.org/guides/csp/
+// highlight-next-line
+<StyleInjectorProvider nonce={__webpack_nonce__}>
+  {/* ... */}
+</StyleInjectorProvider>
+```
+
+The same `nonce` parameter should be supplied to every `<StyleInjectorProvider>` in use.
