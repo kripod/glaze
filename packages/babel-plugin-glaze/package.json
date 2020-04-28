@@ -22,6 +22,11 @@
     "dist-*/",
     "src/"
   ],
+  "workspaces": {
+    "nohoist": [
+      "@types/babel-plugin-glaze"
+    ]
+  },
   "scripts": {
     "build": "babel ./src/ --out-dir ./dist-node/ --extensions \".ts\" --source-maps",
     "develop": "yarn build --watch",
