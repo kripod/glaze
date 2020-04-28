@@ -89,14 +89,49 @@ export default function Component() {
 }
 ```
 
-## Default theme
+## How it works
 
-TODO: Details about scales, shorthands and aliases, possibly mentioning the available matchers
+At first, `sx` tries mapping themed values to statically generated CSS class names. Unresolved rules are injected at runtime and detached when no components reference them anymore.
+
+### Rule handling
+
+1. Transform each alias to its corresponding CSS property name or custom shorthand.
+2. Resolve values from a scale if available.
+   - Each custom shorthand's associated CSS properties are resolved one by one.
 
 :::note
-Aliases and shorthands can be combined. For instance, `px` is an alias for the `paddingX` shorthand.
+Aliases and shorthands can be combined. For instance, `px` could be an alias for the `paddingX` shorthand.
 :::
 
-:::note
-The underlying static theme may be swapped during runtime.
-:::
+### Example
+
+Heavily [influenced by Tailwind CSS](https://github.com/tailwindcss/tailwindcss/blob/master/stubs/defaultConfig.stub.js#L5), the default theme contains settings like below:
+
+```js
+import { createTheme } from 'glaze';
+
+export default createTheme({
+  /* highlight-start */
+  scales: {
+    spacing: { 4: '1rem' },
+  },
+  shorthands: {
+    paddingX: ['paddingLeft', 'paddingRight'],
+  },
+  aliases: {
+    px: 'paddingX',
+  },
+  matchers: {
+    paddingLeft: 'spacing',
+    paddingRight: 'spacing',
+  },
+  /* highlight-end */
+});
+```
+
+Entries of a style object passed to `sx` are matched to CSS rules as shown:
+
+1. `{ px: 4 }`
+2. `{ paddingX: 4 }`, after transforming aliases
+3. `{ paddingLeft: 4, paddingRight: 4 }`, after unfolding custom shorthands
+4. `{ paddingLeft: '1rem', paddingRight: '1rem' }`, after applying matchers

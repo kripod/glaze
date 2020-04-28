@@ -4,7 +4,7 @@ module.exports = {
       'introduction',
       'quick-setup',
       'theming',
-      'how-it-works',
+      // TODO: 'gradual-adoption', e.g. migrating from Theme UI
     ],
     // TODO: Integrations: ['gatsby', 'nextjs'],
     'Advanced Topics': [
