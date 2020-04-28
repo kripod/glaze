@@ -14,7 +14,7 @@ export const wrapRootElement = ({ element }, { disableStyleInjection }) => {
   return (
     // eslint-disable-next-line @typescript-eslint/camelcase, no-undef
     <StyleInjectorProvider nonce={__webpack_nonce__}>
-      <ThemeProvider theme={theme}>{themedElement}</ThemeProvider>
+      {themedElement}
     </StyleInjectorProvider>
   );
 };
