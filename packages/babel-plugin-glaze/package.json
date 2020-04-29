@@ -38,7 +38,7 @@
     "@babel/preset-typescript": "^7.9.0",
     "@types/node": "^13.13.4",
     "babel-plugin-tester": "^9.0.0",
-    "jest": "^25.4.0",
+    "jest": "^25.5.1",
     "typescript": "^3.8.3"
   },
   "peerDependencies": {
