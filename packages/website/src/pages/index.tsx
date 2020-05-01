@@ -83,6 +83,10 @@ function Feature({ imageURL, title, description }: FeatureProps): JSX.Element {
   );
 }
 
+// TODO: Remove this when Docusaurus patches the issue below:
+// https://github.com/facebook/docusaurus/pull/2678
+const TypeUnsafeLink = Link as any;
+
 export default function HomePage(): JSX.Element {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const siteConfig = useDocusaurusContext().siteConfig!;
@@ -97,12 +101,12 @@ export default function HomePage(): JSX.Element {
             {siteConfig.tagline}
           </p>
 
-          <Link
+          <TypeUnsafeLink
             to={useBaseUrl('docs/introduction')}
             className="button button--primary button--lg margin-bottom--md"
           >
             Get Started
-          </Link>
+          </TypeUnsafeLink>
 
           <div>
             <GitHubButton
