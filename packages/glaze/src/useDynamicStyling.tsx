@@ -9,7 +9,7 @@ import { escape } from './ponyfills/CSS';
 import { StyleInjectorContext } from './StyleInjectorContext';
 
 const specificitiesByShorthandProperty = new Map([
-  ['all', 1],
+  // ['all', 1],
   ['animation', 1],
   ['background', 1],
   ['border', 1],
@@ -46,6 +46,7 @@ const specificitiesByShorthandProperty = new Map([
   ['margin', 1],
   ['mask', 1],
   ['maskBorder', 2],
+  // ['motion', 1],
   ['offset', 1],
   ['outline', 1],
   ['overflow', 1],
