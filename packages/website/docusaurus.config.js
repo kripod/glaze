@@ -11,7 +11,7 @@ module.exports = {
     announcementBar: {
       id: 'approaching-v0_6',
       content:
-        'Please note that the instructions are being rewritten for an upcoming version of glaze. Stay tuned for updates during the next few days.',
+        'Please note that the instructions are being rewritten for an upcoming version of glaze. Stay tuned for updates.',
       textColor: 'white',
     },
     image: 'img/cover.png',
