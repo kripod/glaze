@@ -23,10 +23,10 @@ deploy:
     keep_history: false
     on:
       branch: master
-      node_js: lts/*
+      node_js: 12
   - provider: npm
     edge: true
     run_script: publish
     on:
       tags: true
-      node_js: lts/*
+      node_js: 12
